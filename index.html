@@ -1,0 +1,3395 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Phone Portfolio UI</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --page-bg: #f4f4f5;
+      --phone-shadow: 0 30px 70px rgba(15, 15, 20, 0.24);
+      --screen-bg: #0b0b12;
+      --text: #ffffff;
+      --muted: rgba(255, 255, 255, 0.72);
+      --soft: rgba(255, 255, 255, 0.18);
+      --glass: rgba(255, 255, 255, 0.19);
+      --glass-strong: rgba(255, 255, 255, 0.24);
+      --surface: #1c1c1e;
+      --widget-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+      --screen-radius: 48px;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 20% 18%, rgba(94, 177, 255, 0.17), transparent 28%),
+        radial-gradient(circle at 78% 80%, rgba(255, 103, 138, 0.13), transparent 27%),
+        var(--page-bg);
+      color: var(--text);
+    }
+
+    a,
+    button {
+      -webkit-tap-highlight-color: transparent;
+      font: inherit;
+    }
+
+    .stage {
+      width: 100%;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+    }
+
+    .phone {
+      position: relative;
+      width: min(400px, calc((100dvh - 64px) * 0.4857));
+      aspect-ratio: 880 / 1812;
+      min-width: 300px;
+      container-type: inline-size;
+      filter: drop-shadow(0 22px 45px rgba(0, 0, 0, 0.22));
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 0;
+      background: url("assets/frame/iphone-17-pro.png") center / contain no-repeat;
+      box-shadow: none;
+    }
+
+    .phone::after {
+      display: none;
+    }
+
+    .screen {
+      position: absolute;
+      z-index: 1;
+      inset: 1.49% 3.75%;
+      overflow: hidden;
+      border-radius: 14.9cqw;
+      isolation: isolate;
+      background:
+        url("assets/wallpapers/ios26-silk.webp") center / cover no-repeat,
+        #0b0b12;
+    }
+
+    .screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.08));
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      z-index: 14;
+      left: 50%;
+      top: 11px;
+      width: 97px;
+      height: 27px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: #000;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02), 0 2px 8px rgba(0, 0, 0, 0.35);
+    }
+
+    .dynamic-island::after {
+      content: "";
+      position: absolute;
+      right: 11px;
+      top: 9px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1e365e, #050607 70%);
+    }
+
+    .status {
+      position: relative;
+      z-index: 13;
+      height: 45px;
+      padding: 12px 27px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.34);
+    }
+
+    .live-time {
+      min-width: 38px;
+      text-align: center;
+    }
+
+    .status-icons {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .signal {
+      width: 17px;
+      height: 10px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: end;
+      gap: 2px;
+    }
+
+    .signal i {
+      display: block;
+      border-radius: 2px;
+      background: currentColor;
+    }
+
+    .signal i:nth-child(1) { height: 3px; }
+    .signal i:nth-child(2) { height: 5px; }
+    .signal i:nth-child(3) { height: 7px; }
+    .signal i:nth-child(4) { height: 9px; }
+
+    .battery {
+      width: 21px;
+      height: 10px;
+      border: 1.6px solid currentColor;
+      border-radius: 3px;
+      position: relative;
+    }
+
+    .battery::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 13px;
+      height: 4px;
+      border-radius: 1px;
+      background: currentColor;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      right: -4px;
+      top: 2px;
+      width: 2px;
+      height: 4px;
+      border-radius: 0 2px 2px 0;
+      background: currentColor;
+    }
+
+    .home {
+      position: relative;
+      z-index: 1;
+      height: calc(100% - 45px);
+      padding: 7px 10px 18px;
+      display: flex;
+      flex-direction: column;
+      will-change: opacity, transform, filter;
+      transform: translateZ(0);
+      transition:
+        opacity 460ms cubic-bezier(.22, 1, .36, 1),
+        transform 460ms cubic-bezier(.22, 1, .36, 1),
+        filter 460ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .screen.app-open .home {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.955) translateY(-4px) translateZ(0);
+      filter: blur(12px);
+    }
+
+    .widgets {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      padding: 0 4px;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .widget-label,
+    .app-label {
+      color: #fff;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+      white-space: nowrap;
+    }
+
+    .widget {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: var(--widget-shadow);
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(18px) saturate(150%);
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .app:active,
+    .dock-icon:active,
+    .widget:active,
+    .search:active {
+      transform: scale(0.92);
+      filter: brightness(0.96);
+    }
+
+    .widget:hover,
+    .app:hover,
+    .dock-icon:hover,
+    .search:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .github-widget {
+      position: relative;
+      display: grid;
+      place-items: center;
+      padding: 8.9%;
+      background: rgb(28, 28, 30);
+      border: 0;
+      backdrop-filter: none;
+    }
+
+    .github-graph {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: repeat(7, 1fr);
+      grid-template-rows: repeat(7, 1fr);
+      gap: 3px;
+      padding: 0;
+    }
+
+    .github-cell {
+      border-radius: 20%;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: none;
+    }
+
+    .github-cell[data-level="1"] { background: rgb(33, 110, 57); }
+    .github-cell[data-level="2"] { background: rgb(48, 161, 78); }
+    .github-cell[data-level="3"] { background: rgb(64, 196, 99); }
+    .github-cell[data-level="4"] { background: rgb(155, 233, 168); }
+    .github-cell:nth-child(1) { border-top-left-radius: 16px; }
+    .github-cell:nth-child(7) { border-bottom-left-radius: 16px; }
+    .github-cell:nth-child(43) { border-top-right-radius: 16px; }
+    .github-cell:nth-child(49) { border-bottom-right-radius: 16px; }
+    }
+
+    .weather-widget {
+      padding: 13px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background:
+        radial-gradient(circle at 74% 27%, rgba(255, 227, 120, 0.98) 0 15px, transparent 16px),
+        radial-gradient(circle at 67% 34%, rgba(255, 255, 255, 0.84) 0 12px, transparent 13px),
+        linear-gradient(160deg, rgba(38, 113, 255, 0.92), rgba(79, 188, 246, 0.9) 58%, rgba(104, 216, 255, 0.86));
+    }
+
+    .weather-city {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .temperature {
+      margin-top: 2px;
+      font-size: 46px;
+      font-weight: 200;
+      line-height: 0.9;
+    }
+
+    .weather-bottom {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .apps {
+      margin-top: 24px;
+      padding: 0 8px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px 10px;
+    }
+
+    .app,
+    .dock-icon {
+      border: 0;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .icon {
+      width: 49px;
+      height: 49px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 720;
+      box-shadow:
+        inset 0 1px rgba(255, 255, 255, 0.32),
+        inset 0 -10px 18px rgba(0, 0, 0, 0.16),
+        0 10px 20px rgba(0, 0, 0, 0.24);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .icon img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .icon::after {
+      display: none;
+    }
+
+    .bottom {
+      margin-top: auto;
+    }
+
+    .page-controls {
+      height: 44px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .page-dots {
+      height: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .page-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.42);
+      box-shadow: 0 1px 5px rgba(0, 0, 0, 0.24);
+    }
+
+    .page-dots span:first-child {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .search {
+      height: 25px;
+      padding: 0 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 14px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 11px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.1)),
+        rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(24px) saturate(180%);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.34), 0 8px 24px rgba(0, 0, 0, 0.2);
+      transition: transform 160ms ease, filter 160ms ease;
+    }
+
+    .dock {
+      height: 73px;
+      padding: 12px 15px 11px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      border-radius: 30px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.1)),
+        rgba(128, 153, 181, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      backdrop-filter: blur(34px) saturate(190%);
+      box-shadow:
+        inset 0 1px rgba(255, 255, 255, 0.32),
+        inset 0 -1px rgba(255, 255, 255, 0.09),
+        0 16px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .dock-icon {
+      display: grid;
+      place-items: center;
+    }
+
+    .dock .icon {
+      width: 49px;
+      height: 49px;
+    }
+
+    .home-indicator {
+      position: absolute;
+      z-index: 8;
+      left: 50%;
+      bottom: 7px;
+      width: 104px;
+      height: 4px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.92);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.78);
+      color: #111;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    body.dark-page {
+      --page-bg: #07080d;
+      --phone-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    }
+
+    body.dark-page .theme-toggle {
+      background: rgba(22, 22, 26, 0.88);
+      color: #fff;
+    }
+
+    .app-view {
+      position: absolute;
+      z-index: 4;
+      inset: 0;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.86) translateY(22px);
+      transform-origin: var(--app-origin-x, 50%) var(--app-origin-y, 72%);
+      color: #fff;
+      background: #121212;
+      padding: 52px 12px 17px;
+      overflow: hidden;
+      will-change: opacity, transform;
+      transition:
+        opacity 520ms cubic-bezier(.22, 1, .36, 1),
+        transform 520ms cubic-bezier(.22, 1, .36, 1),
+        visibility 0s linear 520ms;
+    }
+
+    .app-view.is-active {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1) translateY(0);
+      transition-delay: 0s;
+    }
+
+    .photos-view {
+      padding: 0;
+      background: #000;
+      color: #fff;
+    }
+
+    .photos-scroll {
+      height: 100%;
+      overflow-y: auto;
+      padding: 110px 20px 120px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    .photos-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .photos-nav {
+      position: absolute;
+      inset-inline: 0;
+      top: 47px;
+      z-index: 8;
+      height: 36px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 8px;
+      padding: 0 20px;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .photos-back {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      justify-self: start;
+      pointer-events: auto;
+      background: rgba(28, 28, 30, 0.72);
+      color: #0a84ff;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(22px) saturate(170%);
+      -webkit-backdrop-filter: blur(22px) saturate(170%);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.08);
+      transition: transform 140ms ease, background 140ms ease;
+    }
+
+    .photos-back:active {
+      transform: scale(0.88);
+      background: rgba(58, 58, 60, 0.78);
+    }
+
+    .photos-mini-title {
+      min-width: 72px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      font-weight: 650;
+      color: #fff;
+    }
+
+    .photos-heading {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.04;
+      font-weight: 780;
+      letter-spacing: 0;
+    }
+
+    .photos-subtitle {
+      margin: 2px 0 13px;
+      color: rgba(235, 235, 245, 0.62);
+      font-size: 15px;
+      font-weight: 520;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin: 0 -20px;
+      overflow: visible;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .photo-tile {
+      position: relative;
+      aspect-ratio: 1;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      background: #000;
+      cursor: pointer;
+      transition: opacity 140ms ease;
+    }
+
+    .photo-tile img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: filter 140ms ease;
+    }
+
+    .photo-tile:active {
+      opacity: 0.8;
+    }
+
+    .photo-preview {
+      position: absolute;
+      z-index: 10;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      padding: 90px 0 28px;
+      background: #000;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: scale(0.985);
+      transition: opacity 220ms ease, transform 260ms cubic-bezier(.22, 1, .36, 1), visibility 0s linear 220ms;
+    }
+
+    .photo-preview.is-open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: scale(1);
+      transition-delay: 0s;
+    }
+
+    .photo-detail-top {
+      position: absolute;
+      top: 47px;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      height: 40px;
+      display: grid;
+      grid-template-columns: 52px 1fr 52px;
+      align-items: center;
+      padding: 0 14px;
+    }
+
+    .photo-title-block {
+      min-width: 0;
+      text-align: center;
+      line-height: 1.12;
+    }
+
+    .photo-detail-title {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 680;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .photo-detail-count {
+      margin: 3px 0 0;
+      color: rgba(235, 235, 245, 0.62);
+      font-size: 11px;
+      font-weight: 560;
+    }
+
+    .photo-preview-image-wrap {
+      min-height: 0;
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 0 8px 12px;
+    }
+
+    .photo-preview-image-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 0;
+      object-fit: contain;
+      box-shadow: none;
+    }
+
+    .photo-close {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      justify-self: start;
+      background: rgba(28, 28, 30, 0.72);
+      color: #0a84ff;
+      font-size: 28px;
+      line-height: 1;
+      backdrop-filter: blur(22px) saturate(170%);
+      -webkit-backdrop-filter: blur(22px) saturate(170%);
+      cursor: pointer;
+    }
+
+    .photo-strip {
+      height: 54px;
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 42px;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 0 14px;
+      scrollbar-width: none;
+    }
+
+    .photo-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .photo-strip-button {
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      overflow: hidden;
+      background: transparent;
+      cursor: pointer;
+      opacity: 0.64;
+    }
+
+    .photo-strip-button.is-current {
+      border-color: #fff;
+      opacity: 1;
+    }
+
+    .photo-strip-button img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .photos-tabs {
+      position: absolute;
+      z-index: 7;
+      left: 0;
+      right: 0;
+      bottom: 16px;
+      height: 76px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: start;
+      padding: 10px 18px 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.82) 26%, #000 100%);
+      pointer-events: auto;
+    }
+
+    .photos-tab {
+      border: 0;
+      background: transparent;
+      color: rgba(235, 235, 245, 0.58);
+      display: grid;
+      place-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 620;
+      cursor: pointer;
+    }
+
+    .photos-tab-icon {
+      width: 24px;
+      height: 21px;
+      display: grid;
+      place-items: center;
+      color: currentColor;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .photos-tab.is-active {
+      color: #0a84ff;
+    }
+
+    .ios-app {
+      padding: 47px 0 16px;
+      background: #000;
+      color: #fff;
+    }
+
+    .ios-nav {
+      position: absolute;
+      inset-inline: 0;
+      top: 47px;
+      z-index: 6;
+      height: 45px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 0 16px;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.54) 72%, rgba(0, 0, 0, 0));
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+    }
+
+    .ios-back {
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      justify-self: start;
+      pointer-events: auto;
+      background: rgba(28, 28, 30, 0.72);
+      color: #0a84ff;
+      font-size: 28px;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(22px) saturate(170%);
+      -webkit-backdrop-filter: blur(22px) saturate(170%);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.08);
+      transition: transform 140ms ease, background 140ms ease;
+    }
+
+    .ios-back:active {
+      transform: scale(0.88);
+      background: rgba(58, 58, 60, 0.78);
+    }
+
+    .ios-mini-title {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      font-size: 17px;
+      font-weight: 650;
+      color: #fff;
+    }
+
+    .ios-scroll {
+      height: 100%;
+      overflow-y: auto;
+      padding: 82px 18px 32px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+    }
+
+    .ios-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ios-heading {
+      margin: 0 0 14px;
+      font-size: 34px;
+      line-height: 1.04;
+      font-weight: 780;
+      letter-spacing: 0;
+    }
+
+    .ios-hero-card,
+    .ios-card {
+      border-radius: 24px;
+      background: #1c1c1e;
+      overflow: hidden;
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .ios-hero-card {
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .ios-kicker {
+      margin: 0 0 6px;
+      color: rgba(235, 235, 245, 0.62);
+      font-size: 12px;
+      font-weight: 720;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .ios-title {
+      margin: 0;
+      font-size: 23px;
+      line-height: 1.08;
+      font-weight: 760;
+    }
+
+    .ios-body {
+      margin: 8px 0 0;
+      color: rgba(235, 235, 245, 0.68);
+      font-size: 13px;
+      line-height: 1.42;
+    }
+
+    .ios-group {
+      margin-top: 18px;
+      border-radius: 24px;
+      background: #1c1c1e;
+      overflow: hidden;
+    }
+
+    .ios-row {
+      min-height: 48px;
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding-left: 12px;
+      color: #fff;
+      text-decoration: none;
+      background: transparent;
+      border: 0;
+      width: 100%;
+      text-align: left;
+    }
+
+    .ios-row-main {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 14px 9px 0;
+      border-bottom: 1px solid rgba(84, 84, 88, 0.55);
+    }
+
+    .ios-row:last-child .ios-row-main {
+      border-bottom: 0;
+    }
+
+    .ios-row:active {
+      background: #2c2c2e;
+    }
+
+    .ios-symbol {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 760;
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.16);
+    }
+
+    .ios-row-title {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.18;
+      font-weight: 540;
+    }
+
+    .ios-row-sub {
+      margin: 3px 0 0;
+      color: rgba(235, 235, 245, 0.58);
+      font-size: 12px;
+      line-height: 1.18;
+    }
+
+    .ios-chevron {
+      color: rgba(235, 235, 245, 0.42);
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .tv-intro {
+      margin: -4px 0 24px;
+      color: rgba(235, 235, 245, 0.62);
+      font-size: 15px;
+      line-height: 1.3;
+    }
+
+    .tv-section {
+      margin-top: 22px;
+    }
+
+    .tv-section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 11px;
+    }
+
+    .tv-section-title {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.1;
+      font-weight: 760;
+    }
+
+    .tv-section-more {
+      color: rgba(235, 235, 245, 0.48);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .poster-rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 89px;
+      gap: 43px;
+      margin: 0 -18px;
+      padding: 0 18px 4px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .poster-rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .movie-rail {
+      grid-auto-columns: 86px;
+      gap: 10px;
+    }
+
+    .poster-rail:not(.movie-rail) .poster:first-child {
+      margin-left: 35px;
+    }
+
+    .poster {
+      position: relative;
+      min-width: 0;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 150ms ease, filter 150ms ease;
+    }
+
+    .poster:active {
+      transform: scale(0.96);
+      filter: brightness(0.82);
+    }
+
+    .poster-rank {
+      position: absolute;
+      left: -35px;
+      top: 58px;
+      z-index: 1;
+      width: 31px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 46px;
+      line-height: 1;
+      font-weight: 850;
+      text-align: right;
+      letter-spacing: 0;
+      text-shadow: 0 5px 18px rgba(0, 0, 0, 0.6);
+    }
+
+    .poster-art {
+      position: relative;
+      width: 89px;
+      height: 134px;
+      overflow: hidden;
+      border-radius: 0;
+      background: #1c1c1e;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.34);
+    }
+
+    .movie-rail .poster-art {
+      width: 86px;
+      height: 129px;
+    }
+
+    .poster-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .poster-title {
+      width: 89px;
+      margin: 7px 0 0;
+      font-size: 12px;
+      line-height: 1.18;
+      font-weight: 680;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .poster-sub {
+      width: 89px;
+      margin: 2px 0 0;
+      color: rgba(235, 235, 245, 0.58);
+      font-size: 11px;
+      line-height: 1.15;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .movie-rail .poster-title,
+    .movie-rail .poster-sub {
+      width: 86px;
+    }
+
+    .metric-ring {
+      width: 154px;
+      height: 154px;
+      margin: 6px auto 16px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background:
+        conic-gradient(#31d158 0 72%, rgba(255, 255, 255, 0.1) 72% 100%);
+    }
+
+    .metric-ring-inner {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #000;
+      text-align: center;
+    }
+
+    .metric-ring-inner strong {
+      display: block;
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .map-card {
+      height: 210px;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(145deg, #16223f, #244a64);
+      background-size: 34px 34px, 34px 34px, auto;
+    }
+
+    .map-route {
+      position: absolute;
+      inset: 30px 28px;
+      border: 4px solid #0a84ff;
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      border-radius: 44px;
+      transform: rotate(16deg);
+    }
+
+    .map-pin {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #ff453a;
+      box-shadow: 0 0 0 5px rgba(255, 69, 58, 0.25);
+    }
+
+    .store-feature {
+      min-height: 130px;
+      border-radius: 22px;
+      padding: 14px;
+      display: flex;
+      align-items: end;
+      background: linear-gradient(145deg, #2f7cff, #7dd6ff 52%, #1c1c1e);
+    }
+
+    .contact-avatar {
+      width: 96px;
+      height: 96px;
+      margin: 4px auto 12px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #4452ff, #e8734a);
+      color: #fff;
+      font-size: 42px;
+      font-weight: 820;
+    }
+
+    .steam-view {
+      background: #000;
+    }
+
+    .steam-scroll {
+      padding-bottom: 58px;
+    }
+
+    .steam-hero {
+      position: relative;
+      min-height: 244px;
+      margin: -10px 0 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      border-radius: 0;
+    }
+
+    .steam-hero::before {
+      content: "";
+      position: absolute;
+      inset: -90px -42px -16px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.1), #000 82%), url("assets/steam/far-cry-5-header.jpg") center / cover no-repeat;
+      filter: blur(18px) saturate(145%);
+      opacity: 0.78;
+    }
+
+    .steam-hero-art {
+      position: relative;
+      z-index: 1;
+      width: 239px;
+      height: 112px;
+      margin-top: 18px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 22px 46px rgba(0, 0, 0, 0.48);
+    }
+
+    .steam-hero-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .steam-last {
+      position: relative;
+      z-index: 1;
+      margin: 18px 0 5px;
+      color: rgba(235, 235, 245, 0.62);
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .steam-hero-title {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-size: 24px;
+      font-weight: 780;
+    }
+
+    .steam-open {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: #66c0f4;
+      color: #000;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 720;
+      transition: transform 140ms ease, filter 140ms ease;
+    }
+
+    .steam-open:active {
+      transform: scale(0.96);
+      filter: brightness(0.9);
+    }
+
+    .steam-section {
+      margin-bottom: 27px;
+    }
+
+    .steam-rail {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 86px;
+      gap: 10px;
+      margin: 0 -18px;
+      padding: 0 18px 3px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .steam-rail::-webkit-scrollbar {
+      display: none;
+    }
+
+    .game-card {
+      color: #fff;
+      text-decoration: none;
+      transition: opacity 140ms ease;
+    }
+
+    .game-card:active {
+      opacity: 0.7;
+    }
+
+    .game-card img {
+      width: 86px;
+      height: 129px;
+      display: block;
+      object-fit: cover;
+      background: #1c1c1e;
+    }
+
+    .game-title {
+      width: 86px;
+      margin: 8px 0 0;
+      font-size: 12px;
+      line-height: 1.18;
+      font-weight: 680;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .game-meta {
+      width: 86px;
+      margin: 2px 0 0;
+      color: rgba(235, 235, 245, 0.58);
+      font-size: 11px;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .message-view {
+      background: #000;
+    }
+
+    .message-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .message-to {
+      min-height: 45px;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(84, 84, 88, 0.55);
+    }
+
+    .message-label {
+      color: rgba(235, 235, 245, 0.58);
+      font-size: 16px;
+    }
+
+    .message-recipient {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      min-height: 28px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(10, 132, 255, 0.18);
+      color: #64a9ff;
+      font-size: 15px;
+      font-weight: 620;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      color: rgba(235, 235, 245, 0.62);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 0;
+      border-radius: 18px;
+      background: #1c1c1e;
+      color: #fff;
+      padding: 13px 14px;
+      font: inherit;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .field textarea {
+      min-height: 122px;
+      resize: none;
+      line-height: 1.35;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(235, 235, 245, 0.38);
+    }
+
+    .message-send {
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      background: #0a84ff;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 720;
+      cursor: pointer;
+      transition: transform 140ms ease, filter 140ms ease;
+    }
+
+    .message-send:active {
+      transform: scale(0.97);
+      filter: brightness(0.9);
+    }
+
+    .message-note {
+      margin: 0;
+      color: rgba(235, 235, 245, 0.52);
+      font-size: 11px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .about-copy {
+      margin: 0 0 13px;
+      color: rgba(235, 235, 245, 0.68);
+      font-size: 15px;
+      line-height: 1.62;
+    }
+
+    .about-sections {
+      margin-top: 26px;
+    }
+
+    .about-section {
+      margin-bottom: 26px;
+    }
+
+    .about-section-title {
+      margin: 0 0 8px;
+      padding: 0 14px;
+      color: rgba(235, 235, 245, 0.6);
+      font-size: 13px;
+      font-weight: 620;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .about-badge {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 8px;
+      background: #2c2c2e;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 780;
+      overflow: hidden;
+    }
+
+    .about-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .resume-open {
+      pointer-events: auto;
+      justify-self: end;
+      width: 35px;
+      height: 35px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(28, 28, 30, 0.72);
+      color: #0a84ff;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 760;
+      backdrop-filter: blur(22px) saturate(170%);
+      -webkit-backdrop-filter: blur(22px) saturate(170%);
+    }
+
+    .resume-name {
+      margin: -2px 0 2px;
+      font-size: 17px;
+      font-weight: 680;
+    }
+
+    .resume-subtitle {
+      margin: 0 0 26px;
+      color: rgba(235, 235, 245, 0.62);
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .resume-row-main {
+      min-height: 74px;
+    }
+
+    .resume-description {
+      margin: 8px 0 0;
+      color: rgba(235, 235, 245, 0.62);
+      font-size: 13px;
+      line-height: 1.38;
+    }
+
+    .resume-download {
+      min-height: 44px;
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 999px;
+      background: #e8734a;
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 720;
+      transition: transform 140ms ease, filter 140ms ease;
+    }
+
+    .resume-download:active {
+      transform: scale(0.97);
+      filter: brightness(0.9);
+    }
+
+    .spotify-view {
+      background:
+        linear-gradient(180deg, rgba(30, 215, 96, 0.42), rgba(18, 18, 18, 0.96) 34%),
+        #121212;
+    }
+
+    .spotify-scroll {
+      height: 100%;
+      overflow-y: auto;
+      padding-bottom: 94px;
+      scrollbar-width: none;
+    }
+
+    .spotify-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .spotify-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .spotify-back,
+    .spotify-more {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.34);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .spotify-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .spotify-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #1ed760;
+      box-shadow: 0 0 12px rgba(30, 215, 96, 0.8);
+    }
+
+    .spotify-hero {
+      display: grid;
+      grid-template-columns: 78px 1fr;
+      gap: 13px;
+      align-items: end;
+      margin-bottom: 14px;
+    }
+
+    .playlist-cover {
+      width: 78px;
+      height: 78px;
+      border-radius: 7px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      background: #111;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.34);
+    }
+
+    .playlist-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .playlist-cover img:first-child {
+      grid-row: span 2;
+    }
+
+    .playlist-kicker {
+      margin: 0 0 3px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .playlist-name {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 850;
+    }
+
+    .playlist-meta {
+      margin: 7px 0 0;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .spotify-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 13px;
+    }
+
+    .spotify-actions-left {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 20px;
+    }
+
+    .spotify-play {
+      width: 46px;
+      height: 46px;
+      border: 0;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #1ed760;
+      color: #07130b;
+      font-size: 20px;
+      box-shadow: 0 12px 22px rgba(0, 0, 0, 0.28);
+      cursor: pointer;
+    }
+
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .spotify-track {
+      width: 100%;
+      min-height: 58px;
+      padding: 7px 4px;
+      display: grid;
+      grid-template-columns: 46px 1fr 28px;
+      gap: 9px;
+      align-items: center;
+      border: 0;
+      border-radius: 7px;
+      background: transparent;
+      color: #fff;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .spotify-track:hover,
+    .spotify-track.is-active {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .spotify-track.is-active .track-name {
+      color: #1ed760;
+    }
+
+    .track-art {
+      width: 46px;
+      height: 46px;
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #333, #111);
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 18px;
+      font-weight: 800;
+      overflow: hidden;
+    }
+
+    .track-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .track-name {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 760;
+      line-height: 1.2;
+    }
+
+    .track-artist {
+      margin: 3px 0 0;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .track-menu {
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .spotify-player {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 24px;
+      z-index: 7;
+      padding: 8px 9px 9px;
+      border-radius: 12px;
+      background: #2b3f35;
+      box-shadow: 0 16px 28px rgba(0, 0, 0, 0.34);
+    }
+
+    .player-main {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .player-art {
+      width: 34px;
+      height: 34px;
+      border-radius: 5px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(145deg, #1ed760, #101010);
+      color: #fff;
+      font-weight: 800;
+      overflow: hidden;
+    }
+
+    .player-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .player-song {
+      min-width: 0;
+    }
+
+    .player-title,
+    .player-artist {
+      margin: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .player-title {
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .player-artist {
+      margin-top: 2px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.66);
+    }
+
+    .player-controls {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .player-controls button {
+      width: 24px;
+      height: 24px;
+      border: 0;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .player-controls .player-toggle {
+      background: #fff;
+      color: #121212;
+    }
+
+    .progress-row {
+      display: grid;
+      grid-template-columns: 28px 1fr 28px;
+      gap: 6px;
+      align-items: center;
+      margin-top: 7px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 9px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress {
+      height: 4px;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .progress::-webkit-slider-runnable-track {
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .progress::-webkit-slider-thumb {
+      appearance: none;
+      width: 10px;
+      height: 10px;
+      margin-top: -3px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .missing-audio {
+      margin: 12px 0 0;
+      padding: 9px 10px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    .weather-view {
+      padding: 52px 11px 18px;
+      background:
+        linear-gradient(180deg, rgba(48, 137, 255, 0.58), rgba(23, 64, 142, 0.46) 34%, rgba(15, 26, 58, 0.96) 72%),
+        radial-gradient(circle at 78% 18%, rgba(255, 218, 97, 0.55), transparent 19%),
+        #14284f;
+    }
+
+    .weather-scroll {
+      height: 100%;
+      overflow-y: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+    }
+
+    .weather-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .weather-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .weather-back,
+    .weather-more {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.22);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      backdrop-filter: blur(18px);
+    }
+
+    .weather-place {
+      text-align: center;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 18px rgba(0, 0, 0, 0.24);
+    }
+
+    .weather-location {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 520;
+      line-height: 1;
+    }
+
+    .weather-temp-large {
+      margin: 4px 0 0;
+      font-size: 74px;
+      font-weight: 160;
+      line-height: 0.92;
+    }
+
+    .weather-summary {
+      margin: 5px 0 0;
+      font-size: 16px;
+      font-weight: 560;
+      color: rgba(255, 255, 255, 0.86);
+    }
+
+    .weather-high-low {
+      margin: 3px 0 0;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .weather-card {
+      margin-top: 10px;
+      padding: 11px;
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.21), rgba(255, 255, 255, 0.08)),
+        rgba(16, 38, 82, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(24px) saturate(160%);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.22), 0 14px 26px rgba(0, 0, 0, 0.16);
+    }
+
+    .weather-card-title {
+      margin: 0 0 8px;
+      font-size: 10px;
+      font-weight: 780;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .hourly-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 48px;
+      gap: 9px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .hourly-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hour-card {
+      display: grid;
+      justify-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 680;
+    }
+
+    .weather-symbol {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      font-size: 19px;
+      line-height: 1;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .weather-detail {
+      min-height: 76px;
+      padding: 10px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .detail-label {
+      margin: 0 0 8px;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.58);
+    }
+
+    .detail-value {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 360;
+    }
+
+    .settings-view {
+      padding: 47px 0 16px;
+      background: #000;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    .settings-scroll {
+      height: 100%;
+      overflow-y: auto;
+      padding: 43px 18px 42px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      scroll-behavior: smooth;
+    }
+
+    .settings-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .settings-nav {
+      position: absolute;
+      inset-inline: 0;
+      top: 47px;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      height: 45px;
+      padding: 0 16px;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.58) 72%, rgba(0, 0, 0, 0));
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+    }
+
+    .settings-back {
+      width: 31px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 22px;
+      justify-self: start;
+      pointer-events: auto;
+      background: rgba(28, 28, 30, 0.72);
+      color: #0a84ff;
+      font-size: 27px;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(22px) saturate(170%);
+      -webkit-backdrop-filter: blur(22px) saturate(170%);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.08);
+      transition: transform 140ms ease, background 140ms ease;
+    }
+
+    .settings-back:active {
+      transform: scale(0.88);
+      background: rgba(58, 58, 60, 0.78);
+    }
+
+    .settings-mini-title {
+      min-width: 84px;
+      height: 31px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      opacity: 0;
+      font-size: 17px;
+      font-weight: 650;
+      color: rgba(255, 255, 255, 0.96);
+      background: transparent;
+    }
+
+    .settings-heading {
+      margin: 0 0 18px;
+      font-size: 34px;
+      line-height: 1.05;
+      font-weight: 750;
+      letter-spacing: 0;
+    }
+
+    .settings-profile,
+    .settings-group {
+      background: #1c1c1e;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .settings-profile {
+      min-height: 76px;
+      margin-bottom: 28px;
+      padding: 14px 14px 14px 12px;
+      display: grid;
+      grid-template-columns: 52px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      color: #fff;
+      text-decoration: none;
+      transition: transform 145ms ease, background 145ms ease, filter 145ms ease;
+    }
+
+    .settings-profile:active {
+      transform: scale(0.985);
+      background: #2c2c2e;
+      filter: brightness(1.04);
+    }
+
+    .settings-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 65% 30%, #f0c8a8 0 18%, transparent 19%),
+        linear-gradient(145deg, #4452ff, #e8734a);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .settings-profile-name,
+    .settings-row-title {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.2;
+      font-weight: 520;
+    }
+
+    .settings-profile-sub,
+    .settings-row-sub {
+      margin: 3px 0 0;
+      color: rgba(235, 235, 245, 0.6);
+      font-size: 13px;
+      line-height: 1.18;
+    }
+
+    .settings-chevron {
+      color: rgba(235, 235, 245, 0.42);
+      font-size: 23px;
+      line-height: 1;
+    }
+
+    .settings-section {
+      margin-top: 22px;
+    }
+
+    .settings-section-title {
+      margin: 0 0 7px;
+      padding: 0 14px;
+      color: rgba(235, 235, 245, 0.6);
+      font-size: 12px;
+      font-weight: 560;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .settings-row {
+      min-height: 45px;
+      display: grid;
+      grid-template-columns: 30px 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding-left: 12px;
+      color: #fff;
+      text-decoration: none;
+      background: transparent;
+      border: 0;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: background 120ms ease, transform 120ms ease;
+    }
+
+    .settings-row:active {
+      background: #2c2c2e;
+    }
+
+    .settings-row-main {
+      min-height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 14px 9px 0;
+      border-bottom: 1px solid rgba(84, 84, 88, 0.55);
+    }
+
+    .settings-row:last-child .settings-row-main {
+      border-bottom: 0;
+    }
+
+    .settings-symbol {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 7px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 760;
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.16);
+    }
+
+    .symbol-purple { background: #5e5ce6; }
+    .symbol-linkedin { background: #0a66c2; }
+    .symbol-x { background: #000; }
+    .symbol-github { background: #24292e; }
+    .symbol-mail { background: #0a84ff; }
+    .symbol-tool { background: #8e8e93; }
+    .symbol-made { background: #e8734a; }
+
+    .settings-switch {
+      width: 41px;
+      height: 25px;
+      position: relative;
+      border: 0;
+      border-radius: 999px;
+      background: #30d158;
+      cursor: pointer;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+      transition: background 180ms ease;
+    }
+
+    .settings-switch::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.28);
+      transition: transform 180ms cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .screen:not(.phone-dark) .settings-switch {
+      background: #39393d;
+    }
+
+    .screen:not(.phone-dark) .settings-switch::after {
+      transform: translateX(-16px);
+    }
+
+    .screen:not(.phone-dark) .settings-view {
+      background: #f2f2f7;
+      color: #000;
+    }
+
+    .screen:not(.phone-dark) .settings-nav {
+      background: linear-gradient(180deg, rgba(242, 242, 247, 0.86), rgba(242, 242, 247, 0.62) 72%, rgba(242, 242, 247, 0));
+    }
+
+    .screen:not(.phone-dark) .settings-back {
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.74), 0 1px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    .screen:not(.phone-dark) .settings-mini-title {
+      color: rgba(0, 0, 0, 0.92);
+    }
+
+    .screen:not(.phone-dark) .settings-profile,
+    .screen:not(.phone-dark) .settings-group {
+      background: #fff;
+    }
+
+    .screen:not(.phone-dark) .settings-profile,
+    .screen:not(.phone-dark) .settings-row {
+      color: #000;
+    }
+
+    .screen:not(.phone-dark) .settings-profile:active,
+    .screen:not(.phone-dark) .settings-row:active {
+      background: #e5e5ea;
+    }
+
+    .screen:not(.phone-dark) .settings-profile-sub,
+    .screen:not(.phone-dark) .settings-row-sub,
+    .screen:not(.phone-dark) .settings-section-title,
+    .screen:not(.phone-dark) .settings-footnote {
+      color: rgba(60, 60, 67, 0.62);
+    }
+
+    .screen:not(.phone-dark) .settings-row-main {
+      border-bottom-color: rgba(60, 60, 67, 0.18);
+    }
+
+    .screen:not(.phone-dark) .settings-chevron {
+      color: rgba(60, 60, 67, 0.32);
+    }
+
+    .settings-footnote {
+      margin: 8px 0 0;
+      padding: 0 13px;
+      color: rgba(235, 235, 245, 0.6);
+      font-size: 13px;
+      line-height: 1.42;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        background: var(--screen-bg);
+      }
+
+      .stage {
+        padding: 0;
+      }
+
+      .phone {
+        width: 100vw;
+        height: 100dvh;
+        min-width: 0;
+        aspect-ratio: auto;
+        filter: none;
+      }
+
+      .phone::before {
+        display: none;
+      }
+
+      .phone::after {
+        display: none;
+      }
+
+      .screen {
+        inset: 0;
+        border-radius: 0;
+      }
+
+      .theme-toggle {
+        display: none;
+      }
+    }
+
+    @media (max-height: 680px) and (min-width: 641px) {
+      .apps {
+        gap: 12px;
+      }
+
+      .dock {
+        height: 66px;
+        padding: 9px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" type="button" aria-label="Toggle page background">◐</button>
+  <main class="stage">
+    <section class="phone" aria-label="Phone inspired portfolio home screen">
+      <div class="screen phone-dark">
+        <div class="dynamic-island" aria-hidden="true"></div>
+        <div class="status" aria-hidden="true">
+          <span class="live-time" data-live-time>9:41</span>
+          <span class="status-icons">
+            <span class="signal"><i></i><i></i><i></i><i></i></span>
+            <span>5G</span>
+            <span class="battery"></span>
+          </span>
+        </div>
+
+        <div class="home">
+          <div class="widgets">
+            <div class="stack">
+              <a class="widget github-widget" href="https://github.com/Kunxal" target="_blank" rel="noopener noreferrer" aria-label="Open GitHub profile">
+                <div class="github-graph" data-github-graph aria-hidden="true"></div>
+              </a>
+              <span class="widget-label">GitHub</span>
+            </div>
+
+            <div class="stack">
+              <button class="widget weather-widget" type="button" data-open-app="weather" aria-label="Open Weather app">
+                <div>
+                  <div class="weather-city" data-weather-city>Raipur</div>
+                  <div class="temperature" data-weather-widget-temp>28°</div>
+                </div>
+                <div class="weather-bottom" data-weather-widget-meta>
+                  <div data-weather-widget-condition>Cloudy</div>
+                  <div data-weather-widget-range>H:28° L:21°</div>
+                </div>
+              </button>
+              <span class="widget-label">Weather</span>
+            </div>
+          </div>
+
+          <nav class="apps" aria-label="Portfolio apps">
+            <a class="app" href="#" data-open-app="spotify"><span class="icon"><img src="assets/app-icons/spotify.png" alt="" /></span><span class="app-label">Spotify</span></a>
+            <a class="app" href="#" data-open-app="tv"><span class="icon"><img src="assets/app-icons/tv.png" alt="" /></span><span class="app-label">TV</span></a>
+            <a class="app" href="#" data-open-app="about"><span class="icon"><img src="assets/app-icons/about.png" alt="" /></span><span class="app-label">About</span></a>
+            <a class="app" href="#" data-open-app="blog"><span class="icon"><img src="assets/app-icons/blog.png" alt="" /></span><span class="app-label">Blog</span></a>
+            <a class="app" href="#" data-open-app="settings"><span class="icon"><img src="assets/app-icons/settings.png" alt="" /></span><span class="app-label">Settings</span></a>
+            <a class="app" href="#" data-open-app="steam"><span class="icon"><img src="assets/app-icons/steam.png" alt="" /></span><span class="app-label">Steam</span></a>
+            <a class="app" href="#" data-open-app="whoop"><span class="icon"><img src="assets/app-icons/whoop.png" alt="" /></span><span class="app-label">Whoop</span></a>
+            <a class="app" href="#" data-open-app="flighty"><span class="icon"><img src="assets/app-icons/flighty.png" alt="" /></span><span class="app-label">Flighty</span></a>
+          </nav>
+
+          <div class="bottom">
+            <div class="page-controls">
+              <div class="page-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+              <a class="search" href="https://www.google.com/search?q=Kunxal" target="_blank" rel="noopener noreferrer" aria-label="Search the web">⌕ <span>Search</span></a>
+            </div>
+
+            <nav class="dock" aria-label="Primary apps">
+              <a class="dock-icon" href="#" data-open-app="appstore" aria-label="App Store"><span class="icon"><img src="assets/app-icons/app-store.png" alt="" /></span></a>
+              <a class="dock-icon" href="#" data-open-app="photos" aria-label="Photos"><span class="icon"><img src="assets/app-icons/photos.png" alt="" /></span></a>
+              <a class="dock-icon" href="#" data-open-app="contact" aria-label="Contact"><span class="icon"><img src="assets/app-icons/contact.png" alt="" /></span></a>
+              <a class="dock-icon" href="#" data-open-app="resume" aria-label="Resume"><span class="icon"><img src="assets/app-icons/resume.png" alt="" /></span></a>
+            </nav>
+          </div>
+        </div>
+
+        <section class="app-view photos-view" data-app-view="photos" aria-label="Photos gallery" aria-hidden="true">
+          <div class="photos-nav">
+            <button class="photos-back" type="button" data-close-app aria-label="Back to Home">‹</button>
+            <div class="photos-mini-title">Photos</div>
+            <span></span>
+          </div>
+
+          <div class="photos-scroll">
+            <h1 class="photos-heading">Photos</h1>
+            <p class="photos-subtitle">6 Items</p>
+            <div class="photo-grid" aria-label="Gallery photos">
+              <button class="photo-tile" type="button" data-photo-src="assets/gallery/keshar.jpeg" data-photo-title="Keshar" aria-label="Open Keshar">
+                <img src="assets/gallery/keshar.jpeg" alt="Keshar" />
+              </button>
+              <button class="photo-tile" type="button" data-photo-src="assets/gallery/me.jpeg" data-photo-title="Me" aria-label="Open Me">
+                <img src="assets/gallery/me.jpeg" alt="Me" />
+              </button>
+              <button class="photo-tile" type="button" data-photo-src="assets/gallery/dog.jpeg" data-photo-title="Dog" aria-label="Open Dog">
+                <img src="assets/gallery/dog.jpeg" alt="Dog" />
+              </button>
+              <button class="photo-tile" type="button" data-photo-src="assets/gallery/desserts.jpeg" data-photo-title="Desserts" aria-label="Open Desserts">
+                <img src="assets/gallery/desserts.jpeg" alt="Desserts" />
+              </button>
+              <button class="photo-tile" type="button" data-photo-src="assets/gallery/doggy.jpeg" data-photo-title="Doggy" aria-label="Open Doggy">
+                <img src="assets/gallery/doggy.jpeg" alt="Doggy" />
+              </button>
+              <button class="photo-tile" type="button" data-photo-src="assets/gallery/burger.jpeg" data-photo-title="Burger" aria-label="Open Burger">
+                <img src="assets/gallery/burger.jpeg" alt="Burger" />
+              </button>
+            </div>
+          </div>
+
+          <div class="photo-preview" data-photo-preview aria-hidden="true">
+            <div class="photo-detail-top">
+              <button class="photo-close" type="button" data-photo-close aria-label="Close photo">‹</button>
+              <div class="photo-title-block">
+                <p class="photo-detail-title" data-photo-preview-title>Keshar</p>
+                <p class="photo-detail-count" data-photo-preview-count>1 of 6</p>
+              </div>
+              <span></span>
+            </div>
+            <div class="photo-preview-image-wrap">
+              <img src="assets/gallery/keshar.jpeg" alt="" data-photo-preview-image />
+            </div>
+            <div class="photo-strip" aria-label="Photo thumbnails">
+              <button class="photo-strip-button is-current" type="button" data-photo-strip-index="0" aria-label="Show Keshar"><img src="assets/gallery/keshar.jpeg" alt="" /></button>
+              <button class="photo-strip-button" type="button" data-photo-strip-index="1" aria-label="Show Me"><img src="assets/gallery/me.jpeg" alt="" /></button>
+              <button class="photo-strip-button" type="button" data-photo-strip-index="2" aria-label="Show Dog"><img src="assets/gallery/dog.jpeg" alt="" /></button>
+              <button class="photo-strip-button" type="button" data-photo-strip-index="3" aria-label="Show Desserts"><img src="assets/gallery/desserts.jpeg" alt="" /></button>
+              <button class="photo-strip-button" type="button" data-photo-strip-index="4" aria-label="Show Doggy"><img src="assets/gallery/doggy.jpeg" alt="" /></button>
+              <button class="photo-strip-button" type="button" data-photo-strip-index="5" aria-label="Show Burger"><img src="assets/gallery/burger.jpeg" alt="" /></button>
+            </div>
+          </div>
+
+          <nav class="photos-tabs" aria-label="Photos navigation">
+            <button class="photos-tab is-active" type="button"><span class="photos-tab-icon">▦</span><span>Library</span></button>
+            <button class="photos-tab" type="button"><span class="photos-tab-icon">◫</span><span>Collections</span></button>
+            <button class="photos-tab" type="button"><span class="photos-tab-icon">⌂</span><span>Home</span></button>
+          </nav>
+        </section>
+
+        <section class="app-view spotify-view" data-app-view="spotify" aria-label="Spotify playlist" aria-hidden="true">
+          <div class="spotify-scroll">
+            <div class="spotify-top">
+              <button class="spotify-back" type="button" data-close-app aria-label="Back to home">‹</button>
+              <div class="spotify-title"><span class="spotify-dot"></span><span>Spotify</span></div>
+              <button class="spotify-more" type="button" aria-label="More options">•••</button>
+            </div>
+
+            <div class="spotify-hero">
+              <div class="playlist-cover" aria-hidden="true">
+                <img src="assets/song-covers/cinnamon-girl.jpg" alt="" />
+                <img src="assets/song-covers/co2.jpg" alt="" />
+                <img src="assets/song-covers/diet-mountain-dew.jpg" alt="" />
+              </div>
+              <div>
+                <p class="playlist-kicker">Playlist</p>
+                <h1 class="playlist-name">Kunxal Mix</h1>
+                <p class="playlist-meta">3 songs • Lana Del Rey, Prateek Kuhad</p>
+              </div>
+            </div>
+
+            <div class="spotify-actions">
+              <div class="spotify-actions-left" aria-hidden="true">
+                <span>♡</span>
+                <span>↓</span>
+                <span>⋯</span>
+              </div>
+              <button class="spotify-play" type="button" data-play-index="0" aria-label="Play playlist">▶</button>
+            </div>
+
+            <div class="track-list">
+              <button class="spotify-track is-active" type="button" data-play-index="0">
+                <span class="track-art"><img src="assets/song-covers/cinnamon-girl.jpg" alt="" /></span>
+                <span>
+                  <p class="track-name">Cinnamon Girl</p>
+                  <p class="track-artist">Lana Del Rey</p>
+                </span>
+                <span class="track-menu">•••</span>
+              </button>
+              <button class="spotify-track" type="button" data-play-index="1">
+                <span class="track-art"><img src="assets/song-covers/co2.jpg" alt="" /></span>
+                <span>
+                  <p class="track-name">Co2</p>
+                  <p class="track-artist">Prateek Kuhad</p>
+                </span>
+                <span class="track-menu">•••</span>
+              </button>
+              <button class="spotify-track" type="button" data-play-index="2">
+                <span class="track-art"><img src="assets/song-covers/diet-mountain-dew.jpg" alt="" /></span>
+                <span>
+                  <p class="track-name">Diet Mountain Dew</p>
+                  <p class="track-artist">Lana Del Rey</p>
+                </span>
+                <span class="track-menu">•••</span>
+              </button>
+            </div>
+
+          </div>
+
+          <div class="spotify-player" aria-label="Now playing">
+            <div class="player-main">
+              <div class="player-art" data-player-art><img src="assets/song-covers/cinnamon-girl.jpg" alt="" /></div>
+              <div class="player-song">
+                <p class="player-title" data-player-title>Cinnamon Girl</p>
+                <p class="player-artist" data-player-artist>Lana Del Rey</p>
+              </div>
+              <div class="player-controls">
+                <button type="button" data-prev-track aria-label="Previous song">‹</button>
+                <button class="player-toggle" type="button" data-toggle-play aria-label="Play">▶</button>
+                <button type="button" data-next-track aria-label="Next song">›</button>
+              </div>
+            </div>
+            <div class="progress-row">
+              <span data-current-time>0:00</span>
+              <input class="progress" type="range" min="0" max="100" value="0" step="0.1" data-progress aria-label="Song progress" />
+              <span data-duration>0:00</span>
+            </div>
+            <audio data-audio preload="metadata"></audio>
+          </div>
+        </section>
+
+        <section class="app-view weather-view" data-app-view="weather" aria-label="Weather app" aria-hidden="true">
+          <div class="weather-scroll">
+            <div class="weather-top">
+              <button class="weather-back" type="button" data-close-app aria-label="Back to home">‹</button>
+              <span></span>
+              <button class="weather-more" type="button" aria-label="More options">•••</button>
+            </div>
+
+            <div class="weather-place">
+              <h1 class="weather-location" data-weather-location>Raipur</h1>
+              <p class="weather-temp-large" data-weather-app-temp>28°</p>
+              <p class="weather-summary" data-weather-app-condition>Cloudy</p>
+              <p class="weather-high-low" data-weather-app-range>H:28° L:21°</p>
+            </div>
+
+            <section class="weather-card" aria-label="Hourly forecast">
+              <p class="weather-card-title">Hourly Forecast</p>
+              <div class="hourly-row" data-hourly-weather>
+                <div class="hour-card"><span>Now</span><span class="weather-symbol">☁</span><span>28°</span></div>
+                <div class="hour-card"><span>16</span><span class="weather-symbol">☁</span><span>27°</span></div>
+                <div class="hour-card"><span>17</span><span class="weather-symbol">🌧</span><span>26°</span></div>
+                <div class="hour-card"><span>18</span><span class="weather-symbol">🌧</span><span>25°</span></div>
+              </div>
+            </section>
+
+            <section class="weather-card" aria-label="Weather details">
+              <p class="weather-card-title">Conditions</p>
+              <div class="details-grid">
+                <div class="weather-detail">
+                  <p class="detail-label">Feels Like</p>
+                  <p class="detail-value" data-weather-feels>28°</p>
+                </div>
+                <div class="weather-detail">
+                  <p class="detail-label">Humidity</p>
+                  <p class="detail-value" data-weather-humidity>--%</p>
+                </div>
+                <div class="weather-detail">
+                  <p class="detail-label">Wind</p>
+                  <p class="detail-value" data-weather-wind>--</p>
+                </div>
+                <div class="weather-detail">
+                  <p class="detail-label">Rain</p>
+                  <p class="detail-value" data-weather-rain>--%</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="app-view ios-app" data-app-view="tv" aria-label="TV app" aria-hidden="true">
+          <div class="ios-nav"><button class="ios-back" type="button" data-close-app aria-label="Back to Home">‹</button><div class="ios-mini-title">TV</div><span></span></div>
+          <div class="ios-scroll">
+            <h1 class="ios-heading">TV</h1>
+            <p class="tv-intro">What I've been watching lately.</p>
+
+            <div class="tv-section">
+              <div class="tv-section-head">
+                <h2 class="tv-section-title">Top Rated</h2>
+                <span class="tv-section-more">›</span>
+              </div>
+              <div class="poster-rail">
+                <a class="poster" href="https://tv.apple.com/search?term=Severance" target="_blank" rel="noopener noreferrer" aria-label="Search Severance on Apple TV">
+                  <span class="poster-rank">1</span><span class="poster-art"><img src="assets/tv/severance.jpg" alt="Severance" /></span><p class="poster-title">Severance</p><p class="poster-sub">2022 · ★10</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=Ted%20Lasso" target="_blank" rel="noopener noreferrer" aria-label="Search Ted Lasso on Apple TV">
+                  <span class="poster-rank">2</span><span class="poster-art"><img src="assets/tv/ted-lasso.jpg" alt="Ted Lasso" /></span><p class="poster-title">Ted Lasso</p><p class="poster-sub">2020 · ★9</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=Silo" target="_blank" rel="noopener noreferrer" aria-label="Search Silo on Apple TV">
+                  <span class="poster-rank">3</span><span class="poster-art"><img src="assets/tv/silo.jpg" alt="Silo" /></span><p class="poster-title">Silo</p><p class="poster-sub">2023 · ★9</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=Foundation" target="_blank" rel="noopener noreferrer" aria-label="Search Foundation on Apple TV">
+                  <span class="poster-rank">4</span><span class="poster-art"><img src="assets/tv/foundation.jpg" alt="Foundation" /></span><p class="poster-title">Foundation</p><p class="poster-sub">2021 · ★9</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=Slow%20Horses" target="_blank" rel="noopener noreferrer" aria-label="Search Slow Horses on Apple TV">
+                  <span class="poster-rank">5</span><span class="poster-art"><img src="assets/tv/slow-horses.jpg" alt="Slow Horses" /></span><p class="poster-title">Slow Horses</p><p class="poster-sub">2022 · ★9</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=The%20Studio" target="_blank" rel="noopener noreferrer" aria-label="Search The Studio on Apple TV">
+                  <span class="poster-rank">6</span><span class="poster-art"><img src="assets/tv/the-studio.jpg" alt="The Studio" /></span><p class="poster-title">The Studio</p><p class="poster-sub">2025 · ★8</p>
+                </a>
+              </div>
+            </div>
+
+            <div class="tv-section">
+              <div class="tv-section-head">
+                <h2 class="tv-section-title">Movies</h2>
+                <span class="tv-section-more">›</span>
+              </div>
+              <div class="poster-rail movie-rail">
+                <a class="poster" href="https://tv.apple.com/search?term=The%20Gorge" target="_blank" rel="noopener noreferrer" aria-label="Search The Gorge on Apple TV">
+                  <span class="poster-art"><img src="assets/tv/the-gorge.jpg" alt="The Gorge" /></span><p class="poster-title">The Gorge</p><p class="poster-sub">2025 · ★8</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=Fountain%20of%20Youth" target="_blank" rel="noopener noreferrer" aria-label="Search Fountain of Youth on Apple TV">
+                  <span class="poster-art"><img src="assets/tv/fountain-of-youth.jpg" alt="Fountain of Youth" /></span><p class="poster-title">Fountain of Youth</p><p class="poster-sub">2025 · ★7</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=Wolfs" target="_blank" rel="noopener noreferrer" aria-label="Search Wolfs on Apple TV">
+                  <span class="poster-art"><img src="assets/tv/wolfs.jpg" alt="Wolfs" /></span><p class="poster-title">Wolfs</p><p class="poster-sub">2024 · ★7</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=Killers%20of%20the%20Flower%20Moon" target="_blank" rel="noopener noreferrer" aria-label="Search Killers of the Flower Moon on Apple TV">
+                  <span class="poster-art"><img src="assets/tv/killers-of-the-flower-moon.jpg" alt="Killers of the Flower Moon" /></span><p class="poster-title">Killers of the Flower Moon</p><p class="poster-sub">2023 · ★9</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=Napoleon" target="_blank" rel="noopener noreferrer" aria-label="Search Napoleon on Apple TV">
+                  <span class="poster-art"><img src="assets/tv/napoleon.jpg" alt="Napoleon" /></span><p class="poster-title">Napoleon</p><p class="poster-sub">2023 · ★7</p>
+                </a>
+                <a class="poster" href="https://tv.apple.com/search?term=Ghosted" target="_blank" rel="noopener noreferrer" aria-label="Search Ghosted on Apple TV">
+                  <span class="poster-art"><img src="assets/tv/ghosted.jpg" alt="Ghosted" /></span><p class="poster-title">Ghosted</p><p class="poster-sub">2023 · ★6</p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-view ios-app" data-app-view="about" aria-label="About app" aria-hidden="true">
+          <div class="ios-nav"><button class="ios-back" type="button" data-close-app aria-label="Back to Home">‹</button><div class="ios-mini-title">About</div><span></span></div>
+          <div class="ios-scroll">
+            <h1 class="ios-heading">About</h1>
+            <p class="about-copy">I build full-stack mobile and web applications, mostly around React Native, Node.js, MongoDB, Firebase, and REST APIs.</p>
+            <p class="about-copy">Recently I interned at ForgeVision.ai, where I worked on software for the OptiWaste unit deployed in JW Marriott and The Lalit Delhi. I helped build application features, backend logic, API integrations, testing flows, and performance improvements for real waste-management workflows.</p>
+            <p class="about-copy">I like projects where software escapes the demo stage and has to work in the real world. Gesture Genius came from that instinct: an AI-based multimodal system for hands-free gaming and Windows control using gesture, eye-gaze, head, and facial tracking. BlueChat is the other side of that curiosity: an offline Bluetooth messaging app with relay support and end-to-end encryption.</p>
+            <p class="about-copy">Right now I’m studying Computer Science & Engineering (Data Science) at Shri Shankaracharya Technical Campus, Bhilai, while sharpening my full-stack skills through open source, hackathons, and practical builds like this iPhone-style portfolio.</p>
+
+            <div class="about-sections">
+              <section class="about-section">
+                <h2 class="about-section-title">Experience</h2>
+                <div class="ios-group">
+                  <div class="ios-row"><span class="about-badge" style="background:#0a84ff;">F</span><span class="ios-row-main"><span><p class="ios-row-title">ForgeVision.ai</p><p class="ios-row-sub">Software Intern · Aug 2025 - Dec 2025</p></span><span class="ios-chevron">›</span></span></div>
+                  <div class="ios-row"><span class="about-badge" style="background:#24292e;">GH</span><span class="ios-row-main"><span><p class="ios-row-title">Open Source Contributor</p><p class="ios-row-sub">Features, bug fixes, docs, pull requests</p></span><span class="ios-chevron">›</span></span></div>
+                </div>
+              </section>
+
+              <section class="about-section">
+                <h2 class="about-section-title">Projects</h2>
+                <div class="ios-group">
+                  <div class="ios-row"><span class="about-badge" style="background:#bf5af2;">GG</span><span class="ios-row-main"><span><p class="ios-row-title">Gesture Genius</p><p class="ios-row-sub">AI gesture, gaze, head, and facial control</p></span><span class="ios-chevron">›</span></span></div>
+                  <div class="ios-row"><span class="about-badge" style="background:#30d158;">BC</span><span class="ios-row-main"><span><p class="ios-row-title">BlueChat</p><p class="ios-row-sub">Offline Bluetooth P2P messaging with relay</p></span><span class="ios-chevron">›</span></span></div>
+                </div>
+              </section>
+
+              <section class="about-section">
+                <h2 class="about-section-title">Skills</h2>
+                <div class="ios-group">
+                  <div class="ios-row"><span class="about-badge" style="background:#ff9f0a;">JS</span><span class="ios-row-main"><span><p class="ios-row-title">Frontend & Mobile</p><p class="ios-row-sub">React Native, Expo, JavaScript, TypeScript basics</p></span></span></div>
+                  <div class="ios-row"><span class="about-badge" style="background:#0a84ff;">API</span><span class="ios-row-main"><span><p class="ios-row-title">Backend</p><p class="ios-row-sub">Node.js, Express.js, REST APIs, MongoDB, Firebase</p></span></span></div>
+                  <div class="ios-row"><span class="about-badge" style="background:#5e5ce6;">CV</span><span class="ios-row-main"><span><p class="ios-row-title">Systems & Tools</p><p class="ios-row-sub">Python, C++, Git, Postman, Android Studio</p></span></span></div>
+                </div>
+              </section>
+
+              <section class="about-section">
+                <h2 class="about-section-title">Education</h2>
+                <div class="ios-group">
+                  <div class="ios-row"><span class="about-badge" style="background:#64d2ff;">S</span><span class="ios-row-main"><span><p class="ios-row-title">SSTC Bhilai</p><p class="ios-row-sub">B.Tech CSE (Data Science) · 2023 - Present</p></span><span class="ios-chevron">›</span></span></div>
+                </div>
+              </section>
+
+              <section class="about-section">
+                <h2 class="about-section-title">Elsewhere</h2>
+                <div class="ios-group">
+                  <a class="ios-row" href="https://www.linkedin.com/search/results/all/?keywords=P%20Kunal%20Kumar" target="_blank" rel="noopener noreferrer"><span class="about-badge" style="background:#0a66c2;">in</span><span class="ios-row-main"><span><p class="ios-row-title">LinkedIn</p></span><span class="ios-chevron">›</span></span></a>
+                  <a class="ios-row" href="https://github.com/Kunxal" target="_blank" rel="noopener noreferrer"><span class="about-badge" style="background:#24292e;">⌘</span><span class="ios-row-main"><span><p class="ios-row-title">GitHub</p></span><span class="ios-chevron">›</span></span></a>
+                  <button class="ios-row" type="button" data-open-app="contact"><span class="about-badge" style="background:#0a84ff;">✉</span><span class="ios-row-main"><span><p class="ios-row-title">Email</p></span><span class="ios-chevron">›</span></span></button>
+                </div>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-view ios-app" data-app-view="blog" aria-label="Blog app" aria-hidden="true">
+          <div class="ios-nav"><button class="ios-back" type="button" data-close-app aria-label="Back to Home">‹</button><div class="ios-mini-title">Blog</div><span></span></div>
+          <div class="ios-scroll">
+            <h1 class="ios-heading">Blog</h1>
+            <p class="tv-intro">Developer notes I’d keep pinned.</p>
+            <div class="ios-group">
+              <div class="ios-row"><span class="ios-symbol" style="background:#ff9f0a;">01</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">Build for humans first.</p><p class="ios-row-sub">The cleanest code is the one that makes the user forget software is in the way.</p></span><span class="ios-chevron">›</span></span></div>
+              <div class="ios-row"><span class="ios-symbol" style="background:#30d158;">02</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">Small details compound.</p><p class="ios-row-sub">A 100ms delay, a rough edge, or a confusing label can decide whether a product feels alive.</p></span><span class="ios-chevron">›</span></span></div>
+              <div class="ios-row"><span class="ios-symbol" style="background:#0a84ff;">03</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">Debug the assumption.</p><p class="ios-row-sub">Most bugs are not in the syntax; they are in the story you told yourself too early.</p></span><span class="ios-chevron">›</span></span></div>
+              <div class="ios-row"><span class="ios-symbol" style="background:#bf5af2;">04</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">Ship, then sharpen.</p><p class="ios-row-sub">Perfect plans teach less than real users, real errors, and real feedback.</p></span><span class="ios-chevron">›</span></span></div>
+              <div class="ios-row"><span class="ios-symbol" style="background:#ff453a;">05</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">Code is communication.</p><p class="ios-row-sub">Write it so the next developer can trust your intent before they trust your implementation.</p></span><span class="ios-chevron">›</span></span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-view ios-app steam-view" data-app-view="steam" aria-label="Steam app" aria-hidden="true">
+          <div class="ios-nav"><button class="ios-back" type="button" data-close-app aria-label="Back to Home">‹</button><div class="ios-mini-title">Steam</div><span></span></div>
+          <div class="ios-scroll steam-scroll">
+            <h1 class="ios-heading">Steam</h1>
+            <div class="steam-hero">
+              <span class="steam-hero-art"><img src="assets/steam/far-cry-5-header.jpg" alt="Far Cry 5 artwork" /></span>
+              <p class="steam-last">Last played</p>
+              <h2 class="steam-hero-title">Far Cry 5</h2>
+              <a class="steam-open" href="https://store.steampowered.com/app/552520/" target="_blank" rel="noopener noreferrer">Open in Steam</a>
+            </div>
+
+            <section class="steam-section">
+              <div class="tv-section-head">
+                <h2 class="tv-section-title">Recently played</h2>
+                <span class="tv-section-more">›</span>
+              </div>
+              <div class="steam-rail">
+                <a class="game-card" href="https://store.steampowered.com/app/552520/" target="_blank" rel="noopener noreferrer"><img src="assets/steam/far-cry-5.jpg" alt="Far Cry 5" /><p class="game-title">Far Cry 5</p><p class="game-meta">0.1h past 2 weeks</p></a>
+                <a class="game-card" href="https://store.steampowered.com/app/1091500/" target="_blank" rel="noopener noreferrer"><img src="assets/steam/cyberpunk-2077.jpg" alt="Cyberpunk 2077" /><p class="game-title">Cyberpunk 2077</p><p class="game-meta">0h past 2 weeks</p></a>
+                <a class="game-card" href="https://store.steampowered.com/app/1174180/" target="_blank" rel="noopener noreferrer"><img src="assets/steam/red-dead-redemption-2.jpg" alt="Red Dead Redemption 2" /><p class="game-title">Red Dead Redemption 2</p><p class="game-meta">1.1h past 2 weeks</p></a>
+                <a class="game-card" href="https://store.steampowered.com/app/1262560/" target="_blank" rel="noopener noreferrer"><img src="assets/steam/need-for-speed-most-wanted.jpg" alt="Need for Speed Most Wanted" /><p class="game-title">Need for Speed Most Wanted</p><p class="game-meta">1h past 2 weeks</p></a>
+              </div>
+            </section>
+
+            <section class="steam-section">
+              <div class="tv-section-head">
+                <h2 class="tv-section-title">All-time</h2>
+                <span class="tv-section-more">›</span>
+              </div>
+              <div class="steam-rail">
+                <a class="game-card" href="https://store.steampowered.com/app/730/" target="_blank" rel="noopener noreferrer"><img src="assets/steam/counter-strike-2.jpg" alt="Counter-Strike 2" /><p class="game-title">Counter-Strike 2</p><p class="game-meta">56h total</p></a>
+                <a class="game-card" href="https://store.steampowered.com/app/298110/" target="_blank" rel="noopener noreferrer"><img src="assets/steam/far-cry-4.jpg" alt="Far Cry 4" /><p class="game-title">Far Cry 4</p><p class="game-meta">35h total</p></a>
+                <a class="game-card" href="https://store.steampowered.com/app/1174180/" target="_blank" rel="noopener noreferrer"><img src="assets/steam/red-dead-redemption-2.jpg" alt="Red Dead Redemption 2" /><p class="game-title">Red Dead Redemption 2</p><p class="game-meta">15h total</p></a>
+                <a class="game-card" href="https://store.steampowered.com/app/291550/" target="_blank" rel="noopener noreferrer"><img src="assets/steam/brawlhalla.jpg" alt="Brawlhalla" /><p class="game-title">Brawlhalla</p><p class="game-meta">14h total</p></a>
+                <a class="game-card" href="https://store.steampowered.com/app/225540/" target="_blank" rel="noopener noreferrer"><img src="assets/steam/just-cause-3.jpg" alt="Just Cause 3" /><p class="game-title">Just Cause 3</p><p class="game-meta">13h total</p></a>
+              </div>
+            </section>
+
+            <div class="ios-group">
+              <a class="ios-row" href="https://steamcommunity.com/" target="_blank" rel="noopener noreferrer"><span class="ios-symbol" style="background:#1b2838;">S</span><span class="ios-row-main"><span><p class="ios-row-title">Steam Profile</p><p class="ios-row-sub">Level 7</p></span><span class="ios-chevron">›</span></span></a>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-view ios-app" data-app-view="whoop" aria-label="Whoop app" aria-hidden="true">
+          <div class="ios-nav"><button class="ios-back" type="button" data-close-app aria-label="Back to Home">‹</button><div class="ios-mini-title">Whoop</div><span></span></div>
+          <div class="ios-scroll">
+            <h1 class="ios-heading">Whoop</h1>
+            <div class="ios-hero-card">
+              <div class="metric-ring"><div class="metric-ring-inner"><span>Recovery</span><strong>72%</strong></div></div>
+              <p class="ios-body" style="text-align:center;">Sleep, strain, and recovery dashboard styled after a health app.</p>
+            </div>
+            <div class="ios-group">
+              <div class="ios-row"><span class="ios-symbol" style="background:#30d158;">↻</span><span class="ios-row-main"><span><p class="ios-row-title">Recovery</p><p class="ios-row-sub">Green zone</p></span><strong>72%</strong></span></div>
+              <div class="ios-row"><span class="ios-symbol" style="background:#ff453a;">∆</span><span class="ios-row-main"><span><p class="ios-row-title">Strain</p><p class="ios-row-sub">Moderate</p></span><strong>8.4</strong></span></div>
+              <div class="ios-row"><span class="ios-symbol" style="background:#0a84ff;">☾</span><span class="ios-row-main"><span><p class="ios-row-title">Sleep</p><p class="ios-row-sub">Last night</p></span><strong>7h 12m</strong></span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-view ios-app" data-app-view="flighty" aria-label="Flighty app" aria-hidden="true">
+          <div class="ios-nav"><button class="ios-back" type="button" data-close-app aria-label="Back to Home">‹</button><div class="ios-mini-title">Flighty</div><span></span></div>
+          <div class="ios-scroll">
+            <h1 class="ios-heading">Flighty</h1>
+            <div class="map-card"><span class="map-route"></span><span class="map-pin" style="left:36px;bottom:42px;"></span><span class="map-pin" style="right:48px;top:46px;"></span></div>
+            <div class="ios-group">
+              <div class="ios-row"><span class="ios-symbol" style="background:#0a84ff;">✈</span><span class="ios-row-main"><span><p class="ios-row-title">RPR → DEL</p><p class="ios-row-sub">On time · Terminal 2</p></span><strong>2h 05m</strong></span></div>
+              <div class="ios-row"><span class="ios-symbol" style="background:#30d158;">✓</span><span class="ios-row-main"><span><p class="ios-row-title">Check-in</p><p class="ios-row-sub">Ready</p></span><span class="ios-chevron">›</span></span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-view ios-app" data-app-view="appstore" aria-label="App Store app" aria-hidden="true">
+          <div class="ios-nav"><button class="ios-back" type="button" data-close-app aria-label="Back to Home">‹</button><div class="ios-mini-title">App Store</div><span></span></div>
+          <div class="ios-scroll">
+            <h1 class="ios-heading">Today</h1>
+            <div class="store-feature"><div><p class="ios-kicker">Featured</p><h2 class="ios-title">Phone Portfolio</h2><p class="ios-body">An iOS-style personal site with real mini apps.</p></div></div>
+            <div class="ios-group">
+              <div class="ios-row"><span class="ios-symbol" style="background:#0a84ff;">A</span><span class="ios-row-main"><span><p class="ios-row-title">Photos</p><p class="ios-row-sub">Gallery app</p></span><span>OPEN</span></span></div>
+              <div class="ios-row"><span class="ios-symbol" style="background:#1ed760;">♫</span><span class="ios-row-main"><span><p class="ios-row-title">Spotify</p><p class="ios-row-sub">Music player</p></span><span>OPEN</span></span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="app-view ios-app message-view" data-app-view="contact" aria-label="New Message app" aria-hidden="true">
+          <div class="ios-nav"><button class="ios-back" type="button" data-close-app aria-label="Back to Home">‹</button><div class="ios-mini-title">New Message</div><span></span></div>
+          <div class="ios-scroll">
+            <h1 class="ios-heading">New Message</h1>
+            <form class="message-form" action="https://formsubmit.co/kunalinsh@gmail.com" method="POST" target="_blank">
+              <input type="hidden" name="_subject" value="New message from iPhone portfolio" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              <div class="message-to"><span class="message-label">To</span><span class="message-recipient">Kunal</span></div>
+              <div class="field">
+                <label for="message-name">Name</label>
+                <input id="message-name" name="name" type="text" placeholder="Your name" autocomplete="name" required />
+              </div>
+              <div class="field">
+                <label for="message-email">Email</label>
+                <input id="message-email" name="email" type="email" placeholder="Your email" autocomplete="email" required />
+              </div>
+              <div class="field">
+                <label for="message-body">Message</label>
+                <textarea id="message-body" name="message" placeholder="Write your message..." required></textarea>
+              </div>
+              <button class="message-send" type="submit">Send</button>
+              <p class="message-note">Messages are sent to kunalinsh@gmail.com through FormSubmit.</p>
+            </form>
+          </div>
+        </section>
+
+        <section class="app-view ios-app" data-app-view="resume" aria-label="Resume app" aria-hidden="true">
+          <div class="ios-nav"><button class="ios-back" type="button" data-close-app aria-label="Back to Home">‹</button><div class="ios-mini-title">Résumé</div><a class="resume-open" href="assets/resume/PKunalKumarResume.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open the résumé PDF">↗</a></div>
+          <div class="ios-scroll">
+            <h1 class="ios-heading">Résumé</h1>
+            <p class="resume-name">P Kunal Kumar</p>
+            <p class="resume-subtitle">Full-stack mobile and web developer · Bhilai, India</p>
+
+            <section class="about-section">
+              <h2 class="about-section-title">Experience</h2>
+              <div class="ios-group">
+                <div class="ios-row"><span class="about-badge" style="background:#0a84ff;">F</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">ForgeVision.ai</p><p class="ios-row-sub">Software Intern · Aug 2025 - Dec 2025</p><p class="resume-description">Worked on OptiWaste software deployed in JW Marriott and The Lalit Delhi, building app features, backend logic, API integrations, testing flows, and performance improvements.</p></span><span class="ios-chevron">›</span></span></div>
+                <div class="ios-row"><span class="about-badge" style="background:#24292e;">GH</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">Open Source Contributor</p><p class="ios-row-sub">GitHub · Various organizations</p><p class="resume-description">Contributed features, bug fixes, and documentation while collaborating through Git, GitHub, and pull requests.</p></span><span class="ios-chevron">›</span></span></div>
+              </div>
+            </section>
+
+            <section class="about-section">
+              <h2 class="about-section-title">Projects</h2>
+              <div class="ios-group">
+                <div class="ios-row"><span class="about-badge" style="background:#bf5af2;">GG</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">Gesture Genius</p><p class="ios-row-sub">AI multimodal control system</p><p class="resume-description">Hands-free gaming and Windows control using real-time gesture, eye-gaze, head, and facial tracking through a webcam.</p></span><span class="ios-chevron">›</span></span></div>
+                <div class="ios-row"><span class="about-badge" style="background:#30d158;">BC</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">BlueChat</p><p class="ios-row-sub">Decentralized offline messaging</p><p class="resume-description">Bluetooth-based peer-to-peer chat with device discovery, multi-device relay, and end-to-end encryption.</p></span><span class="ios-chevron">›</span></span></div>
+              </div>
+            </section>
+
+            <section class="about-section">
+              <h2 class="about-section-title">Education</h2>
+              <div class="ios-group">
+                <div class="ios-row"><span class="about-badge" style="background:#64d2ff;">S</span><span class="ios-row-main resume-row-main"><span><p class="ios-row-title">SSTC, Bhilai</p><p class="ios-row-sub">B.Tech Computer Science & Engineering (Data Science) · Aug 2023 - Present</p><p class="resume-description">Shri Shankaracharya Technical Campus, affiliated to Chhattisgarh Swami Vivekanand Technical University.</p></span></span></div>
+              </div>
+            </section>
+
+            <section class="about-section">
+              <h2 class="about-section-title">Skills</h2>
+              <div class="ios-group">
+                <div class="ios-row"><span class="about-badge" style="background:#ff9f0a;">L</span><span class="ios-row-main"><span><p class="ios-row-title">Languages</p><p class="ios-row-sub">Kotlin, JavaScript, Python, C++, TypeScript basics</p></span></span></div>
+                <div class="ios-row"><span class="about-badge" style="background:#0a84ff;">B</span><span class="ios-row-main"><span><p class="ios-row-title">Backend & Database</p><p class="ios-row-sub">Node.js, Express.js, MongoDB, Firebase, REST APIs, SQL</p></span></span></div>
+                <div class="ios-row"><span class="about-badge" style="background:#5e5ce6;">T</span><span class="ios-row-main"><span><p class="ios-row-title">Tools</p><p class="ios-row-sub">Expo, Android Studio, Git, Postman, VS Code, GitHub</p></span></span></div>
+              </div>
+            </section>
+
+            <a class="resume-download" href="assets/resume/PKunalKumarResume.pdf" target="_blank" rel="noopener noreferrer" download>Download PDF</a>
+          </div>
+        </section>
+
+        <section class="app-view settings-view" data-app-view="settings" aria-label="Settings app" aria-hidden="true">
+          <div class="settings-nav">
+            <button class="settings-back" type="button" data-close-app aria-label="Back to Home">‹</button>
+            <div class="settings-mini-title">Settings</div>
+            <span></span>
+          </div>
+
+          <div class="settings-scroll">
+            <h1 class="settings-heading">Settings</h1>
+
+            <a class="settings-profile" href="https://github.com/Kunxal" target="_blank" rel="noopener noreferrer" aria-label="Kunxal, About">
+              <span class="settings-avatar">K</span>
+              <span>
+                <p class="settings-profile-name">Kunxal</p>
+                <p class="settings-profile-sub">Engineer + Occasional Designer</p>
+              </span>
+              <span class="settings-chevron">›</span>
+            </a>
+
+            <section class="settings-section">
+              <h2 class="settings-section-title">Appearance</h2>
+              <div class="settings-group">
+                <button class="settings-row" type="button" data-settings-dark-mode>
+                  <span class="settings-symbol symbol-purple">◐</span>
+                  <span class="settings-row-main">
+                    <span><p class="settings-row-title">Dark mode</p></span>
+                    <span class="settings-switch" aria-hidden="true"></span>
+                  </span>
+                </button>
+              </div>
+            </section>
+
+            <section class="settings-section">
+              <h2 class="settings-section-title">Elsewhere</h2>
+              <div class="settings-group">
+                <a class="settings-row" href="https://www.linkedin.com/search/results/all/?keywords=Kunxal" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <span class="settings-symbol symbol-linkedin">in</span>
+                  <span class="settings-row-main"><span><p class="settings-row-title">LinkedIn</p></span><span class="settings-chevron">›</span></span>
+                </a>
+                <a class="settings-row" href="https://x.com/search?q=Kunxal" target="_blank" rel="noopener noreferrer" aria-label="X">
+                  <span class="settings-symbol symbol-x">𝕏</span>
+                  <span class="settings-row-main"><span><p class="settings-row-title">X</p></span><span class="settings-chevron">›</span></span>
+                </a>
+                <a class="settings-row" href="https://github.com/Kunxal" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <span class="settings-symbol symbol-github">⌘</span>
+                  <span class="settings-row-main"><span><p class="settings-row-title">GitHub</p></span><span class="settings-chevron">›</span></span>
+                </a>
+                <a class="settings-row" href="mailto:" aria-label="Email">
+                  <span class="settings-symbol symbol-mail">✉</span>
+                  <span class="settings-row-main"><span><p class="settings-row-title">Email</p></span><span class="settings-chevron">›</span></span>
+                </a>
+              </div>
+            </section>
+
+            <section class="settings-section">
+              <h2 class="settings-section-title">About This Site</h2>
+              <div class="settings-group">
+                <div class="settings-row">
+                  <span class="settings-symbol symbol-tool">⌁</span>
+                  <span class="settings-row-main">
+                    <span>
+                      <p class="settings-row-title">Built with</p>
+                      <p class="settings-row-sub">HTML · CSS · JavaScript</p>
+                    </span>
+                  </span>
+                </div>
+                <div class="settings-row">
+                  <span class="settings-symbol symbol-made">✦</span>
+                  <span class="settings-row-main">
+                    <span>
+                      <p class="settings-row-title">Designed & built by</p>
+                      <p class="settings-row-sub">Kunxal</p>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <p class="settings-footnote">Built as an iOS-style playground. Every app is a real page.</p>
+            </section>
+          </div>
+        </section>
+
+        <div class="home-indicator" aria-hidden="true"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const toggle = document.querySelector(".theme-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-page");
+    });
+
+    const liveTime = document.querySelector("[data-live-time]");
+    const githubGraph = document.querySelector("[data-github-graph]");
+    const githubLevels = [
+      0, 0, 0, 4, 0, 4, 4,
+      4, 4, 4, 4, 3, 4, 4,
+      0, 2, 3, 3, 4, 3, 2,
+      4, 4, 4, 4, 4, 0, 0,
+      0, 0, 4, 4, 4, 3, 3,
+      4, 3, 4, 3, 4, 3, 4,
+      4, 3, 1, 1, 4, 0, 0
+    ];
+
+    function updateLiveTime() {
+      const now = new Date();
+      liveTime.textContent = now.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: false
+      });
+    }
+
+    function buildGithubGraph() {
+      githubGraph.innerHTML = githubLevels
+        .map((level) => `<span class="github-cell" data-level="${level}"></span>`)
+        .join("");
+    }
+
+    updateLiveTime();
+    buildGithubGraph();
+    setInterval(updateLiveTime, 1000);
+
+    const screen = document.querySelector(".screen");
+    const appOpeners = document.querySelectorAll("[data-open-app]");
+    const closeButtons = document.querySelectorAll("[data-close-app], .home-indicator");
+    const appViews = document.querySelectorAll("[data-app-view]");
+    const settingsDarkMode = document.querySelector("[data-settings-dark-mode]");
+    const photoTiles = document.querySelectorAll("[data-photo-src]");
+    const photoPreview = document.querySelector("[data-photo-preview]");
+    const photoPreviewImage = document.querySelector("[data-photo-preview-image]");
+    const photoPreviewTitle = document.querySelector("[data-photo-preview-title]");
+    const photoPreviewCount = document.querySelector("[data-photo-preview-count]");
+    const photoClose = document.querySelector("[data-photo-close]");
+    const photoStripButtons = document.querySelectorAll("[data-photo-strip-index]");
+
+    function openApp(name, sourceEl) {
+      if (sourceEl) {
+        const sourceRect = sourceEl.getBoundingClientRect();
+        const screenRect = screen.getBoundingClientRect();
+        const originX = ((sourceRect.left + sourceRect.width / 2 - screenRect.left) / screenRect.width) * 100;
+        const originY = ((sourceRect.top + sourceRect.height / 2 - screenRect.top) / screenRect.height) * 100;
+        screen.style.setProperty("--app-origin-x", `${originX}%`);
+        screen.style.setProperty("--app-origin-y", `${originY}%`);
+      }
+
+      appViews.forEach((view) => {
+        const isTarget = view.dataset.appView === name;
+        view.classList.toggle("is-active", isTarget);
+        view.setAttribute("aria-hidden", String(!isTarget));
+      });
+      screen.classList.add("app-open");
+    }
+
+    function closeApp() {
+      closePhotoPreview();
+      screen.classList.remove("app-open");
+      appViews.forEach((view) => {
+        view.classList.remove("is-active");
+        view.setAttribute("aria-hidden", "true");
+      });
+    }
+
+    function showPhoto(index) {
+      const tile = photoTiles[index];
+      if (!tile) return;
+      photoPreviewImage.src = tile.dataset.photoSrc;
+      photoPreviewImage.alt = tile.dataset.photoTitle || "";
+      photoPreviewTitle.textContent = tile.dataset.photoTitle || "Photo";
+      photoPreviewCount.textContent = `${index + 1} of ${photoTiles.length}`;
+      photoStripButtons.forEach((button) => {
+        button.classList.toggle("is-current", Number(button.dataset.photoStripIndex) === index);
+      });
+    }
+
+    function openPhotoPreview(index) {
+      showPhoto(index);
+      photoPreview.classList.add("is-open");
+      photoPreview.setAttribute("aria-hidden", "false");
+    }
+
+    function closePhotoPreview() {
+      photoPreview.classList.remove("is-open");
+      photoPreview.setAttribute("aria-hidden", "true");
+    }
+
+    appOpeners.forEach((opener) => {
+      opener.addEventListener("click", (event) => {
+        event.preventDefault();
+        openApp(opener.dataset.openApp, opener);
+      });
+    });
+
+    closeButtons.forEach((button) => {
+      button.addEventListener("click", closeApp);
+    });
+
+    photoTiles.forEach((tile, index) => {
+      tile.addEventListener("click", () => {
+        openPhotoPreview(index);
+      });
+    });
+
+    photoStripButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        showPhoto(Number(button.dataset.photoStripIndex));
+      });
+    });
+
+    photoClose.addEventListener("click", closePhotoPreview);
+
+    photoPreview.addEventListener("click", (event) => {
+      if (event.target === photoPreview) closePhotoPreview();
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && photoPreview.classList.contains("is-open")) {
+        closePhotoPreview();
+        return;
+      }
+      if (event.key === "Escape") closeApp();
+    });
+
+    settingsDarkMode.addEventListener("click", () => {
+      screen.classList.toggle("phone-dark");
+    });
+
+    const weatherEls = {
+      widgetTemp: document.querySelector("[data-weather-widget-temp]"),
+      widgetCondition: document.querySelector("[data-weather-widget-condition]"),
+      widgetRange: document.querySelector("[data-weather-widget-range]"),
+      appTemp: document.querySelector("[data-weather-app-temp]"),
+      appCondition: document.querySelector("[data-weather-app-condition]"),
+      appRange: document.querySelector("[data-weather-app-range]"),
+      feels: document.querySelector("[data-weather-feels]"),
+      humidity: document.querySelector("[data-weather-humidity]"),
+      wind: document.querySelector("[data-weather-wind]"),
+      rain: document.querySelector("[data-weather-rain]"),
+      hourly: document.querySelector("[data-hourly-weather]")
+    };
+
+    const weatherCodeMap = {
+      0: ["Clear", "☀"],
+      1: ["Mostly Clear", "🌤"],
+      2: ["Partly Cloudy", "⛅"],
+      3: ["Cloudy", "☁"],
+      45: ["Foggy", "🌫"],
+      48: ["Foggy", "🌫"],
+      51: ["Drizzle", "🌦"],
+      53: ["Drizzle", "🌦"],
+      55: ["Drizzle", "🌦"],
+      61: ["Rain", "🌧"],
+      63: ["Rain", "🌧"],
+      65: ["Heavy Rain", "🌧"],
+      80: ["Showers", "🌦"],
+      81: ["Showers", "🌦"],
+      82: ["Heavy Showers", "🌧"],
+      95: ["Thunderstorm", "⛈"],
+      96: ["Thunderstorm", "⛈"],
+      99: ["Thunderstorm", "⛈"]
+    };
+
+    function roundTemp(value) {
+      return `${Math.round(value)}°`;
+    }
+
+    function describeWeather(code) {
+      return weatherCodeMap[code] || ["Cloudy", "☁"];
+    }
+
+    function setWeather(data) {
+      const current = data.current || {};
+      const daily = data.daily || {};
+      const hourly = data.hourly || {};
+      const condition = describeWeather(current.weather_code);
+      const temp = roundTemp(current.temperature_2m ?? 28);
+      const high = roundTemp((daily.temperature_2m_max || [28])[0]);
+      const low = roundTemp((daily.temperature_2m_min || [21])[0]);
+      const rain = (hourly.precipitation_probability || [0])[0] ?? 0;
+
+      weatherEls.widgetTemp.textContent = temp;
+      weatherEls.widgetCondition.textContent = condition[0];
+      weatherEls.widgetRange.textContent = `H:${high} L:${low}`;
+      weatherEls.appTemp.textContent = temp;
+      weatherEls.appCondition.textContent = condition[0];
+      weatherEls.appRange.textContent = `H:${high} L:${low}`;
+      weatherEls.feels.textContent = roundTemp(current.apparent_temperature ?? current.temperature_2m ?? 28);
+      weatherEls.humidity.textContent = `${Math.round(current.relative_humidity_2m ?? 68)}%`;
+      weatherEls.wind.textContent = `${Math.round(current.wind_speed_10m ?? 8)} km/h`;
+      weatherEls.rain.textContent = `${Math.round(rain)}%`;
+
+      const hours = (hourly.time || []).slice(0, 8);
+      const temps = hourly.temperature_2m || [];
+      const codes = hourly.weather_code || [];
+      weatherEls.hourly.innerHTML = hours.map((time, index) => {
+        const hour = index === 0 ? "Now" : new Date(time).getHours().toString().padStart(2, "0");
+        const [, symbol] = describeWeather(codes[index]);
+        return `<div class="hour-card"><span>${hour}</span><span class="weather-symbol">${symbol}</span><span>${roundTemp(temps[index] ?? current.temperature_2m ?? 28)}</span></div>`;
+      }).join("");
+    }
+
+    async function loadWeather() {
+      try {
+        const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=21.2514&longitude=81.6296&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m&hourly=temperature_2m,weather_code,precipitation_probability&daily=temperature_2m_max,temperature_2m_min,weather_code&forecast_days=1&timezone=auto");
+        if (!response.ok) throw new Error("Weather request failed");
+        setWeather(await response.json());
+      } catch {
+        setWeather({
+          current: { temperature_2m: 28, apparent_temperature: 29, relative_humidity_2m: 68, weather_code: 3, wind_speed_10m: 8 },
+          daily: { temperature_2m_max: [28], temperature_2m_min: [21] },
+          hourly: {
+            time: Array.from({ length: 8 }, (_, index) => new Date(Date.now() + index * 3600000).toISOString()),
+            temperature_2m: [28, 27, 27, 26, 25, 24, 24, 23],
+            weather_code: [3, 3, 61, 61, 3, 2, 2, 3],
+            precipitation_probability: [24, 28, 44, 50, 34, 22, 18, 20]
+          }
+        });
+      }
+    }
+
+    loadWeather();
+
+    const tracks = [
+      {
+        title: "Cinnamon Girl",
+        artist: "Lana Del Rey",
+        file: "assets/music/cinnamon-girl.mp3",
+        cover: "assets/song-covers/cinnamon-girl.jpg",
+        art: "CG"
+      },
+      {
+        title: "Co2",
+        artist: "Prateek Kuhad",
+        file: "assets/music/co2.mp3",
+        cover: "assets/song-covers/co2.jpg",
+        art: "CO"
+      },
+      {
+        title: "Diet Mountain Dew",
+        artist: "Lana Del Rey",
+        file: "assets/music/diet-mountain-dew.mp3",
+        cover: "assets/song-covers/diet-mountain-dew.jpg",
+        art: "DM"
+      }
+    ];
+
+    const audio = document.querySelector("[data-audio]");
+    const trackButtons = document.querySelectorAll("[data-play-index]");
+    const rowButtons = document.querySelectorAll(".spotify-track");
+    const togglePlay = document.querySelector("[data-toggle-play]");
+    const prevTrack = document.querySelector("[data-prev-track]");
+    const nextTrack = document.querySelector("[data-next-track]");
+    const progress = document.querySelector("[data-progress]");
+    const currentTime = document.querySelector("[data-current-time]");
+    const duration = document.querySelector("[data-duration]");
+    const playerTitle = document.querySelector("[data-player-title]");
+    const playerArtist = document.querySelector("[data-player-artist]");
+    const playerArt = document.querySelector("[data-player-art]");
+    const playlistPlay = document.querySelector(".spotify-play");
+    let activeTrack = 0;
+
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds)) return "0:00";
+      const minutes = Math.floor(seconds / 60);
+      const remaining = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${minutes}:${remaining}`;
+    }
+
+    function setTrack(index, shouldPlay = false) {
+      activeTrack = (index + tracks.length) % tracks.length;
+      const track = tracks[activeTrack];
+      audio.src = track.file;
+      playerTitle.textContent = track.title;
+      playerArtist.textContent = track.artist;
+      playerArt.innerHTML = `<img src="${track.cover}" alt="" />`;
+      rowButtons.forEach((button, buttonIndex) => {
+        button.classList.toggle("is-active", buttonIndex === activeTrack);
+      });
+      progress.value = 0;
+      currentTime.textContent = "0:00";
+      duration.textContent = "0:00";
+
+      if (shouldPlay) {
+        audio.play().catch(() => {
+          togglePlay.textContent = "▶";
+          playlistPlay.textContent = "▶";
+        });
+      }
+    }
+
+    function updatePlayButtons() {
+      const symbol = audio.paused ? "▶" : "❚❚";
+      togglePlay.textContent = symbol;
+      playlistPlay.textContent = symbol;
+    }
+
+    trackButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        setTrack(Number(button.dataset.playIndex), true);
+      });
+    });
+
+    togglePlay.addEventListener("click", () => {
+      if (!audio.src) setTrack(activeTrack);
+      if (audio.paused) {
+        audio.play().catch(() => updatePlayButtons());
+      } else {
+        audio.pause();
+      }
+    });
+
+    prevTrack.addEventListener("click", () => setTrack(activeTrack - 1, true));
+    nextTrack.addEventListener("click", () => setTrack(activeTrack + 1, true));
+
+    audio.addEventListener("play", updatePlayButtons);
+    audio.addEventListener("pause", updatePlayButtons);
+    audio.addEventListener("ended", () => setTrack(activeTrack + 1, true));
+
+    audio.addEventListener("loadedmetadata", () => {
+      duration.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      currentTime.textContent = formatTime(audio.currentTime);
+      progress.value = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+    });
+
+    audio.addEventListener("error", () => {
+      togglePlay.textContent = "▶";
+      playlistPlay.textContent = "▶";
+    });
+
+    progress.addEventListener("input", () => {
+      if (audio.duration) {
+        audio.currentTime = (Number(progress.value) / 100) * audio.duration;
+      }
+    });
+
+    setTrack(0);
+  </script>
+</body>
+</html>

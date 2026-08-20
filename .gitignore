@@ -1,0 +1,16 @@
+# Dependencies & Build
+node_modules/
+.vercel
+dist/
+build/
+
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment and IDE
+.env
+.env.local
+.vscode/
+.idea/
