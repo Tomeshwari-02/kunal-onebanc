@@ -4,7 +4,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Phone Portfolio UI</title>
+  <title>OneBanc</title>
+  <link rel="icon" type="image/svg+xml" sizes="any" href="assets/ob_favicon_32x32.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/ob_favicon_32x32.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/ob_favicon_96x96.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/ob_favicon_192x192.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/ob_favicon_180x180.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico" />
   <style>
     :root {
       color-scheme: dark;
@@ -3923,6 +3929,104 @@
     }
 
     /* ==========================================================================
+       AUTHENTIC BRAND AVATARS & MERCHANT LOGOS
+       ========================================================================== */
+    .brand-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.08);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .brand-avatar:hover {
+      transform: scale(1.08);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14);
+    }
+
+    .brand-avatar svg {
+      width: 17px;
+      height: 17px;
+      display: block;
+    }
+
+    .brand-avatar.brand-amazon {
+      background: #232f3e;
+      color: #ff9900;
+      border: 1px solid rgba(255, 153, 0, 0.25);
+    }
+    .brand-avatar.brand-amazon svg { fill: #ff9900; width: 17px; height: 17px; }
+
+    .brand-avatar.brand-uber {
+      background: #000000;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .brand-avatar.brand-uber svg { fill: #ffffff; width: 18px; height: 18px; }
+
+    .brand-avatar.brand-swiggy {
+      background: #fc8019;
+      color: #ffffff;
+      border: 1px solid rgba(252, 128, 25, 0.3);
+    }
+    .brand-avatar.brand-swiggy svg { fill: #ffffff; width: 17px; height: 17px; }
+
+    .brand-avatar.brand-netflix {
+      background: #000000;
+      color: #e50914;
+      border: 1px solid rgba(229, 9, 20, 0.3);
+    }
+    .brand-avatar.brand-netflix svg { fill: #e50914; width: 15px; height: 15px; }
+
+    .brand-avatar.brand-airtel {
+      background: #fff1f2;
+      color: #ed1b24;
+      border: 1px solid rgba(237, 27, 36, 0.25);
+    }
+    .brand-avatar.brand-airtel svg { fill: #ed1b24; width: 18px; height: 18px; }
+
+    .brand-avatar.brand-starbucks {
+      background: #00704a;
+      color: #ffffff;
+      border: 1px solid rgba(0, 112, 74, 0.3);
+    }
+    .brand-avatar.brand-starbucks svg { fill: #ffffff; width: 18px; height: 18px; }
+
+    .brand-avatar.brand-electricity {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+    .brand-avatar.brand-electricity svg { fill: #2563eb; width: 16px; height: 16px; }
+
+    .brand-avatar.brand-metro {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+    .brand-avatar.brand-metro svg { fill: #dc2626; width: 16px; height: 16px; }
+
+    .brand-avatar.brand-spotify {
+      background: #121212;
+      color: #1db954;
+      border: 1px solid rgba(29, 185, 84, 0.3);
+    }
+    .brand-avatar.brand-spotify svg { fill: #1db954; width: 17px; height: 17px; }
+
+    .brand-avatar.brand-zomato {
+      background: #e23744;
+      color: #ffffff;
+      border: 1px solid rgba(226, 55, 68, 0.3);
+    }
+    .brand-avatar.brand-zomato svg { fill: #ffffff; width: 18px; height: 18px; }
+
+    /* ==========================================================================
        ONEBANC 5:00 PM EVENING WRAP-UP SCREEN CSS (MATCHING SCREENSHOT)
        ========================================================================== */
     .card-spent-today-5pm {
@@ -4744,6 +4848,260 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* Scanner Simulator Styles */
+    .scanner-view-box {
+      position: relative;
+      width: 100%;
+      height: 175px;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      border: 1px solid rgba(204, 161, 38, 0.3);
+    }
+    .scanner-reticle {
+      width: 115px;
+      height: 115px;
+      border: 2px solid #cca126;
+      border-radius: 14px;
+      position: relative;
+      box-shadow: 0 0 25px rgba(204, 161, 38, 0.25);
+    }
+    .scanner-laser-bar {
+      position: absolute;
+      left: 6px;
+      right: 6px;
+      height: 2.5px;
+      background: linear-gradient(90deg, transparent, #cca126, #fde68a, #cca126, transparent);
+      box-shadow: 0 0 12px #cca126, 0 0 24px #fbbf24;
+      animation: scanLaserCycle 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    @keyframes scanLaserCycle {
+      0% { top: 8%; opacity: 0.3; }
+      50% { top: 88%; opacity: 1; }
+      100% { top: 8%; opacity: 0.3; }
+    }
+    .scanner-presets-label {
+      font-size: 10.5px;
+      font-weight: 750;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .scanner-presets-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .scanner-target-btn {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 9px 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+    .scanner-target-btn:hover {
+      background: #fef8e7;
+      border-color: #cca126;
+      color: #cca126;
+      transform: translateY(-1px);
+    }
+
+    /* Send UPI & Keypad Components */
+    .upi-contact-scroll {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .upi-contact-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    .upi-contact-pill {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 650;
+      color: #475569;
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .upi-contact-pill.active,
+    .upi-contact-pill:hover {
+      background: #fef8e7;
+      border-color: #cca126;
+      color: #cca126;
+      font-weight: 750;
+    }
+    .upi-input-group {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .upi-input-group:focus-within {
+      border-color: #cca126;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(204, 161, 38, 0.12);
+    }
+    .upi-currency-sym {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-right: 6px;
+    }
+    .upi-num-field {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-size: 18px;
+      font-weight: 800;
+      color: #1e293b;
+      font-family: inherit;
+    }
+    .upi-chips-row {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .upi-chip-btn {
+      flex: 1;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 6px 0;
+      font-size: 11px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .upi-chip-btn:hover {
+      background: #cca126;
+      color: #ffffff;
+      border-color: #cca126;
+    }
+    .upi-note-field {
+      width: 100%;
+      box-sizing: border-box;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 9px 12px;
+      font-size: 11.5px;
+      color: #1e293b;
+      outline: none;
+      margin-bottom: 12px;
+      font-family: inherit;
+    }
+    .upi-note-field:focus {
+      border-color: #cca126;
+      background: #ffffff;
+    }
+
+    /* Bill Management & Autopay Styles */
+    .bill-item-manage {
+      background: #f8fafc;
+      border: 1px solid #edf2f7;
+      border-radius: 14px;
+      padding: 11px 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 9px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .bill-item-manage:hover {
+      border-color: #cca126;
+      background: #fef8e7;
+    }
+    .bill-item-manage-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .bill-item-manage-title {
+      font-size: 12.5px;
+      font-weight: 750;
+      color: #1e293b;
+    }
+    .bill-item-manage-sub {
+      font-size: 10.5px;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .bill-item-manage-sub.paid {
+      color: #10b981;
+      font-weight: 650;
+    }
+    .bill-item-manage-amt {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #1e293b;
+      text-align: right;
+    }
+
+    /* Pulse Health Diagnostic Rows */
+    .diagnostic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .diagnostic-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .diagnostic-card-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .diagnostic-card-val {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-top: 2px;
+    }
+    .diagnostic-card-status {
+      font-size: 10px;
+      color: #10b981;
+      font-weight: 650;
+      margin-top: 2px;
+    }
   </style>
 </head>
 
@@ -4765,14 +5123,14 @@
 
         <!-- ONEBANC FULL-SCREEN WELCOME SCREEN -->
         <div class="welcome-screen" id="welcomeScreen" role="button" tabindex="0"
-          aria-label="Welcome Miss Saloni Jain and Hiring Team OneBanc. Tap anywhere to enter.">
+          aria-label="Welcome Miss Ishita Mehta and Hiring Team OneBanc. Tap anywhere to enter.">
           <img class="welcome-bg" src="assets/onebanc-logo.jpg" alt="OneBanc Logo" />
           <div class="welcome-overlay">
             <div class="welcome-header">
               <div class="welcome-title-card">
                 <span class="welcome-badge">Welcome</span>
                 <h1 class="welcome-title">
-                  Miss Saloni Jain
+                  Miss Ishita Mehta
                   <span class="welcome-subtext">&amp; Hiring Team OneBanc</span>
                 </h1>
               </div>
@@ -5539,6 +5897,361 @@
             </div>
           </div>
 
+          <!-- SCAN QR CAMERA SIMULATOR MODAL SHEET -->
+          <div class="onebanc-modal-overlay" id="onebancScanModal" role="dialog" aria-modal="true"
+            aria-label="Scan UPI QR Code">
+            <div class="onebanc-modal-sheet">
+              <div class="onebanc-modal-drag" id="scanModalDrag"></div>
+              <h3 class="onebanc-modal-title">Scan Any UPI QR</h3>
+              <p class="onebanc-modal-desc">Align QR code inside the camera viewfinder to pay instantly.</p>
+              
+              <div class="scanner-view-box">
+                <div class="scanner-reticle">
+                  <div class="scanner-laser-bar"></div>
+                </div>
+              </div>
+
+              <div class="scanner-presets-label">Tap to Simulate Merchant QR:</div>
+              <div class="scanner-presets-grid">
+                <button class="scanner-target-btn" id="scanTargetStarbucks" type="button">
+                  <div class="brand-avatar brand-starbucks" style="width:24px; height:24px;">
+                    <svg viewBox="0 0 24 24"><path d="M13.2072 5.2801c-.1052-.0188-.6126-.104-1.2072-.104s-1.102.0848-1.2072.104c-.0605.0108-.0837-.0484-.0377-.0828.0417-.0308 1.2445-.9463 1.2445-.9463l1.244.9463c.0469.0344.024.0936-.0364.0828zm-2.0783 5.9446s-.0636.0228-.0804.0788c.252.1937.4257.6343.9515.6343s.6995-.4406.9511-.6343c-.0164-.0564-.08-.0788-.08-.0788s-.3293.0776-.8711.0776c-.5418 0-.8711-.0776-.8711-.0776zM12 10.4832c-.146 0-.178-.0552-.2777-.0548-.0948.0004-.2789.076-.319.1453a.1542.1542 0 00.0413.0948c.2129.032.309.1505.5558.1505.2469 0 .3425-.1185.5558-.1505a.1579.1579 0 00.0412-.0948c-.0396-.0692-.224-.1445-.3193-.1453-.1-.0008-.1324.0548-.2781.0548zm11.9868 2.27a11.964 11.964 0 01-.076.8528c-1.359.2249-1.8447-.986-3.2368-.9252.0832.2954.1508.5963.2029.9036 1.148-.0008 1.6105 1.0724 2.8878.9143-.0672.3281-.148.6519-.2413.9708-1.01.0992-1.3657-.9044-2.5345-.8767.0096.1664.0148.3345.0148.5041l-.0048.2805 2.2696.866a12.04 12.04 0 01-.3965.9479c-.6823-.0376-.9175-.9127-1.9555-.8431a9.0882 9.0882 0 01-.118.665c.9015-.0632 1.0955.7667 1.7414.834a12.2317 12.2317 0 01-.5302.8767c-.3826-.205-.7143-.8231-1.4398-.8612a8.6035 8.6035 0 00.195-.6994c-.6435 0-1.3794-.2509-1.9964-.8127.2-1.1388-1.5674-2.2984-1.5674-3.1324 0-.9059.4582-1.4073.4582-2.6285 0-.9063-.4402-1.8895-1.104-2.5614a2.2175 2.2175 0 00-.4114-.3309c.6098.7547 1.078 1.6494 1.078 2.6858 0 1.15-.535 1.757-.535 2.8186 0 1.0612 1.5526 1.9796 1.5526 3.074 0 .4305-.1377.851-.5914 1.677.697.6962 1.605 1.076 2.1908 1.076.19 0 .292-.058.3601-.2073a9.0925 9.0925 0 00.1665-.391c.631.0245.9199.5979 1.2692.8268-.1916.2573-.393.5057-.6038.7462-.234-.2593-.5486-.6954-1.0092-.8167a9.2087 9.2087 0 01-.2613.473c.3966.108.6679.5082.878.7715a12.1305 12.1305 0 01-.7075.6754c-.1532-.2384-.3917-.541-.659-.7042a8.3639 8.3639 0 01-.3077.391c.2272.154.4277.4313.5586.6574-.2833.2272-.5763.443-.8796.6446-.1496-1.2192-1.8138-2.0548-1.3653-3.4693-.1472.2493-.3229.561-.3229.9364 0 1.024 1.0908 1.8366 1.1776 2.8542-.226.1353-.4573.2625-.693.383-.0392-1.1185-1.194-2.3425-1.194-3.2604 0-1.0248 1.342-2.054 1.342-3.2636 0-1.2105-1.5485-2.0484-1.5485-3.1112 0-1.062.6586-1.673.6586-3.0343 0-.9972-.4738-2.0063-1.2056-2.651-.1297-.1144-.2573-.2052-.4106-.2849.6903.828 1.0904 1.579 1.0904 2.7186 0 1.2801-.7546 1.9908-.7546 3.244 0 1.2537 1.5197 1.9507 1.5197 3.1192 0 1.1684-1.4145 2.1532-1.4145 3.3536 0 1.092 1.2468 2.182 1.2653 3.4777a11.7704 11.7704 0 01-.8327.3257c.1584-1.3089-1.245-2.659-1.245-3.727 0-1.1676 1.4674-2.1712 1.4674-3.43 0-1.2597-1.4917-1.8451-1.4917-3.138 0-1.292.9151-2.0075.9151-3.4352 0-1.1129-.5494-2.1136-1.352-2.7338l-.0509-.0385c-.0756-.056-.138.0116-.0844.078.5682.7095.8719 1.427.8719 2.4894 0 1.306-1.0512 2.3673-1.0512 3.6325 0 1.4934 1.4117 1.9203 1.4117 3.1456 0 1.2248-1.5137 2.2048-1.5137 3.5053 0 1.206 1.4325 2.5445 1.1868 3.9366a11.6645 11.6645 0 01-.8743.192c.2689-1.7334-1.1364-2.9782-1.1364-4.1122 0-1.2277 1.5677-2.322 1.5677-3.5217 0-1.1316-1.1252-1.5014-1.2732-2.659-.0204-.158-.1473-.2753-.3221-.2461-.2285.0416-.5214.192-.9816.192-.4602 0-.753-.1508-.982-.192-.1744-.0288-.3013.0884-.3217.246-.1476 1.1577-1.2736 1.527-1.2736 2.659 0 1.1997 1.5681 2.2937 1.5681 3.5218 0 1.134-1.4053 2.3788-1.1368 4.1123a12.1233 12.1233 0 01-.8743-.1921c-.2457-1.3921 1.1872-2.7306 1.1872-3.9366 0-1.3005-1.5141-2.2805-1.5141-3.5053 0-1.2253 1.412-1.6522 1.412-3.1456 0-1.2652-1.0515-2.326-1.0515-3.6325 0-1.062.3037-1.7795.8723-2.4893.0532-.0665-.0088-.134-.0848-.078l-.0504.0384c-.802.6186-1.351 1.6193-1.351 2.7322 0 1.4277.9152 2.1431.9152 3.4352 0 1.2925-1.4917 1.878-1.4917 3.138 0 1.2588 1.4673 2.2624 1.4673 3.43 0 1.0684-1.4033 2.4181-1.2445 3.727a11.8995 11.8995 0 01-.833-.3257c.0188-1.2957 1.2648-2.3861 1.2648-3.4777 0-1.2004-1.4137-2.1852-1.4137-3.3536 0-1.1685 1.519-1.8655 1.519-3.1192 0-1.2532-.7543-1.9639-.7543-3.244 0-1.1396.3997-1.8907 1.09-2.7186-.1537.0797-.281.1705-.4102.285-.7318.6446-1.2052 1.6537-1.2052 2.651 0 1.3612.6586 1.9722.6586 3.0342 0 1.0628-1.5485 1.9007-1.5485 3.1112 0 1.2096 1.342 2.2392 1.342 3.2636 0 .9183-1.1556 2.1423-1.1944 3.2604a11.8754 11.8754 0 01-.693-.383c.0872-1.0176 1.1776-1.8303 1.1776-2.8542 0-.3754-.1753-.687-.323-.9364.4486 1.4145-1.2156 2.25-1.3652 3.4693a12.1204 12.1204 0 01-.8796-.6446c.1305-.2257.331-.5034.5586-.6575a7.9134 7.9134 0 01-.3077-.391c-.2677.1633-.5066.4659-.6594.7043a12.2459 12.2459 0 01-.707-.6754c.21-.2633.4813-.6635.8779-.7715a9.0433 9.0433 0 01-.2613-.473c-.4606.1213-.7755.5574-1.0092.8167a12.141 12.141 0 01-.6038-.7462c.3493-.229.6382-.8027 1.2688-.8267.0529.1312.1085.2617.1669.3909.068.1493.1705.2073.3601.2073.5858 0 1.4934-.3798 2.1908-1.076-.4537-.826-.5914-1.2465-.5914-1.677 0-1.094 1.5526-2.0124 1.5526-3.074 0-1.0615-.535-1.6686-.535-2.8186 0-1.0364.4682-1.9311 1.078-2.6858a2.2175 2.2175 0 00-.4114.331c-.6638.6722-1.104 1.655-1.104 2.5613 0 1.2212.4586 1.7226.4586 2.6285 0 .834-1.7679 1.9936-1.5678 3.1324-.617.5618-1.3529.8127-1.9967.8127a9.305 9.305 0 00.1949.6994c-.7251.0385-1.0568.6567-1.4398.8612a12.0872 12.0872 0 01-.5302-.8768c.6455-.0672.84-.897 1.7419-.8339a9.1275 9.1275 0 01-.1185-.665c-1.038-.0696-1.2732.8059-1.9555.8431a12.04 12.04 0 01-.3965-.948l2.27-.8659-.0048-.2805c0-.1696.0052-.3377.0144-.5041-1.1688-.0273-1.5246.976-2.5345.8767a12.106 12.106 0 01-.241-.9708c1.2766.158 1.7395-.9151 2.888-.9143a8.7482 8.7482 0 01.2024-.9036c-1.392-.0604-1.8779 1.1505-3.2364.9252a11.7352 11.7352 0 01-.076-.8527c1.5794.1764 2.1716-1.122 3.6097-.9632a8.4303 8.4303 0 01.471-.9963c-1.803-.317-2.4153 1.1908-4.0935.9591C.1813 5.2805 5.4844.0898 12 .0898S23.8187 5.2805 24 11.753c-1.6786.2317-2.2908-1.2757-4.0935-.9591.1773.32.335.6526.471.9963 1.4373-.1592 2.0295 1.1396 3.6093.9632zm-17.147-5.035c-.884-.3613-1.954-.278-2.868.309-.1416-.8504-.603-1.6058-1.26-2.0616-.0908-.0628-.1853-.0032-.1769.102.1389 1.7967-.9115 3.3569-2.2032 4.7282 1.3313.4001 2.4645-1.3141 4.1912-.7159a9.0364 9.0364 0 012.3168-2.3617z"/></svg>
+                  </div>
+                  <span>Starbucks (₹120)</span>
+                </button>
+                <button class="scanner-target-btn" id="scanTargetSwiggy" type="button">
+                  <div class="brand-avatar brand-swiggy" style="width:24px; height:24px;">
+                    <svg viewBox="0 0 24 24"><path d="M12.034 24c-.376-.411-2.075-2.584-3.95-5.513-.547-.916-.901-1.63-.833-1.814.178-.48 3.355-.743 4.333-.308.298.132.29.307.29.409 0 .44-.022 1.619-.022 1.619a.441.441 0 1 0 .883-.002l-.005-2.939c0-.255-.278-.319-.331-.329-.511-.002-1.548-.006-2.661-.006-2.457 0-3.006.101-3.423-.172-.904-.591-2.383-4.577-2.417-6.819C3.849 4.964 5.723 2.225 8.362.868A8.13 8.13 0 0 1 12.026 0c4.177 0 7.617 3.153 8.075 7.209l.001.011c.084.981-5.321 1.189-6.39.904-.164-.044-.206-.212-.206-.284L13.5 4.996a.442.442 0 0 0-.884.002l.009 3.866a.33.33 0 0 0 .268.32l3.354-.001c1.79 0 2.542.207 3.042.588.333.254.461.739.349 1.37C18.633 16.755 12.273 23.71 12.034 24z"/></svg>
+                  </div>
+                  <span>Swiggy (₹320)</span>
+                </button>
+                <button class="scanner-target-btn" id="scanTargetIshita" type="button">
+                  <span style="font-size:16px;">👤</span>
+                  <span>Ishita Mehta (₹500)</span>
+                </button>
+                <button class="scanner-target-btn" id="scanTargetElectricity" type="button">
+                  <div class="brand-avatar brand-electricity" style="width:24px; height:24px;">
+                    <svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>
+                  </div>
+                  <span>Electricity (₹1,240)</span>
+                </button>
+              </div>
+
+              <button class="btn-modal-close" id="closeScanModalBtn" type="button">Cancel</button>
+            </div>
+          </div>
+
+          <!-- SEND UPI INTERACTIVE TRANSFER MODAL SHEET -->
+          <div class="onebanc-modal-overlay" id="onebancSendModal" role="dialog" aria-modal="true"
+            aria-label="Send Money via UPI">
+            <div class="onebanc-modal-sheet">
+              <div class="onebanc-modal-drag" id="sendModalDrag"></div>
+              <h3 class="onebanc-modal-title">Send UPI Payment</h3>
+              <p class="onebanc-modal-desc">Instant 0-fee transfer from OneBanc Platinum Savings.</p>
+
+              <div class="upi-contact-scroll">
+                <button class="upi-contact-pill active" data-contact="Miss Ishita Mehta" data-upi="ishita@onebanc" type="button">
+                  <span>✨</span> Miss Ishita Mehta
+                </button>
+                <button class="upi-contact-pill" data-contact="Saloni Jain" data-upi="saloni@onebanc" type="button">
+                  <span>👤</span> Saloni Jain
+                </button>
+                <button class="upi-contact-pill" data-contact="Vibhore Goyal" data-upi="vibhore@onebanc" type="button">
+                  <span>👤</span> Vibhore Goyal
+                </button>
+                <button class="upi-contact-pill" data-contact="Swiggy Orders" data-upi="swiggy@icici" type="button">
+                  <span>🍴</span> Swiggy Orders
+                </button>
+                <button class="upi-contact-pill" data-contact="Coffee Hub" data-upi="coffeehub@paytm" type="button">
+                  <span>☕</span> Coffee Hub
+                </button>
+              </div>
+
+              <div style="font-size:11px; color:#64748b; margin-bottom:6px;">Sending to: <strong id="sendToRecipientName" style="color:#1e293b;">Miss Ishita Mehta (ishita@onebanc)</strong></div>
+
+              <div class="upi-input-group">
+                <span class="upi-currency-sym">₹</span>
+                <input class="upi-num-field" id="sendAmountInput" type="number" placeholder="0" value="500" min="1" max="50000" />
+              </div>
+
+              <div class="upi-chips-row">
+                <button class="upi-chip-btn" data-amt="100" type="button">+₹100</button>
+                <button class="upi-chip-btn" data-amt="500" type="button">+₹500</button>
+                <button class="upi-chip-btn" data-amt="1000" type="button">+₹1,000</button>
+                <button class="upi-chip-btn" data-amt="2000" type="button">+₹2,000</button>
+              </div>
+
+              <input class="upi-note-field" id="sendNoteInput" type="text" placeholder="Add note (e.g. Dinner split, Coffee ☕)" value="Project bounty" />
+
+              <button class="btn-modal-action" id="btnConfirmSendUPI" type="button">Pay Securely with OneBanc UPI</button>
+              <button class="btn-modal-close" id="closeSendModalBtn" type="button" style="margin-top:8px; background:#f1f5f9; color:#475569;">Cancel</button>
+            </div>
+          </div>
+
+          <!-- BILLS & RECURRING PAYMENTS MANAGEMENT MODAL SHEET -->
+          <div class="onebanc-modal-overlay" id="onebancBillModal" role="dialog" aria-modal="true"
+            aria-label="Pay &amp; Manage Bills">
+            <div class="onebanc-modal-sheet">
+              <div class="onebanc-modal-drag" id="billModalDrag"></div>
+              <h3 class="onebanc-modal-title" id="billModalTitle">Pay &amp; Manage Bills</h3>
+              <p class="onebanc-modal-desc" id="billModalDesc">Select a biller or manage recurring autopay mandate.</p>
+
+              <div id="billModalListContainer">
+                <div class="bill-item-manage" id="manageBillElectricity" data-biller="electricity">
+                  <div class="bill-item-manage-left">
+                    <div class="brand-avatar brand-electricity">
+                      <svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>
+                    </div>
+                    <div>
+                      <div class="bill-item-manage-title">State Electricity Board</div>
+                      <div class="bill-item-manage-sub" id="manageBillElecSub">Due Tomorrow · Autopay Active</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="bill-item-manage-amt">₹1,240</div>
+                    <button class="bill-card-btn" id="btnPayElectricityNow" type="button">Pay Now</button>
+                  </div>
+                </div>
+
+                <div class="bill-item-manage" id="manageBillNetflix" data-biller="netflix">
+                  <div class="bill-item-manage-left">
+                    <div class="brand-avatar brand-netflix">
+                      <svg viewBox="0 0 24 24"><path d="m5.398 0 8.348 23.602c2.346.059 4.856.398 4.856.398L10.113 0H5.398zm8.489 0v9.172l4.715 13.33V0h-4.715zM5.398 1.5V24c1.873-.225 2.81-.312 4.715-.398V14.83L5.398 1.5z"/></svg>
+                    </div>
+                    <div>
+                      <div class="bill-item-manage-title">Netflix Premium Ultra HD</div>
+                      <div class="bill-item-manage-sub paid">Auto-debited on 1st ✓</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="bill-item-manage-amt">₹649</div>
+                    <span style="font-size:10px; color:#10b981; font-weight:700;">Active Mandate</span>
+                  </div>
+                </div>
+
+                <div class="bill-item-manage" id="manageBillAirtel" data-biller="airtel">
+                  <div class="bill-item-manage-left">
+                    <div class="brand-avatar brand-airtel">
+                      <svg viewBox="0 0 24 24"><path d="M7.137 23.862c.79 0 1.708-.19 2.751-.554 1.55-.538 2.784-1.281 3.986-2.009l.316-.205a29.733 29.733 0 0 0 3.764-2.72 16.574 16.574 0 0 0 5.457-7.529c.395-1.138.949-3.384.268-5.487a7.117 7.117 0 0 0-2.862-3.749c-.158-.126-1.898-1.47-5.203-1.47-3.005 0-6.31 1.107-9.806 3.32l-.11.08-.317.205a20.133 20.133 0 0 0-2.309 1.693C1.585 6.813-.091 9.106.004 11.067c.031.79.427 1.534 1.075 2.008a3.472 3.472 0 0 0 2.214.68c1.803 0 3.765-.948 5.109-1.74l.253-.157.696-.443.237-.158c1.898-1.234 3.875-2.515 6.105-3.258a5.255 5.255 0 0 1 1.55-.285 3.163 3.163 0 0 1 .664.08 2.112 2.112 0 0 1 1.47 1.106c.523 1.012.396 2.61-.316 4.08a17.871 17.871 0 0 1-4.887 5.836 19.488 19.488 0 0 1-3.194 2.215l-.095.031a9.634 9.634 0 0 1-1.471.696l-.08.032-.41.158c-2.23.57-.87-1.329-.87-1.329.474-.537.98-1.028 1.518-1.502.316-.269.633-.554.933-.854l.064-.063c.395-.38.933-.902.901-1.645-.047-.98-1.075-1.582-2.056-1.613h-.063c-.95 0-1.819.522-2.404.98a7.27 7.27 0 0 0-1.598 1.74c-.6.901-1.85 3.226-.632 5.077.49.743 1.313 1.123 2.42 1.123z"/></svg>
+                    </div>
+                    <div>
+                      <div class="bill-item-manage-title">Airtel Fiber Broadband</div>
+                      <div class="bill-item-manage-sub paid">Paid for this month ✓</div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="bill-item-manage-amt">₹999</div>
+                    <span style="font-size:10px; color:#10b981; font-weight:700;">Paid ✓</span>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn-modal-close" id="closeBillModalBtn" type="button">Close</button>
+            </div>
+          </div>
+
+          <!-- SAVINGS POTS & GOALS DEPOSIT / WITHDRAW MODAL SHEET -->
+          <div class="onebanc-modal-overlay" id="onebancGoalModal" role="dialog" aria-modal="true"
+            aria-label="Manage Savings Pot">
+            <div class="onebanc-modal-sheet">
+              <div class="onebanc-modal-drag" id="goalModalDrag"></div>
+              <h3 class="onebanc-modal-title" id="goalModalHeading">Travel Goal (Japan Trip)</h3>
+              <p class="onebanc-modal-desc" id="goalModalSubheading">Smart dedicated pot yielding 7.2% APY with OneBanc.</p>
+
+              <div class="receipt-box" id="goalModalStatsBox">
+                <div class="receipt-row">
+                  <span>Current Balance:</span>
+                  <strong id="goalModalCurrentVal" style="color:#cca126; font-size:14px;">₹32,500</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Target Goal:</span>
+                  <strong id="goalModalTargetVal">₹50,000</strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Progress:</span>
+                  <strong id="goalModalPctVal" style="color:#10b981;">65% Completed</strong>
+                </div>
+              </div>
+
+              <div class="progress-track" style="margin:4px 0 14px;">
+                <div class="progress-fill" id="goalModalProgressBar" style="width:65%;"></div>
+              </div>
+
+              <div class="scanner-presets-label">Choose Deposit Amount:</div>
+              <div class="quick-deposit-grid">
+                <button class="quick-dep-btn" data-goal-amt="250" type="button">+ ₹250</button>
+                <button class="quick-dep-btn" data-goal-amt="500" type="button" style="border-color:#cca126; color:#cca126;">+ ₹500</button>
+                <button class="quick-dep-btn" data-goal-amt="1000" type="button">+ ₹1,000</button>
+                <button class="quick-dep-btn" data-goal-amt="2500" type="button">+ ₹2,500</button>
+                <button class="quick-dep-btn" data-goal-amt="5000" type="button">+ ₹5,000</button>
+                <button class="quick-dep-btn" data-goal-amt="10000" type="button">+ ₹10,000</button>
+              </div>
+
+              <div style="display:flex; gap:8px;">
+                <button class="btn-modal-action" id="btnGoalDepositSubmit" type="button" style="flex:1;">Deposit to Pot</button>
+                <button class="btn-modal-close" id="btnGoalWithdrawSubmit" type="button" style="flex:1; margin-top:12px; background:#f1f5f9; color:#ef4444; border:1px solid #fee2e2;">Withdraw ₹500</button>
+              </div>
+              <button class="btn-modal-close" id="closeGoalModalBtn" type="button" style="margin-top:8px; background:#f8fafc; color:#64748b;">Close</button>
+            </div>
+          </div>
+
+          <!-- FINANCIAL PULSE HEALTH & DIAGNOSTIC MODAL SHEET -->
+          <div class="onebanc-modal-overlay" id="onebancPulseModal" role="dialog" aria-modal="true"
+            aria-label="Financial Pulse Diagnostic">
+            <div class="onebanc-modal-sheet">
+              <div class="onebanc-modal-drag" id="pulseModalDrag"></div>
+              <h3 class="onebanc-modal-title">OneBanc Financial Pulse</h3>
+              <p class="onebanc-modal-desc">Real-time health telemetry of your daily income, bills, and runway.</p>
+
+              <div class="diagnostic-grid">
+                <div class="diagnostic-card">
+                  <div class="diagnostic-card-label">Bills Coverage</div>
+                  <div class="diagnostic-card-val" style="color:#10b981;">100%</div>
+                  <div class="diagnostic-card-status">● Fully Funded</div>
+                </div>
+                <div class="diagnostic-card">
+                  <div class="diagnostic-card-label">Savings Velocity</div>
+                  <div class="diagnostic-card-val" style="color:#cca126;">24.2%</div>
+                  <div class="diagnostic-card-status">✨ Above 20% Target</div>
+                </div>
+                <div class="diagnostic-card">
+                  <div class="diagnostic-card-label">Emergency Runway</div>
+                  <div class="diagnostic-card-val">5.8 Mo</div>
+                  <div class="diagnostic-card-status">● High Liquidity</div>
+                </div>
+                <div class="diagnostic-card">
+                  <div class="diagnostic-card-label">Credit Health</div>
+                  <div class="diagnostic-card-val" style="color:#10b981;">792</div>
+                  <div class="diagnostic-card-status">● Excellent Score</div>
+                </div>
+              </div>
+
+              <div style="background:#fef8e7; border:1px solid rgba(204, 161, 38, 0.25); border-radius:12px; padding:10px 12px; font-size:11.5px; color:#64748b; line-height:1.4; margin-bottom:12px;">
+                💡 <strong>Pulse AI Verdict:</strong> Your spending rate is well below your daily limit buffer. You are protected from overdrafts and on track for all scheduled goals!
+              </div>
+
+              <button class="btn-modal-close" id="closePulseModalBtn" type="button">Understood, Keep Pacing</button>
+            </div>
+          </div>
+
+          <!-- SPLIT BILL MODAL SHEET -->
+          <div class="onebanc-modal-overlay" id="onebancSplitModal" role="dialog" aria-modal="true"
+            aria-label="Split Bill">
+            <div class="onebanc-modal-sheet">
+              <div class="onebanc-modal-drag" id="splitModalDrag"></div>
+              <h3 class="onebanc-modal-title">Split Bill with Friends</h3>
+              <p class="onebanc-modal-desc">Divide any expense equally and send automatic UPI collect requests.</p>
+
+              <div class="upi-input-group">
+                <span class="upi-currency-sym">₹</span>
+                <input class="upi-num-field" id="splitBillTotalInput" type="number" placeholder="1200" value="1200" min="10" />
+              </div>
+
+              <div class="scanner-presets-label">Participants:</div>
+              <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:12px;">
+                <label style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:8px 12px; border-radius:10px; font-size:11.5px; color:#1e293b;">
+                  <span>👤 You (Kunal)</span>
+                  <input type="checkbox" checked disabled />
+                </label>
+                <label style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:8px 12px; border-radius:10px; font-size:11.5px; color:#1e293b; cursor:pointer;">
+                  <span>✨ Miss Ishita Mehta</span>
+                  <input type="checkbox" id="splitCheckIshita" checked />
+                </label>
+                <label style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:8px 12px; border-radius:10px; font-size:11.5px; color:#1e293b; cursor:pointer;">
+                  <span>👤 Saloni Jain</span>
+                  <input type="checkbox" id="splitCheckSaloni" checked />
+                </label>
+                <label style="display:flex; justify-content:space-between; align-items:center; background:#f8fafc; padding:8px 12px; border-radius:10px; font-size:11.5px; color:#1e293b; cursor:pointer;">
+                  <span>👤 Vibhore Goyal</span>
+                  <input type="checkbox" id="splitCheckVibhore" checked />
+                </label>
+              </div>
+
+              <div class="receipt-box" style="margin-bottom:12px;">
+                <div class="receipt-row">
+                  <span>Each Person Pays:</span>
+                  <strong id="splitPerPersonAmount" style="font-size:15px; color:#cca126;">₹300</strong>
+                </div>
+              </div>
+
+              <button class="btn-modal-action" id="btnSendSplitRequests" type="button">Send UPI Split Requests</button>
+              <button class="btn-modal-close" id="closeSplitModalBtn" type="button" style="margin-top:8px; background:#f1f5f9; color:#475569;">Cancel</button>
+            </div>
+          </div>
+
+          <!-- SECRET EASTER EGG LAB & PROJECTS SHOWCASE FOR ISHITA MAM (WHITE THEME) -->
+          <div class="onebanc-modal-overlay" id="onebancEasterEggModal" role="dialog" aria-modal="true"
+            aria-label="Kunal's Project Showcase">
+            <div class="onebanc-modal-sheet" style="background: #ffffff; color: #1e293b; border-radius: 24px 24px 0 0; max-height: 84vh; padding: 16px 18px 24px; box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.14);">
+              <div class="onebanc-modal-drag" id="easterEggModalDrag" style="background: #cbd5e1; margin: 0 auto 14px; width: 36px; height: 4px; border-radius: 99px;"></div>
+              
+              <!-- Header -->
+              <div style="margin-bottom: 14px;">
+                <h3 class="onebanc-modal-title" style="color: #0f172a; margin: 0 0 3px; font-size: 15px; font-weight: 700; letter-spacing: -0.2px;">Featured Projects</h3>
+                <div style="font-size: 11px; color: #64748b; font-weight: 400;">Prepared for Miss Ishita Mehta &amp; OneBanc Team</div>
+              </div>
+
+              <!-- Consistent Projects List -->
+              <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+                
+                <!-- Project 1: ForgeVision AI -->
+                <div class="project-showcase-card" style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 10px 12px; gap: 10px; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);">
+                  <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+                    <!-- Real ForgeVision Logo Container -->
+                    <div style="width: 38px; height: 38px; border-radius: 10px; background: #f8fafc; border: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 4px; box-sizing: border-box;">
+                      <img src="assets/brand-logos/forgevision.svg" alt="ForgeVision Logo" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+                    </div>
+                    <div style="min-width: 0; flex: 1;">
+                      <div style="font-size: 13px; font-weight: 600; color: #0f172a; letter-spacing: -0.1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">ForgeVision AI</div>
+                      <div style="font-size: 10.5px; color: #64748b; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;">BOH Food Waste Intelligence</div>
+                    </div>
+                  </div>
+                  <a href="https://forgevision.ai" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 3px; background: #f8fafc; color: #0f172a; border: 1px solid #e2e8f0; text-decoration: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; flex-shrink: 0; box-sizing: border-box;">
+                    <span>Visit</span> ↗
+                  </a>
+                </div>
+
+                <!-- Project 2: Timeless Trove India -->
+                <div class="project-showcase-card" style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 10px 12px; gap: 10px; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);">
+                  <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+                    <!-- Real Timeless Trove Logo Container -->
+                    <div style="width: 38px; height: 38px; border-radius: 10px; background: #f8fafc; border: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 4px; box-sizing: border-box;">
+                      <img src="assets/brand-logos/timelesstrove.svg" alt="Timeless Trove Logo" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+                    </div>
+                    <div style="min-width: 0; flex: 1;">
+                      <div style="font-size: 13px; font-weight: 600; color: #0f172a; letter-spacing: -0.1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Timeless Trove</div>
+                      <div style="font-size: 10.5px; color: #64748b; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;">Artisanal Indian Luxury E-Commerce</div>
+                    </div>
+                  </div>
+                  <a href="https://timelesstroveindia.com" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 3px; background: #f8fafc; color: #0f172a; border: 1px solid #e2e8f0; text-decoration: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; flex-shrink: 0; box-sizing: border-box;">
+                    <span>Visit</span> ↗
+                  </a>
+                </div>
+
+                <!-- Project 3: Food-i App -->
+                <div class="project-showcase-card" style="display: flex; align-items: center; justify-content: space-between; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 10px 12px; gap: 10px; box-shadow: 0 1px 2px rgba(15, 23, 42, 0.02);">
+                  <div style="display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1;">
+                    <!-- Real Food-I Logo Container -->
+                    <div style="width: 38px; height: 38px; border-radius: 10px; background: #f8fafc; border: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 4px; box-sizing: border-box;">
+                      <img src="assets/brand-logos/foodi.svg" alt="Food-I Logo" style="width: 100%; height: 100%; object-fit: contain; display: block;" />
+                    </div>
+                    <div style="min-width: 0; flex: 1;">
+                      <div style="font-size: 13px; font-weight: 600; color: #0f172a; letter-spacing: -0.1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Food-I</div>
+                      <div style="font-size: 10.5px; color: #64748b; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px;">Smart Dining &amp; Restaurant Platform</div>
+                    </div>
+                  </div>
+                  <a href="https://food-i.app" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 3px; background: #f8fafc; color: #0f172a; border: 1px solid #e2e8f0; text-decoration: none; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; flex-shrink: 0; box-sizing: border-box;">
+                    <span>Visit</span> ↗
+                  </a>
+                </div>
+
+              </div>
+
+              <!-- Action button -->
+              <button class="btn-modal-close" id="closeEasterEggModalBtn" type="button" style="background: #f1f5f9; color: #334155; border: 1px solid #e2e8f0; font-weight: 600; padding: 11px; width: 100%; border-radius: 12px; cursor: pointer; font-size: 12.5px; transition: background 0.15s ease;">Close</button>
+            </div>
+          </div>
+
           <!-- TOP APP HEADER -->
           <header class="onebanc-header">
             <div class="onebanc-header-left">
@@ -5673,9 +6386,11 @@
                   <div id="upcomingPaymentsList">
                     <div class="payment-item" id="payItem1">
                       <div class="payment-left">
-                        <div class="payment-avatar">⚡</div>
+                        <div class="brand-avatar brand-electricity">
+                          <svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>
+                        </div>
                         <div>
-                          <div class="payment-meta-title">Electricity</div>
+                          <div class="payment-meta-title">State Electricity Board</div>
                           <div class="payment-due-tag" id="bill1DueTag">Due tomorrow</div>
                         </div>
                       </div>
@@ -5683,9 +6398,11 @@
                     </div>
                     <div class="payment-item" id="payItem2">
                       <div class="payment-left">
-                        <div class="payment-avatar">💼</div>
+                        <div class="brand-avatar brand-netflix">
+                          <svg viewBox="0 0 24 24"><path d="m5.398 0 8.348 23.602c2.346.059 4.856.398 4.856.398L10.113 0H5.398zm8.489 0v9.172l4.715 13.33V0h-4.715zM5.398 1.5V24c1.873-.225 2.81-.312 4.715-.398V14.83L5.398 1.5z"/></svg>
+                        </div>
                         <div>
-                          <div class="payment-meta-title">Subscription</div>
+                          <div class="payment-meta-title">Netflix Premium</div>
                         </div>
                       </div>
                       <div class="payment-amount">₹649</div>
@@ -5734,26 +6451,23 @@
                   <div class="banc-card activity-card" id="recentActivityCard">
                     <div class="activity-item" id="actItem1">
                       <div class="activity-left">
-                        <div class="activity-avatar" style="background:#ffffff; border:1px solid #edf2f7;">
-                          <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
-                            <path d="M4 14c3.5 2.5 8 3.5 13 1.5 2.5-1 3.5-2.2 3.5-2.2" stroke="#ff9900" stroke-width="2"
-                              stroke-linecap="round" />
-                            <path d="M19 12l2 2-2.5 1" stroke="#ff9900" stroke-width="2" stroke-linecap="round"
-                              stroke-linejoin="round" />
-                            <path d="M7 11c0-2.2 1.8-4 4-4s4 1.8 4 4v2" stroke="#232f3e" stroke-width="2" />
-                          </svg>
+                        <div class="brand-avatar brand-amazon">
+                          <svg viewBox="0 0 24 24"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.617 17.617 0 01-10.951-.577 17.88 17.88 0 01-5.43-3.35c-.1-.074-.151-.15-.151-.22 0-.047.021-.09.051-.13zm6.565-6.218c0-1.005.247-1.863.743-2.577.495-.71 1.17-1.25 2.04-1.615.796-.335 1.756-.575 2.912-.72.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46-.35.27-.575.63-.675 1.096-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39 0-.046.007-.09.022-.15.247-1.29.855-2.25 1.82-2.88.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29.135.15.27.3.405.48.12.165.224.314.283.45.075.134.15.33.195.57.06.254.105.42.135.51.03.104.062.3.076.615.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036.105.313.21.54.315.674l.51.674c.09.136.136.256.136.36 0 .12-.06.226-.18.314-1.2 1.05-1.86 1.62-1.963 1.71-.165.135-.375.15-.63.045a6.062 6.062 0 01-.526-.496l-.31-.347a9.391 9.391 0 01-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665-.494.15-1.093.227-1.83.227-1.11 0-2.04-.343-2.76-1.034-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438c0 .566.14 1.02.425 1.364.285.34.675.512 1.155.512.045 0 .106-.007.195-.02.09-.016.134-.023.166-.023.614-.16 1.08-.553 1.424-1.178.165-.28.285-.58.36-.91.09-.32.12-.59.135-.8.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17.362-.243.714-.41 1.05-.5a8.094 8.094 0 011.612-.24c.14-.012.28 0 .41.03.65.06 1.05.168 1.172.33.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8-.278.69-.664 1.248-1.156 1.68-.073.06-.14.09-.197.09-.03 0-.06 0-.09-.012-.09-.044-.107-.12-.064-.24.54-1.26.806-2.143.806-2.64 0-.15-.03-.27-.087-.344-.145-.166-.55-.257-1.224-.257-.243 0-.533.016-.87.046-.363.045-.7.09-1 .135-.09 0-.148-.014-.18-.044-.03-.03-.036-.047-.02-.077 0-.017.006-.03.02-.063v-.06z"/></svg>
                         </div>
-                        <span class="activity-name">Amazon</span>
+                        <div>
+                          <span class="activity-name">Amazon</span>
+                        </div>
                       </div>
                       <div class="activity-amount">-₹1,899</div>
                     </div>
                     <div class="activity-item" id="actItem2">
                       <div class="activity-left">
-                        <div class="activity-avatar"
-                          style="background:#000000; color:#ffffff; font-size:8.5px; font-weight:800; letter-spacing:-0.3px;">
-                          Uber
+                        <div class="brand-avatar brand-uber">
+                          <svg viewBox="0 0 24 24"><path d="M0 7.97v4.958c0 1.867 1.302 3.101 3 3.101.826 0 1.562-.316 2.094-.87v.736H6.27V7.97H5.082v4.888c0 1.257-.85 2.106-1.947 2.106-1.11 0-1.946-.827-1.946-2.106V7.971H0zm7.44 0v7.925h1.13v-.725c.521.532 1.257.86 2.06.86a3.006 3.006 0 0 0 3.034-3.01 3.01 3.01 0 0 0-3.033-3.024 2.86 2.86 0 0 0-2.049.861V7.971H7.439zm9.869 2.038c-1.687 0-2.965 1.37-2.965 3 0 1.72 1.334 3.01 3.066 3.01 1.053 0 1.913-.463 2.49-1.233l-.826-.611c-.43.577-.996.847-1.664.847-.973 0-1.753-.7-1.912-1.64h4.697v-.373c0-1.72-1.222-3-2.886-3zm6.295.068c-.634 0-1.098.294-1.381.758v-.713h-1.131v5.774h1.142V12.61c0-.894.544-1.47 1.291-1.47H24v-1.065h-.396zm-6.319.928c.85 0 1.564.588 1.756 1.47H15.52c.203-.882.916-1.47 1.765-1.47zm-6.732.012c1.086 0 1.98.883 1.98 2.004a1.993 1.993 0 0 1-1.98 2.001A1.989 1.989 0 0 1 8.56 13.02a1.99 1.99 0 0 1 1.992-2.004z"/></svg>
                         </div>
-                        <span class="activity-name">Uber</span>
+                        <div>
+                          <span class="activity-name">Uber</span>
+                        </div>
                       </div>
                       <div class="activity-amount">-₹320</div>
                     </div>
@@ -5888,11 +6602,13 @@
 
                 <!-- CARD 2: TWIN CARDS (MONEY IN / MONEY OUT) -->
                 <div class="summary-twin-grid">
-                  <div class="summary-box" id="summaryBoxMoneyIn" title="Click to view Salary Credit details" style="cursor: pointer;">
+                  <div class="summary-box" id="summaryBoxMoneyIn" title="Click to view Salary Credit details"
+                    style="cursor: pointer;">
                     <span class="summary-box-label">↓ Money In</span>
                     <span class="summary-box-val positive">+₹25,000</span>
                   </div>
-                  <div class="summary-box" id="summaryBoxMoneyOut" title="Click to view Daily Debits summary" style="cursor: pointer;">
+                  <div class="summary-box" id="summaryBoxMoneyOut" title="Click to view Daily Debits summary"
+                    style="cursor: pointer;">
                     <span class="summary-box-label">↑ Money Out</span>
                     <span class="summary-box-val negative">-₹1,840</span>
                   </div>
@@ -5904,7 +6620,8 @@
                     <span class="net-label">Net Position</span>
                     <span class="net-val">+₹23,160</span>
                   </div>
-                  <div class="net-col" id="netColRight" title="Click to view Savings summary" style="text-align: right; cursor: pointer;">
+                  <div class="net-col" id="netColRight" title="Click to view Savings summary"
+                    style="text-align: right; cursor: pointer;">
                     <span class="net-label">Saved</span>
                     <span class="saved-val">₹3,000</span>
                   </div>
@@ -5963,7 +6680,8 @@
 
                 <!-- CARD 7: TOMORROW PROJECTION CARD -->
                 <article class="card-tomorrow-5pm" id="cardTomorrow5pm">
-                  <div class="tomorrow-hero-wrap" id="tomorrowHeroWrap" title="Click to view Safe-to-Spend projection" style="cursor: pointer;">
+                  <div class="tomorrow-hero-wrap" id="tomorrowHeroWrap" title="Click to view Safe-to-Spend projection"
+                    style="cursor: pointer;">
                     <div class="tomorrow-sublabel">EST. SAFE-TO-SPEND</div>
                     <div class="tomorrow-hero-num" id="tomorrowSafeSpendNum">₹2,620</div>
                   </div>
@@ -5971,15 +6689,19 @@
                   <div class="tomorrow-bills-list">
                     <div class="tomorrow-bill-item" id="tomorrowBill1" title="Click to manage Electricity bill">
                       <div class="tomorrow-bill-left">
-                        <div class="tomorrow-bill-icon" style="background:#eef6ff; color:#2563eb;">⚡</div>
-                        <span class="tomorrow-bill-name">Electricity</span>
+                        <div class="brand-avatar brand-electricity">
+                          <svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>
+                        </div>
+                        <span class="tomorrow-bill-name">State Electricity Board</span>
                       </div>
                       <span class="tomorrow-bill-amt">₹1,240</span>
                     </div>
                     <div class="tomorrow-bill-item" id="tomorrowBill2" title="Click to view Subscription details">
                       <div class="tomorrow-bill-left">
-                        <div class="tomorrow-bill-icon" style="background:#fef3c7; color:#d97706;">💼</div>
-                        <span class="tomorrow-bill-name">Subscription</span>
+                        <div class="brand-avatar brand-netflix">
+                          <svg viewBox="0 0 24 24"><path d="m5.398 0 8.348 23.602c2.346.059 4.856.398 4.856.398L10.113 0H5.398zm8.489 0v9.172l4.715 13.33V0h-4.715zM5.398 1.5V24c1.873-.225 2.81-.312 4.715-.398V14.83L5.398 1.5z"/></svg>
+                        </div>
+                        <span class="tomorrow-bill-name">Netflix Premium</span>
                       </div>
                       <span class="tomorrow-bill-amt">₹649</span>
                     </div>
@@ -6038,7 +6760,9 @@
                   Subscriptions</div>
                 <div class="payment-item" id="payTabBill1">
                   <div class="payment-left">
-                    <div class="payment-avatar">⚡</div>
+                    <div class="brand-avatar brand-electricity">
+                      <svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>
+                    </div>
                     <div>
                       <div class="payment-meta-title">State Electricity Board</div>
                       <div class="payment-due-tag" id="tabBill1Status">Due Tomorrow · Autopay ON</div>
@@ -6048,7 +6772,9 @@
                 </div>
                 <div class="payment-item" id="payTabBill2">
                   <div class="payment-left">
-                    <div class="payment-avatar">📺</div>
+                    <div class="brand-avatar brand-netflix">
+                      <svg viewBox="0 0 24 24"><path d="m5.398 0 8.348 23.602c2.346.059 4.856.398 4.856.398L10.113 0H5.398zm8.489 0v9.172l4.715 13.33V0h-4.715zM5.398 1.5V24c1.873-.225 2.81-.312 4.715-.398V14.83L5.398 1.5z"/></svg>
+                    </div>
                     <div>
                       <div class="payment-meta-title">Netflix Premium Ultra HD</div>
                       <div class="payment-due-tag paid">Auto-debited on 1st</div>
@@ -6058,7 +6784,9 @@
                 </div>
                 <div class="payment-item" id="payTabBill3">
                   <div class="payment-left">
-                    <div class="payment-avatar">📶</div>
+                    <div class="brand-avatar brand-airtel">
+                      <svg viewBox="0 0 24 24"><path d="M7.137 23.862c.79 0 1.708-.19 2.751-.554 1.55-.538 2.784-1.281 3.986-2.009l.316-.205a29.733 29.733 0 0 0 3.764-2.72 16.574 16.574 0 0 0 5.457-7.529c.395-1.138.949-3.384.268-5.487a7.117 7.117 0 0 0-2.862-3.749c-.158-.126-1.898-1.47-5.203-1.47-3.005 0-6.31 1.107-9.806 3.32l-.11.08-.317.205a20.133 20.133 0 0 0-2.309 1.693C1.585 6.813-.091 9.106.004 11.067c.031.79.427 1.534 1.075 2.008a3.472 3.472 0 0 0 2.214.68c1.803 0 3.765-.948 5.109-1.74l.253-.157.696-.443.237-.158c1.898-1.234 3.875-2.515 6.105-3.258a5.255 5.255 0 0 1 1.55-.285 3.163 3.163 0 0 1 .664.08 2.112 2.112 0 0 1 1.47 1.106c.523 1.012.396 2.61-.316 4.08a17.871 17.871 0 0 1-4.887 5.836 19.488 19.488 0 0 1-3.194 2.215l-.095.031a9.634 9.634 0 0 1-1.471.696l-.08.032-.41.158c-2.23.57-.87-1.329-.87-1.329.474-.537.98-1.028 1.518-1.502.316-.269.633-.554.933-.854l.064-.063c.395-.38.933-.902.901-1.645-.047-.98-1.075-1.582-2.056-1.613h-.063c-.95 0-1.819.522-2.404.98a7.27 7.27 0 0 0-1.598 1.74c-.6.901-1.85 3.226-.632 5.077.49.743 1.313 1.123 2.42 1.123z"/></svg>
+                    </div>
                     <div>
                       <div class="payment-meta-title">Airtel Fiber Broadband</div>
                       <div class="payment-due-tag paid">Paid for this month ✓</div>
@@ -6225,11 +6953,10 @@
 
               <!-- About OneBanc -->
               <article class="banc-card" style="text-align:center; padding:16px 14px;">
-                <div class="onebanc-brand-emblem" style="margin:0 auto 6px; width:30px; height:30px; font-size:14px;">1
-                </div>
+                <div class="onebanc-brand-emblem" id="onebancEasterEggBtn" style="margin:0 auto 6px; width:32px; height:32px; font-size:14px; cursor:pointer; user-select:none; transition:transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.16s ease;" title="Tap to inspect">1</div>
                 <div style="font-size:13px; font-weight:750; color:#1e293b;">OneBanc Intelligent Core</div>
-                <div style="font-size:10.5px; color:#94a3b8; margin-top:2px;">v3.4.2 · Build for Saloni Jain &amp;
-                  Hiring Team</div>
+                <div style="font-size:10.5px; color:#94a3b8; margin-top:2px;">v3.4.2 · Build for Miss Ishita Mehta &amp;
+                  Hiring Team OneBanc</div>
               </article>
             </div>
 
@@ -6966,7 +7693,7 @@
     }
 
     /* ==========================================================================
-       ONEBANC FULL REACTIVE TIME-STATE ENGINE & INTERACTIVE CONTROLLERS
+       ONEBANC FULL REACTIVE STATE ENGINE & INTERACTIVE CONTROLLERS
        ========================================================================== */
     const onebancToast = document.getElementById("onebancToast");
     const onebancToastMsg = document.getElementById("onebancToastMsg");
@@ -6982,46 +7709,70 @@
       }, 2600);
     }
 
-    // Comprehensive Timeline Data Model matching exact 2 PM screenshot & 9 AM / 5 PM phases
+    // Official Brand Vectors & Merchant Logos Dictionary
+    const BRAND_SVGS = {
+      amazon: `<svg viewBox="0 0 24 24"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.525.13.12.174.09.336-.12.48-.256.19-.6.41-1.006.654-1.244.743-2.64 1.316-4.185 1.726a17.617 17.617 0 01-10.951-.577 17.88 17.88 0 01-5.43-3.35c-.1-.074-.151-.15-.151-.22 0-.047.021-.09.051-.13zm6.565-6.218c0-1.005.247-1.863.743-2.577.495-.71 1.17-1.25 2.04-1.615.796-.335 1.756-.575 2.912-.72.39-.046 1.033-.103 1.92-.174v-.37c0-.93-.105-1.558-.3-1.875-.302-.43-.78-.65-1.44-.65h-.182c-.48.046-.896.196-1.246.46-.35.27-.575.63-.675 1.096-.06.3-.206.465-.435.51l-2.52-.315c-.248-.06-.372-.18-.372-.39 0-.046.007-.09.022-.15.247-1.29.855-2.25 1.82-2.88.976-.616 2.1-.975 3.39-1.05h.54c1.65 0 2.957.434 3.888 1.29.135.15.27.3.405.48.12.165.224.314.283.45.075.134.15.33.195.57.06.254.105.42.135.51.03.104.062.3.076.615.01.313.02.493.02.553v5.28c0 .376.06.72.165 1.036.105.313.21.54.315.674l.51.674c.09.136.136.256.136.36 0 .12-.06.226-.18.314-1.2 1.05-1.86 1.62-1.963 1.71-.165.135-.375.15-.63.045a6.062 6.062 0 01-.526-.496l-.31-.347a9.391 9.391 0 01-.317-.42l-.3-.435c-.81.886-1.603 1.44-2.4 1.665-.494.15-1.093.227-1.83.227-1.11 0-2.04-.343-2.76-1.034-.72-.69-1.08-1.665-1.08-2.94l-.05-.076zm3.753-.438c0 .566.14 1.02.425 1.364.285.34.675.512 1.155.512.045 0 .106-.007.195-.02.09-.016.134-.023.166-.023.614-.16 1.08-.553 1.424-1.178.165-.28.285-.58.36-.91.09-.32.12-.59.135-.8.015-.195.015-.54.015-1.005v-.54c-.84 0-1.484.06-1.92.18-1.275.36-1.92 1.17-1.92 2.43l-.035-.02zm9.162 7.027c.03-.06.075-.11.132-.17.362-.243.714-.41 1.05-.5a8.094 8.094 0 011.612-.24c.14-.012.28 0 .41.03.65.06 1.05.168 1.172.33.063.09.099.228.099.39v.15c0 .51-.149 1.11-.424 1.8-.278.69-.664 1.248-1.156 1.68-.073.06-.14.09-.197.09-.03 0-.06 0-.09-.012-.09-.044-.107-.12-.064-.24.54-1.26.806-2.143.806-2.64 0-.15-.03-.27-.087-.344-.145-.166-.55-.257-1.224-.257-.243 0-.533.016-.87.046-.363.045-.7.09-1 .135-.09 0-.148-.014-.18-.044-.03-.03-.036-.047-.02-.077 0-.017.006-.03.02-.063v-.06z"/></svg>`,
+      uber: `<svg viewBox="0 0 24 24"><path d="M0 7.97v4.958c0 1.867 1.302 3.101 3 3.101.826 0 1.562-.316 2.094-.87v.736H6.27V7.97H5.082v4.888c0 1.257-.85 2.106-1.947 2.106-1.11 0-1.946-.827-1.946-2.106V7.971H0zm7.44 0v7.925h1.13v-.725c.521.532 1.257.86 2.06.86a3.006 3.006 0 0 0 3.034-3.01 3.01 3.01 0 0 0-3.033-3.024 2.86 2.86 0 0 0-2.049.861V7.971H7.439zm9.869 2.038c-1.687 0-2.965 1.37-2.965 3 0 1.72 1.334 3.01 3.066 3.01 1.053 0 1.913-.463 2.49-1.233l-.826-.611c-.43.577-.996.847-1.664.847-.973 0-1.753-.7-1.912-1.64h4.697v-.373c0-1.72-1.222-3-2.886-3zm6.295.068c-.634 0-1.098.294-1.381.758v-.713h-1.131v5.774h1.142V12.61c0-.894.544-1.47 1.291-1.47H24v-1.065h-.396zm-6.319.928c.85 0 1.564.588 1.756 1.47H15.52c.203-.882.916-1.47 1.765-1.47zm-6.732.012c1.086 0 1.98.883 1.98 2.004a1.993 1.993 0 0 1-1.98 2.001A1.989 1.989 0 0 1 8.56 13.02a1.99 1.99 0 0 1 1.992-2.004z"/></svg>`,
+      swiggy: `<svg viewBox="0 0 24 24"><path d="M12.034 24c-.376-.411-2.075-2.584-3.95-5.513-.547-.916-.901-1.63-.833-1.814.178-.48 3.355-.743 4.333-.308.298.132.29.307.29.409 0 .44-.022 1.619-.022 1.619a.441.441 0 1 0 .883-.002l-.005-2.939c0-.255-.278-.319-.331-.329-.511-.002-1.548-.006-2.661-.006-2.457 0-3.006.101-3.423-.172-.904-.591-2.383-4.577-2.417-6.819C3.849 4.964 5.723 2.225 8.362.868A8.13 8.13 0 0 1 12.026 0c4.177 0 7.617 3.153 8.075 7.209l.001.011c.084.981-5.321 1.189-6.39.904-.164-.044-.206-.212-.206-.284L13.5 4.996a.442.442 0 0 0-.884.002l.009 3.866a.33.33 0 0 0 .268.32l3.354-.001c1.79 0 2.542.207 3.042.588.333.254.461.739.349 1.37C18.633 16.755 12.273 23.71 12.034 24z"/></svg>`,
+      netflix: `<svg viewBox="0 0 24 24"><path d="m5.398 0 8.348 23.602c2.346.059 4.856.398 4.856.398L10.113 0H5.398zm8.489 0v9.172l4.715 13.33V0h-4.715zM5.398 1.5V24c1.873-.225 2.81-.312 4.715-.398V14.83L5.398 1.5z"/></svg>`,
+      airtel: `<svg viewBox="0 0 24 24"><path d="M7.137 23.862c.79 0 1.708-.19 2.751-.554 1.55-.538 2.784-1.281 3.986-2.009l.316-.205a29.733 29.733 0 0 0 3.764-2.72 16.574 16.574 0 0 0 5.457-7.529c.395-1.138.949-3.384.268-5.487a7.117 7.117 0 0 0-2.862-3.749c-.158-.126-1.898-1.47-5.203-1.47-3.005 0-6.31 1.107-9.806 3.32l-.11.08-.317.205a20.133 20.133 0 0 0-2.309 1.693C1.585 6.813-.091 9.106.004 11.067c.031.79.427 1.534 1.075 2.008a3.472 3.472 0 0 0 2.214.68c1.803 0 3.765-.948 5.109-1.74l.253-.157.696-.443.237-.158c1.898-1.234 3.875-2.515 6.105-3.258a5.255 5.255 0 0 1 1.55-.285 3.163 3.163 0 0 1 .664.08 2.112 2.112 0 0 1 1.47 1.106c.523 1.012.396 2.61-.316 4.08a17.871 17.871 0 0 1-4.887 5.836 19.488 19.488 0 0 1-3.194 2.215l-.095.031a9.634 9.634 0 0 1-1.471.696l-.08.032-.41.158c-2.23.57-.87-1.329-.87-1.329.474-.537.98-1.028 1.518-1.502.316-.269.633-.554.933-.854l.064-.063c.395-.38.933-.902.901-1.645-.047-.98-1.075-1.582-2.056-1.613h-.063c-.95 0-1.819.522-2.404.98a7.27 7.27 0 0 0-1.598 1.74c-.6.901-1.85 3.226-.632 5.077.49.743 1.313 1.123 2.42 1.123z"/></svg>`,
+      starbucks: `<svg viewBox="0 0 24 24"><path d="M13.2072 5.2801c-.1052-.0188-.6126-.104-1.2072-.104s-1.102.0848-1.2072.104c-.0605.0108-.0837-.0484-.0377-.0828.0417-.0308 1.2445-.9463 1.2445-.9463l1.244.9463c.0469.0344.024.0936-.0364.0828zm-2.0783 5.9446s-.0636.0228-.0804.0788c.252.1937.4257.6343.9515.6343s.6995-.4406.9511-.6343c-.0164-.0564-.08-.0788-.08-.0788s-.3293.0776-.8711.0776c-.5418 0-.8711-.0776-.8711-.0776zM12 10.4832c-.146 0-.178-.0552-.2777-.0548-.0948.0004-.2789.076-.319.1453a.1542.1542 0 00.0413.0948c.2129.032.309.1505.5558.1505.2469 0 .3425-.1185.5558-.1505a.1579.1579 0 00.0412-.0948c-.0396-.0692-.224-.1445-.3193-.1453-.1-.0008-.1324.0548-.2781.0548zm11.9868 2.27a11.964 11.964 0 01-.076.8528c-1.359.2249-1.8447-.986-3.2368-.9252.0832.2954.1508.5963.2029.9036 1.148-.0008 1.6105 1.0724 2.8878.9143-.0672.3281-.148.6519-.2413.9708-1.01.0992-1.3657-.9044-2.5345-.8767.0096.1664.0148.3345.0148.5041l-.0048.2805 2.2696.866a12.04 12.04 0 01-.3965.9479c-.6823-.0376-.9175-.9127-1.9555-.8431a9.0882 9.0882 0 01-.118.665c.9015-.0632 1.0955.7667 1.7414.834a12.2317 12.2317 0 01-.5302.8767c-.3826-.205-.7143-.8231-1.4398-.8612a8.6035 8.6035 0 00.195-.6994c-.6435 0-1.3794-.2509-1.9964-.8127.2-1.1388-1.5674-2.2984-1.5674-3.1324 0-.9059.4582-1.4073.4582-2.6285 0-.9063-.4402-1.8895-1.104-2.5614a2.2175 2.2175 0 00-.4114-.3309c.6098.7547 1.078 1.6494 1.078 2.6858 0 1.15-.535 1.757-.535 2.8186 0 1.0612 1.5526 1.9796 1.5526 3.074 0 .4305-.1377.851-.5914 1.677.697.6962 1.605 1.076 2.1908 1.076.19 0 .292-.058.3601-.2073a9.0925 9.0925 0 00.1665-.391c.631.0245.9199.5979 1.2692.8268-.1916.2573-.393.5057-.6038.7462-.234-.2593-.5486-.6954-1.0092-.8167a9.2087 9.2087 0 01-.2613.473c.3966.108.6679.5082.878.7715a12.1305 12.1305 0 01-.7075.6754c-.1532-.2384-.3917-.541-.659-.7042a8.3639 8.3639 0 01-.3077.391c.2272.154.4277.4313.5586.6574-.2833.2272-.5763.443-.8796.6446-.1496-1.2192-1.8138-2.0548-1.3653-3.4693-.1472.2493-.3229.561-.3229.9364 0 1.024 1.0908 1.8366 1.1776 2.8542-.226.1353-.4573.2625-.693.383-.0392-1.1185-1.194-2.3425-1.194-3.2604 0-1.0248 1.342-2.054 1.342-3.2636 0-1.2105-1.5485-2.0484-1.5485-3.1112 0-1.062.6586-1.673.6586-3.0343 0-.9972-.4738-2.0063-1.2056-2.651-.1297-.1144-.2573-.2052-.4106-.2849.6903.828 1.0904 1.579 1.0904 2.7186 0 1.2801-.7546 1.9908-.7546 3.244 0 1.2537 1.5197 1.9507 1.5197 3.1192 0 1.1684-1.4145 2.1532-1.4145 3.3536 0 1.092 1.2468 2.182 1.2653 3.4777a11.7704 11.7704 0 01-.8327.3257c.1584-1.3089-1.245-2.659-1.245-3.727 0-1.1676 1.4674-2.1712 1.4674-3.43 0-1.2597-1.4917-1.8451-1.4917-3.138 0-1.292.9151-2.0075.9151-3.4352 0-1.1129-.5494-2.1136-1.352-2.7338l-.0509-.0385c-.0756-.056-.138.0116-.0844.078.5682.7095.8719 1.427.8719 2.4894 0 1.306-1.0512 2.3673-1.0512 3.6325 0 1.4934 1.4117 1.9203 1.4117 3.1456 0 1.2248-1.5137 2.2048-1.5137 3.5053 0 1.206 1.4325 2.5445 1.1868 3.9366a11.6645 11.6645 0 01-.8743.192c.2689-1.7334-1.1364-2.9782-1.1364-4.1122 0-1.2277 1.5677-2.322 1.5677-3.5217 0-1.1316-1.1252-1.5014-1.2732-2.659-.0204-.158-.1473-.2753-.3221-.2461-.2285.0416-.5214.192-.9816.192-.4602 0-.753-.1508-.982-.192-.1744-.0288-.3013.0884-.3217.246-.1476 1.1577-1.2736 1.527-1.2736 2.659 0 1.1997 1.5681 2.2937 1.5681 3.5218 0 1.134-1.4053 2.3788-1.1368 4.1123a12.1233 12.1233 0 01-.8743-.1921c-.2457-1.3921 1.1872-2.7306 1.1872-3.9366 0-1.3005-1.5141-2.2805-1.5141-3.5053 0-1.2253 1.412-1.6522 1.412-3.1456 0-1.2652-1.0515-2.326-1.0515-3.6325 0-1.062.3037-1.7795.8723-2.4893.0532-.0665-.0088-.134-.0848-.078l-.0504.0384c-.802.6186-1.351 1.6193-1.351 2.7322 0 1.4277.9152 2.1431.9152 3.4352 0 1.2925-1.4917 1.878-1.4917 3.138 0 1.2588 1.4673 2.2624 1.4673 3.43 0 1.0684-1.4033 2.4181-1.2445 3.727a11.8995 11.8995 0 01-.833-.3257c.0188-1.2957 1.2648-2.3861 1.2648-3.4777 0-1.2004-1.4137-2.1852-1.4137-3.3536 0-1.1685 1.519-1.8655 1.519-3.1192 0-1.2532-.7543-1.9639-.7543-3.244 0-1.1396.3997-1.8907 1.09-2.7186-.1537.0797-.281.1705-.4102.285-.7318.6446-1.2052 1.6537-1.2052 2.651 0 1.3612.6586 1.9722.6586 3.0342 0 1.0628-1.5485 1.9007-1.5485 3.1112 0 1.2096 1.342 2.2392 1.342 3.2636 0 .9183-1.1556 2.1423-1.1944 3.2604a11.8754 11.8754 0 01-.693-.383c.0872-1.0176 1.1776-1.8303 1.1776-2.8542 0-.3754-.1753-.687-.323-.9364.4486 1.4145-1.2156 2.25-1.3652 3.4693a12.1204 12.1204 0 01-.8796-.6446c.1305-.2257.331-.5034.5586-.6575a7.9134 7.9134 0 01-.3077-.391c-.2677.1633-.5066.4659-.6594.7043a12.2459 12.2459 0 01-.707-.6754c.21-.2633.4813-.6635.8779-.7715a9.0433 9.0433 0 01-.2613-.473c-.4606.1213-.7755.5574-1.0092.8167a12.141 12.141 0 01-.6038-.7462c.3493-.229.6382-.8027 1.2688-.8267.0529.1312.1085.2617.1669.3909.068.1493.1705.2073.3601.2073.5858 0 1.4934-.3798 2.1908-1.076-.4537-.826-.5914-1.2465-.5914-1.677 0-1.094 1.5526-2.0124 1.5526-3.074 0-1.0615-.535-1.6686-.535-2.8186 0-1.0364.4682-1.9311 1.078-2.6858a2.2175 2.2175 0 00-.4114.331c-.6638.6722-1.104 1.655-1.104 2.5613 0 1.2212.4586 1.7226.4586 2.6285 0 .834-1.7679 1.9936-1.5678 3.1324-.617.5618-1.3529.8127-1.9967.8127a9.305 9.305 0 00.1949.6994c-.7251.0385-1.0568.6567-1.4398.8612a12.0872 12.0872 0 01-.5302-.8768c.6455-.0672.84-.897 1.7419-.8339a9.1275 9.1275 0 01-.1185-.665c-1.038-.0696-1.2732.8059-1.9555.8431a12.04 12.04 0 01-.3965-.948l2.27-.8659-.0048-.2805c0-.1696.0052-.3377.0144-.5041-1.1688-.0273-1.5246.976-2.5345.8767a12.106 12.106 0 01-.241-.9708c1.2766.158 1.7395-.9151 2.888-.9143a8.7482 8.7482 0 01.2024-.9036c-1.392-.0604-1.8779 1.1505-3.2364.9252a11.7352 11.7352 0 01-.076-.8527c1.5794.1764 2.1716-1.122 3.6097-.9632a8.4303 8.4303 0 01.471-.9963c-1.803-.317-2.4153 1.1908-4.0935.9591C.1813 5.2805 5.4844.0898 12 .0898S23.8187 5.2805 24 11.753c-1.6786.2317-2.2908-1.2757-4.0935-.9591.1773.32.335.6526.471.9963 1.4373-.1592 2.0295 1.1396 3.6093.9632zm-17.147-5.035c-.884-.3613-1.954-.278-2.868.309-.1416-.8504-.603-1.6058-1.26-2.0616-.0908-.0628-.1853-.0032-.1769.102.1389 1.7967-.9115 3.3569-2.2032 4.7282 1.3313.4001 2.4645-1.3141 4.1912-.7159a9.0364 9.0364 0 012.3168-2.3617z"/></svg>`,
+      metro: `<svg viewBox="0 0 24 24"><path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zM7.5 17c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/></svg>`,
+      electricity: `<svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z"/></svg>`
+    };
+
+    // Central Persistent State Object
+    const onebancState = {
+      balance: 24680,
+      limitMultiplier: 1.0,
+      timeMode: "9am",
+      bestMoveSaved: false,
+      bills: {
+        electricity: { name: "State Electricity Board", amount: 1240, paid: false, autopay: true, due: "Tomorrow" },
+        netflix: { name: "Netflix Premium Ultra HD", amount: 649, paid: true, autopay: true, due: "Auto-debited on 1st" },
+        airtel: { name: "Airtel Fiber Broadband", amount: 999, paid: true, autopay: true, due: "Paid for this month ✓" }
+      },
+      pots: {
+        travel: { name: "Travel Goal (Japan Trip)", icon: "✈️", current: 32500, target: 50000 },
+        reserve: { name: "Emergency Buffer Reserve", icon: "🛡️", current: 14941, target: 20000 },
+        gadget: { name: "MacBook Pro Fund", icon: "💻", current: 48000, target: 100000 }
+      },
+      rules: {
+        spareChange: true,
+        autoSweep: true,
+        smartNudges: true,
+        biometricLock: true,
+        velocityAlerts: true
+      },
+      activePotKey: "travel",
+      selectedContact: { name: "Miss Ishita Mehta", upi: "ishita@onebanc" }
+    };
+
+    // Comprehensive Timeline Data Model
     const onebancTimeStates = {
       "9am": {
         label: "9:00 AM",
         timeIcon: "☀️",
-        greetingTitle: "Good morning, Kunal.",
+        greetingTitle: "Good morning, Kunal 👋",
         greetingSub: "Here's what's happening with your money today.",
-        focusLabel: "TODAY'S SPENDING FOCUS",
-        focusNum: "₹0",
-        focusHeroLabel: "Spent",
-        focusSub: "0% of your ₹2,000 daily plan",
-        focusFill: "4%",
-        focusSpent: "₹0 spent",
-        focusRemaining: "₹2,000 remaining",
-        availBalance: "₹24,680",
-        calcBills: "₹1,889",
-        calcGoal: "₹5,000",
-        calcBuffer: "₹14,941",
-        safeSpend: "₹2,850",
+        baseSafeSpend: 2850,
+        calcGoal: 5000,
+        calcBuffer: 14941,
         twinLeft: { icon: "⚡", title: "Best Move", body: "Save ₹500 to keep your Travel Goal on track." },
         twinRight: { icon: "💡", title: "Insight", body: "Electricity bill of ₹1,240 auto-pay set for tomorrow." },
         moneyWentTitle: "Where Your Money Went",
         moneyWent: [
-          { icon: "🛍️", name: "Shopping", amount: "₹1,899" },
-          { icon: "🚇", name: "Transport", amount: "₹200" }
+          { brand: "amazon", brandClass: "brand-amazon", name: "Shopping", amount: "₹1,899" },
+          { brand: "metro", brandClass: "brand-metro", name: "Transport", amount: "₹200" }
         ],
         liveActivityTitle: "Live Activity",
         liveActivityTag: "YESTERDAY - 9AM",
         liveActivities: [
-          { name: "Amazon", time: "8:15 AM", amount: "₹1,899", icon: "📦", bg: "#f8fafc", category: "Shopping", method: "OneBanc Card •••• 4892", ref: "TXN89127402", cashback: "₹38" },
-          { name: "Delhi Metro", time: "Yesterday", amount: "₹200", icon: "🚇", bg: "#f8fafc", category: "Transit", method: "Auto-Topup UPI", ref: "TXN77102914", cashback: "₹4" }
+          { name: "Amazon", time: "8:15 AM", amount: "-₹1,899", brand: "amazon", brandClass: "brand-amazon", category: "Shopping", method: "OneBanc Platinum Card •••• 4892", ref: "TXN89127402", cashback: "₹38" },
+          { name: "Delhi Metro", time: "Yesterday", amount: "-₹200", brand: "metro", brandClass: "brand-metro", category: "Transit", method: "Auto-Topup UPI", ref: "TXN77102914", cashback: "₹4" }
         ],
-        goalTitle: "Travel Goal",
-        goalPercent: "65%",
-        goalSub: "Morning status is stable. You're on track.",
-        goalFill: "65%",
-        goalLeft: "₹32,500",
-        goalRight: "₹50,000",
         notifications: [
-          { icon: "⚡", title: "Electricity bill due tomorrow", body: "₹1,240 auto-pay set for tomorrow 10:00 AM.", time: "8:30 AM" },
+          { brand: "electricity", brandClass: "brand-electricity", title: "Electricity bill due tomorrow", body: "₹1,240 auto-pay set for tomorrow 10:00 AM.", time: "8:30 AM" },
           { icon: "✈️", title: "Travel Goal Nudge", body: "Save ₹500 today to keep your Japan trip on schedule.", time: "9:00 AM" }
         ]
       },
@@ -7033,40 +7784,29 @@
         focusLabel: "TODAY'S SPENDING FOCUS",
         focusNum: "₹1,160",
         focusHeroLabel: "Spent",
-        focusSub: "58% of your ₹2,000 daily plan",
-        focusFill: "58%",
-        focusSpent: "₹1,160 spent",
-        focusRemaining: "₹840 remaining",
-        availBalance: "₹23,980",
-        calcBills: "₹1,889",
-        calcGoal: "₹5,000",
-        calcBuffer: "₹14,941",
-        safeSpend: "₹2,150",
+        baseDailyPlan: 2000,
+        baseSafeSpend: 2150,
+        calcGoal: 5000,
+        calcBuffer: 14941,
         twinLeft: { icon: "📉", title: "Pace Check", body: "12% less than your usual Tuesday pace." },
-        twinRight: { icon: "💡", title: "Insight", body: "Your largest payment today was ₹480 at Amazon." },
+        twinRight: { brand: "amazon", brandClass: "brand-amazon", title: "Insight", body: "Your largest payment today was ₹480 at Amazon." },
         moneyWentTitle: "Where Your Money Went",
         moneyWent: [
-          { icon: "🍴", name: "Food", amount: "₹440" },
-          { icon: "🛍️", name: "Shopping", amount: "₹480" },
-          { icon: "🚗", name: "Transport", amount: "₹240" }
+          { brand: "swiggy", brandClass: "brand-swiggy", name: "Food", amount: "₹440" },
+          { brand: "amazon", brandClass: "brand-amazon", name: "Shopping", amount: "₹480" },
+          { brand: "uber", brandClass: "brand-uber", name: "Transport", amount: "₹240" }
         ],
         liveActivityTitle: "Live Activity",
         liveActivityTag: "9AM - 2PM",
         liveActivities: [
-          { name: "Swiggy", time: "12:42 PM", amount: "₹320", icon: "🛵", bg: "#f8fafc", category: "Food Delivery", method: "OneBanc Platinum UPI", ref: "TXN99014521", cashback: "₹16" },
-          { name: "Amazon", time: "11:15 AM", amount: "₹480", icon: "📦", bg: "#f8fafc", category: "Shopping", method: "OneBanc Card •••• 4892", ref: "TXN99011984", cashback: "₹24" },
-          { name: "Uber", time: "09:45 AM", amount: "₹240", icon: "🚗", bg: "#f8fafc", category: "Transit", method: "OneBanc Instant UPI", ref: "TXN89127402", cashback: "₹12" },
-          { name: "Coffee & Co", time: "09:15 AM", amount: "₹120", icon: "☕", bg: "#f8fafc", category: "Coffee & Drinks", method: "OneBanc Instant UPI", ref: "TXN89104412", cashback: "₹6" }
+          { name: "Swiggy", time: "12:42 PM", amount: "-₹320", brand: "swiggy", brandClass: "brand-swiggy", category: "Food Delivery", method: "OneBanc Platinum UPI", ref: "TXN99014521", cashback: "₹16" },
+          { name: "Amazon", time: "11:15 AM", amount: "-₹480", brand: "amazon", brandClass: "brand-amazon", category: "Shopping", method: "OneBanc Card •••• 4892", ref: "TXN99011984", cashback: "₹24" },
+          { name: "Uber", time: "09:45 AM", amount: "-₹240", brand: "uber", brandClass: "brand-uber", category: "Transit", method: "OneBanc Instant UPI", ref: "TXN89127402", cashback: "₹12" },
+          { name: "Starbucks Coffee", time: "09:15 AM", amount: "-₹120", brand: "starbucks", brandClass: "brand-starbucks", category: "Coffee & Drinks", method: "OneBanc Instant UPI", ref: "TXN89104412", cashback: "₹6" }
         ],
-        goalTitle: "Travel Goal",
-        goalPercent: "65%",
-        goalSub: "Midday progress is stable. You're on track.",
-        goalFill: "65%",
-        goalLeft: "₹32,500",
-        goalRight: "₹50,000",
         notifications: [
-          { icon: "🍔", title: "Lunch expense detected", body: "₹320 spent at Swiggy. Daily plan is 58% utilized.", time: "12:45 PM" },
-          { icon: "📲", title: "Aman sent ₹170 via UPI", body: "Lunch split received in OneBanc Platinum account.", time: "1:50 PM" }
+          { brand: "swiggy", brandClass: "brand-swiggy", title: "Lunch expense detected", body: "₹320 spent at Swiggy. Daily plan is 58% utilized.", time: "12:45 PM" },
+          { icon: "📲", title: "Saloni sent ₹170 via UPI", body: "Lunch split received in OneBanc Platinum account.", time: "1:50 PM" }
         ]
       },
       "5pm": {
@@ -7080,18 +7820,11 @@
         moneyOut: "-₹1,840",
         netPosition: "+₹23,160",
         saved: "₹3,000",
+        baseSafeSpend: 2620,
+        calcGoal: 3000,
+        calcBuffer: 16431,
         insightQuote: "You spent <strong>₹280 less</strong> than your usual weekday average (₹2,120).",
-        largestExpense: { name: "Food & Dining", amount: "₹720", pct: "39% of total", icon: "🍴" },
-        goalTitle: "Japan Trip",
-        goalPct: "65%",
-        goalSaved: "₹32,500 saved",
-        goalTarget: "Goal: ₹50,000",
-        tomorrowSafeSpend: "₹2,620",
-        availBalance: "₹23,160",
-        calcBills: "₹1,889",
-        calcGoal: "₹3,000",
-        calcBuffer: "₹16,431",
-        safeSpend: "₹2,620",
+        largestExpense: { name: "Food & Dining", amount: "₹720", pct: "39% of total", brand: "swiggy", brandClass: "brand-swiggy" },
         notifications: [
           { icon: "🎉", title: "Daily Wrap-up Ready", body: "You spent ₹1,840 (₹160 under your ₹2,000 daily plan).", time: "5:00 PM" },
           { icon: "✈️", title: "Japan Trip On Track", body: "₹32,500 saved of ₹50,000 goal (65%).", time: "5:00 PM" }
@@ -7099,10 +7832,7 @@
       }
     };
 
-    let currentOneBancTimeMode = "9am";
     let activeTxItem = null;
-    let bestMoveSaved = false;
-    let electricityPaid = false;
 
     // Timeline Switcher & Greeting Elements
     const timeBtn9am = document.getElementById("timeBtn9am");
@@ -7117,7 +7847,7 @@
     const timeLayoutMidday = document.getElementById("timeLayoutMidday");
     const timeLayout5pm = document.getElementById("timeLayout5pm");
 
-    // 9:00 AM View Elements (Locked In)
+    // 9:00 AM View Elements
     const cardSafeSpend = document.getElementById("cardSafeSpend");
     const safeSpendAmount = document.getElementById("safeSpendAmount");
     const safeSpendDesc = document.getElementById("safeSpendDesc");
@@ -7156,7 +7886,7 @@
     const actItem1 = document.getElementById("actItem1");
     const actItem2 = document.getElementById("actItem2");
 
-    // 2:00 PM Midday Elements (Locked In)
+    // 2:00 PM Midday Elements
     const cardSpendingFocus = document.getElementById("cardSpendingFocus");
     const focusHeaderLabel = document.getElementById("focusHeaderLabel");
     const focusHeroNum = document.getElementById("focusHeroNum");
@@ -7193,7 +7923,7 @@
     const goalLeftAmount = document.getElementById("goalLeftAmount");
     const goalRightAmount = document.getElementById("goalRightAmount");
 
-    // 5:00 PM Evening Elements (Matching Screenshot)
+    // 5:00 PM Evening Elements
     const cardSpentToday5pm = document.getElementById("cardSpentToday5pm");
     const spentToday5pmNum = document.getElementById("spentToday5pmNum");
     const spentToday5pmFill = document.getElementById("spentToday5pmFill");
@@ -7210,7 +7940,7 @@
 
     const paymentsPaneBalance = document.getElementById("paymentsPaneBalance");
 
-    // Modal elements
+    // Modals
     const onebancCalcModal = document.getElementById("onebancCalcModal");
     const closeCalcBtn = document.getElementById("closeCalcBtn");
     const calcPhaseLabel = document.getElementById("calcPhaseLabel");
@@ -7220,12 +7950,43 @@
     const calcBuffer = document.getElementById("calcBuffer");
     const modalSafeSpend = document.getElementById("modalSafeSpend");
 
-    const onebancActionModal = document.getElementById("onebancActionModal");
-    const actionModalTitle = document.getElementById("actionModalTitle");
-    const actionModalDesc = document.getElementById("actionModalDesc");
-    const actionModalBody = document.getElementById("actionModalBody");
-    const actionModalConfirmBtn = document.getElementById("actionModalConfirmBtn");
-    const closeActionModalBtn = document.getElementById("closeActionModalBtn");
+    const onebancScanModal = document.getElementById("onebancScanModal");
+    const closeScanModalBtn = document.getElementById("closeScanModalBtn");
+
+    const onebancSendModal = document.getElementById("onebancSendModal");
+    const sendToRecipientName = document.getElementById("sendToRecipientName");
+    const sendAmountInput = document.getElementById("sendAmountInput");
+    const sendNoteInput = document.getElementById("sendNoteInput");
+    const btnConfirmSendUPI = document.getElementById("btnConfirmSendUPI");
+    const closeSendModalBtn = document.getElementById("closeSendModalBtn");
+
+    const onebancBillModal = document.getElementById("onebancBillModal");
+    const closeBillModalBtn = document.getElementById("closeBillModalBtn");
+    const btnPayElectricityNow = document.getElementById("btnPayElectricityNow");
+    const manageBillElecSub = document.getElementById("manageBillElecSub");
+
+    const onebancGoalModal = document.getElementById("onebancGoalModal");
+    const goalModalHeading = document.getElementById("goalModalHeading");
+    const goalModalSubheading = document.getElementById("goalModalSubheading");
+    const goalModalCurrentVal = document.getElementById("goalModalCurrentVal");
+    const goalModalTargetVal = document.getElementById("goalModalTargetVal");
+    const goalModalPctVal = document.getElementById("goalModalPctVal");
+    const goalModalProgressBar = document.getElementById("goalModalProgressBar");
+    const btnGoalDepositSubmit = document.getElementById("btnGoalDepositSubmit");
+    const btnGoalWithdrawSubmit = document.getElementById("btnGoalWithdrawSubmit");
+    const closeGoalModalBtn = document.getElementById("closeGoalModalBtn");
+
+    const onebancPulseModal = document.getElementById("onebancPulseModal");
+    const closePulseModalBtn = document.getElementById("closePulseModalBtn");
+
+    const onebancSplitModal = document.getElementById("onebancSplitModal");
+    const splitBillTotalInput = document.getElementById("splitBillTotalInput");
+    const splitPerPersonAmount = document.getElementById("splitPerPersonAmount");
+    const btnSendSplitRequests = document.getElementById("btnSendSplitRequests");
+    const closeSplitModalBtn = document.getElementById("closeSplitModalBtn");
+    const splitCheckIshita = document.getElementById("splitCheckIshita");
+    const splitCheckSaloni = document.getElementById("splitCheckSaloni");
+    const splitCheckVibhore = document.getElementById("splitCheckVibhore");
 
     const onebancNotifModal = document.getElementById("onebancNotifModal");
     const onebancBellBtn = document.getElementById("onebancBellBtn");
@@ -7242,9 +8003,112 @@
     const onebancInsightModal = document.getElementById("onebancInsightModal");
     const closeInsightModalBtn = document.getElementById("closeInsightModalBtn");
 
+    // Universal Modal Sheet Open/Close
+    function openModal(modalEl) {
+      if (modalEl) modalEl.classList.add("active");
+    }
+
+    function closeModal(modalEl) {
+      if (modalEl) modalEl.classList.remove("active");
+    }
+
+    // Live Sync Function for all UI elements
+    function syncOneBancUI() {
+      const formattedBal = `₹${onebancState.balance.toLocaleString('en-IN')}`;
+      if (availBalance) availBalance.textContent = formattedBal;
+      if (calcAvailBalance) calcAvailBalance.textContent = formattedBal;
+      if (paymentsPaneBalance) paymentsPaneBalance.textContent = formattedBal;
+
+      // Safe to spend with multiplier
+      const multiplier = onebancState.limitMultiplier;
+      const currentMode = onebancState.timeMode;
+      const state = onebancTimeStates[currentMode];
+
+      const safeSpendVal = Math.round((state.baseSafeSpend || 2850) * multiplier);
+      const formattedSafeSpend = `₹${safeSpendVal.toLocaleString('en-IN')}`;
+      if (safeSpendAmount) safeSpendAmount.textContent = formattedSafeSpend;
+      if (modalSafeSpend) modalSafeSpend.textContent = formattedSafeSpend;
+      if (tomorrowSafeSpendNum) {
+        const tomVal = Math.round(2620 * multiplier);
+        tomorrowSafeSpendNum.textContent = `₹${tomVal.toLocaleString('en-IN')}`;
+      }
+
+      // Sync Pots & Goals
+      const travelPot = onebancState.pots.travel;
+      const travelPct = Math.min(100, Math.round((travelPot.current / travelPot.target) * 100));
+      const formattedTravel = `₹${travelPot.current.toLocaleString('en-IN')}`;
+
+      if (goalCurrent) goalCurrent.textContent = formattedTravel;
+      if (goalLeftAmount) goalLeftAmount.textContent = formattedTravel;
+      if (goalProgressFill) goalProgressFill.style.width = `${travelPct}%`;
+      if (goalYellowFill) goalYellowFill.style.width = `${travelPct}%`;
+      if (goalPercentText) goalPercentText.textContent = `${travelPct}%`;
+      if (goalPercentBadge) goalPercentBadge.textContent = `${travelPct}%`;
+      if (japanTripSavedText) japanTripSavedText.textContent = `${formattedTravel} saved`;
+      if (japanTripPct) japanTripPct.textContent = `${travelPct}%`;
+      if (japanTripFill) japanTripFill.style.width = `${travelPct}%`;
+
+      const potTravelCurrent = document.getElementById("potTravelCurrent");
+      const potTravelFill = document.getElementById("potTravelFill");
+      if (potTravelCurrent) potTravelCurrent.textContent = `${formattedTravel} saved`;
+      if (potTravelFill) potTravelFill.style.width = `${travelPct}%`;
+
+      const reservePot = onebancState.pots.reserve;
+      const reservePct = Math.min(100, Math.round((reservePot.current / reservePot.target) * 100));
+      const formattedReserve = `₹${reservePot.current.toLocaleString('en-IN')}`;
+      const potReserveCurrent = document.getElementById("potReserveCurrent");
+      const potReserveFill = document.getElementById("potReserveFill");
+      if (potReserveCurrent) potReserveCurrent.textContent = `${formattedReserve} saved`;
+      if (potReserveFill) potReserveFill.style.width = `${reservePct}%`;
+
+      const gadgetPot = onebancState.pots.gadget;
+      const gadgetPct = Math.min(100, Math.round((gadgetPot.current / gadgetPot.target) * 100));
+      const potGadgetCurrent = document.getElementById("potGadgetCurrent");
+      if (potGadgetCurrent) potGadgetCurrent.textContent = `₹${gadgetPot.current.toLocaleString('en-IN')} saved`;
+
+      // Sync Bills Status
+      const elecBill = onebancState.bills.electricity;
+      if (elecBill.paid) {
+        if (bill1DueTag) {
+          bill1DueTag.textContent = "Paid for this month ✓";
+          bill1DueTag.classList.add("paid");
+        }
+        if (paymentsHeaderTotal) paymentsHeaderTotal.textContent = "₹649";
+        const tabBill1Status = document.getElementById("tabBill1Status");
+        if (tabBill1Status) {
+          tabBill1Status.textContent = "Paid for this month ✓";
+          tabBill1Status.classList.add("paid");
+        }
+        if (manageBillElecSub) {
+          manageBillElecSub.textContent = "Paid for this month ✓";
+          manageBillElecSub.classList.add("paid");
+        }
+        if (btnPayElectricityNow) {
+          btnPayElectricityNow.textContent = "Paid ✓";
+          btnPayElectricityNow.style.background = "#10b981";
+          btnPayElectricityNow.disabled = true;
+        }
+        if (calcBills) calcBills.textContent = "- ₹649";
+      } else {
+        if (paymentsHeaderTotal) paymentsHeaderTotal.textContent = "₹1,889";
+        if (calcBills) calcBills.textContent = "- ₹1,889";
+      }
+
+      // Sync Midday 2 PM Progress
+      if (focusHeroNum && focusFill && focusBottomRemaining) {
+        const plannedSpend = Math.round(2000 * multiplier);
+        const spentSoFar = 1160;
+        const remain = Math.max(0, plannedSpend - spentSoFar);
+        const pct = Math.min(100, Math.round((spentSoFar / plannedSpend) * 100));
+        focusSub.textContent = `${pct}% of your ₹${plannedSpend.toLocaleString('en-IN')} daily plan`;
+        focusFill.style.width = `${pct}%`;
+        focusBottomRemaining.textContent = `₹${remain.toLocaleString('en-IN')} remaining`;
+      }
+    }
+
     // Render Timeline Function
     function renderOneBancState(timeKey, notify = false) {
-      currentOneBancTimeMode = timeKey;
+      onebancState.timeMode = timeKey;
       const state = onebancTimeStates[timeKey];
       if (!state) return;
 
@@ -7262,74 +8126,47 @@
         onebancGreetingTitle.textContent = timeKey === "9am" ? "Good morning, Kunal 👋" : state.greetingTitle;
       }
       if (onebancGreetingSub) onebancGreetingSub.textContent = state.greetingSub;
-      if (paymentsPaneBalance) paymentsPaneBalance.textContent = state.availBalance;
 
-      // Handle 9 AM View (Locked In)
-      if (timeKey === "9am") {
-        if (timeLayout9am) timeLayout9am.style.display = "flex";
-        if (timeLayoutMidday) timeLayoutMidday.style.display = "none";
-        if (timeLayout5pm) timeLayout5pm.style.display = "none";
+      // Handle Layout Visibility
+      if (timeLayout9am) timeLayout9am.style.display = timeKey === "9am" ? "flex" : "none";
+      if (timeLayoutMidday) timeLayoutMidday.style.display = timeKey === "2pm" ? "flex" : "none";
+      if (timeLayout5pm) timeLayout5pm.style.display = timeKey === "5pm" ? "flex" : "none";
 
-        if (safeSpendAmount) safeSpendAmount.textContent = state.safeSpend;
-        if (availBalance) availBalance.textContent = bestMoveSaved ? "₹24,180" : state.availBalance;
-        if (goalCurrent) goalCurrent.textContent = bestMoveSaved ? "₹33,000" : state.goalLeft;
-        if (goalTarget) goalTarget.textContent = state.goalRight;
-        if (goalProgressFill) goalProgressFill.style.width = bestMoveSaved ? "66%" : state.goalFill;
-        if (goalPercentText) goalPercentText.textContent = bestMoveSaved ? "66%" : state.goalPercent;
-        if (goalStatusText) goalStatusText.textContent = state.goalSub;
-        if (bestMoveText) bestMoveText.textContent = state.twinLeft.body;
-        if (paymentsHeaderTotal) paymentsHeaderTotal.textContent = electricityPaid ? "₹649" : state.calcBills;
-        if (worthKnowingBody) worthKnowingBody.textContent = "You're spending 18% less than your usual weekday pace.";
-      }
-      // Handle 2 PM Midday View (Locked In)
-      else if (timeKey === "2pm") {
-        if (timeLayout9am) timeLayout9am.style.display = "none";
-        if (timeLayoutMidday) timeLayoutMidday.style.display = "flex";
-        if (timeLayout5pm) timeLayout5pm.style.display = "none";
-
-        if (focusHeaderLabel) focusHeaderLabel.textContent = state.focusLabel;
-        if (focusHeroNum) focusHeroNum.textContent = state.focusNum;
-        if (focusHeroLabel) focusHeroLabel.textContent = state.focusHeroLabel;
-        if (focusSub) focusSub.textContent = state.focusSub;
-        if (focusFill) focusFill.style.width = state.focusFill;
-        if (focusBottomSpent) focusBottomSpent.textContent = state.focusSpent;
-        if (focusBottomRemaining) focusBottomRemaining.textContent = state.focusRemaining;
-
-        if (twinIconLeft) twinIconLeft.textContent = state.twinLeft.icon;
-        if (twinTitleLeft) twinTitleLeft.textContent = state.twinLeft.title;
-        if (twinBodyLeft) twinBodyLeft.textContent = state.twinLeft.body;
-        if (twinIconRight) twinIconRight.textContent = state.twinRight.icon;
-        if (twinTitleRight) twinTitleRight.textContent = state.twinRight.title;
-        if (twinBodyRight) twinBodyRight.textContent = state.twinRight.body;
-
+      if (timeKey === "2pm") {
         if (moneyWentTitle) moneyWentTitle.textContent = state.moneyWentTitle;
         if (moneyWentList) {
-          moneyWentList.innerHTML = state.moneyWent.map((item) => `
-            <div class="category-item">
-              <div class="category-left">
-                <div class="category-avatar">${item.icon}</div>
-                <span class="category-name">${item.name}</span>
+          moneyWentList.innerHTML = state.moneyWent.map((item) => {
+            const brandSvg = item.brand && BRAND_SVGS[item.brand] ? BRAND_SVGS[item.brand] : (item.icon || '🛍️');
+            const brandCls = item.brandClass || (item.brand ? `brand-${item.brand}` : '');
+            return `
+              <div class="category-item" data-cat="${item.name.toLowerCase()}" style="cursor:pointer;">
+                <div class="category-left">
+                  <div class="brand-avatar ${brandCls}" style="width:28px; height:28px;">${brandSvg}</div>
+                  <span class="category-name">${item.name}</span>
+                </div>
+                <span class="category-val">${item.amount}</span>
               </div>
-              <span class="category-val">${item.amount}</span>
-            </div>
-          `).join("");
+            `;
+          }).join("");
         }
 
-        if (liveActivityTitle) liveActivityTitle.textContent = state.liveActivityTitle;
-        if (liveActivityTimeTag) liveActivityTimeTag.textContent = state.liveActivityTag;
         if (liveActivityItems) {
-          liveActivityItems.innerHTML = state.liveActivities.map((tx, idx) => `
-            <div class="live-item" data-live-idx="${idx}">
-              <div class="live-left">
-                <div class="live-avatar">${tx.icon}</div>
-                <div>
-                  <div class="live-name">${tx.name}</div>
-                  <div class="live-time">${tx.time}</div>
+          liveActivityItems.innerHTML = state.liveActivities.map((tx, idx) => {
+            const brandSvg = tx.brand && BRAND_SVGS[tx.brand] ? BRAND_SVGS[tx.brand] : (tx.icon || '💳');
+            const brandCls = tx.brandClass || (tx.brand ? `brand-${tx.brand}` : '');
+            return `
+              <div class="live-item" data-live-idx="${idx}" style="cursor:pointer;">
+                <div class="live-left">
+                  <div class="brand-avatar ${brandCls}">${brandSvg}</div>
+                  <div>
+                    <div class="live-name">${tx.name}</div>
+                    <div class="live-time">${tx.time}</div>
+                  </div>
                 </div>
+                <div class="live-amount">${tx.amount}</div>
               </div>
-              <div class="live-amount">${tx.amount}</div>
-            </div>
-          `).join("");
+            `;
+          }).join("");
 
           const items = liveActivityItems.querySelectorAll(".live-item");
           items.forEach((item) => {
@@ -7339,48 +8176,30 @@
             });
           });
         }
-
-        if (goalMainTitle) goalMainTitle.textContent = state.goalTitle;
-        if (goalPercentBadge) goalPercentBadge.textContent = state.goalPercent;
-        if (goalSubText) goalSubText.textContent = state.goalSub;
-        if (goalYellowFill) goalYellowFill.style.width = state.goalFill;
-        if (goalLeftAmount) goalLeftAmount.textContent = state.goalLeft;
-        if (goalRightAmount) goalRightAmount.textContent = state.goalRight;
-      }
-      // Handle 5 PM Evening View (Matching Screenshot)
-      else if (timeKey === "5pm") {
-        if (timeLayout9am) timeLayout9am.style.display = "none";
-        if (timeLayoutMidday) timeLayoutMidday.style.display = "none";
-        if (timeLayout5pm) timeLayout5pm.style.display = "flex";
-
-        if (spentToday5pmNum) spentToday5pmNum.textContent = state.spentToday;
-        if (spentToday5pmFill) spentToday5pmFill.style.width = "92%";
-        if (japanTripPct) japanTripPct.textContent = state.goalPct;
-        if (japanTripSavedText) japanTripSavedText.textContent = state.goalSaved;
-        if (tomorrowSafeSpendNum) tomorrowSafeSpendNum.textContent = state.tomorrowSafeSpend;
       }
 
-      // Update Calculation Modal Values
+      // Calculation Breakdown Modal
       if (calcPhaseLabel) calcPhaseLabel.textContent = state.label;
-      if (calcAvailBalance) calcAvailBalance.textContent = state.availBalance;
-      if (calcBills) calcBills.textContent = `- ${state.calcBills}`;
-      if (calcGoal) calcGoal.textContent = `- ${state.calcGoal}`;
-      if (calcBuffer) calcBuffer.textContent = `- ${state.calcBuffer}`;
-      if (modalSafeSpend) modalSafeSpend.textContent = state.safeSpend;
 
       // Update Notifications List
       if (notifListContainer) {
-        notifListContainer.innerHTML = state.notifications.map((notif) => `
-          <div class="notif-item">
-            <div class="notif-icon">${notif.icon}</div>
-            <div style="flex:1;">
-              <div class="notif-title">${notif.title}</div>
-              <div class="notif-body">${notif.body}</div>
-              <div class="notif-time">${notif.time}</div>
+        notifListContainer.innerHTML = state.notifications.map((notif) => {
+          const brandSvg = notif.brand && BRAND_SVGS[notif.brand] ? BRAND_SVGS[notif.brand] : notif.icon;
+          const brandCls = notif.brandClass || (notif.brand ? `brand-${notif.brand}` : '');
+          return `
+            <div class="notif-item" style="cursor:pointer;">
+              <div class="brand-avatar ${brandCls}" style="width:28px; height:28px; font-size:12px;">${brandSvg}</div>
+              <div style="flex:1;">
+                <div class="notif-title">${notif.title}</div>
+                <div class="notif-body">${notif.body}</div>
+                <div class="notif-time">${notif.time}</div>
+              </div>
             </div>
-          </div>
-        `).join("");
+          `;
+        }).join("");
       }
+
+      syncOneBancUI();
 
       if (notify) {
         showOneBancToast(`Switched timeline to ${state.label}`);
@@ -7396,28 +8215,15 @@
       });
     });
 
-    // Modal Sheet Helpers
-    function openModal(modalEl) {
-      if (modalEl) modalEl.classList.add("active");
-    }
-
-    function closeModal(modalEl) {
-      if (modalEl) modalEl.classList.remove("active");
-    }
-
-    // 9 AM Specific Interactive Event Handlers
+    // 9 AM Interactive Handlers
     if (btnCalcDetails) {
       btnCalcDetails.addEventListener("click", (e) => {
         e.stopPropagation();
         openModal(onebancCalcModal);
       });
     }
-    if (cardSafeSpend) {
-      cardSafeSpend.addEventListener("click", () => openModal(onebancCalcModal));
-    }
-    if (closeCalcBtn && onebancCalcModal) {
-      closeCalcBtn.addEventListener("click", () => closeModal(onebancCalcModal));
-    }
+    if (cardSafeSpend) cardSafeSpend.addEventListener("click", () => openModal(onebancCalcModal));
+    if (closeCalcBtn && onebancCalcModal) closeCalcBtn.addEventListener("click", () => closeModal(onebancCalcModal));
     if (onebancCalcModal) {
       onebancCalcModal.addEventListener("click", (e) => {
         if (e.target === onebancCalcModal || e.target.id === "calcModalDrag") closeModal(onebancCalcModal);
@@ -7427,45 +8233,37 @@
     if (btnBestMoveSave) {
       btnBestMoveSave.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (bestMoveSaved) {
+        if (onebancState.bestMoveSaved) {
           showOneBancToast("Already saved ₹500 today! ✈️");
           return;
         }
-        bestMoveSaved = true;
-        if (goalCurrent) goalCurrent.textContent = "₹33,000";
-        if (goalProgressFill) goalProgressFill.style.width = "66%";
-        if (goalPercentText) goalPercentText.textContent = "66%";
-        if (availBalance) availBalance.textContent = "₹24,180";
+        if (onebancState.balance < 500) {
+          showOneBancToast("Insufficient balance to save ₹500");
+          return;
+        }
+        onebancState.bestMoveSaved = true;
+        onebancState.balance -= 500;
+        onebancState.pots.travel.current += 500;
         btnBestMoveSave.textContent = "Saved ✓";
         btnBestMoveSave.classList.add("done");
-        showOneBancToast("Saved ₹500 to Travel Goal! ✈️");
+        syncOneBancUI();
+        showOneBancToast("✨ Saved ₹500 to Travel Goal! Japan trip on track.");
       });
-    }
-
-    if (cardGoal) {
-      cardGoal.addEventListener("click", () => openGoalDepositSheet("Travel Goal"));
     }
 
     if (payItem1) {
       payItem1.addEventListener("click", () => {
-        if (electricityPaid) {
+        if (onebancState.bills.electricity.paid) {
           showOneBancToast("Electricity bill ₹1,240 is already paid ✓");
-          return;
+        } else {
+          openModal(onebancBillModal);
         }
-        electricityPaid = true;
-        if (bill1DueTag) {
-          bill1DueTag.textContent = "Paid for this month ✓";
-          bill1DueTag.classList.add("paid");
-        }
-        if (paymentsHeaderTotal) paymentsHeaderTotal.textContent = "₹649";
-        if (availBalance) availBalance.textContent = "₹23,440";
-        showOneBancToast("Paid Electricity Bill ₹1,240 via OneBanc UPI ⚡");
       });
     }
 
     if (payItem2) {
       payItem2.addEventListener("click", () => {
-        showOneBancToast("Subscription: Netflix ₹649 active · Autopay on 1st");
+        showOneBancToast("Subscription: Netflix ₹649 active · Next autopay on 1st 🎬");
       });
     }
 
@@ -7475,32 +8273,31 @@
         openModal(onebancInsightModal);
       });
     }
-    if (cardWorthKnowing) {
-      cardWorthKnowing.addEventListener("click", () => openModal(onebancInsightModal));
-    }
-    if (closeInsightModalBtn && onebancInsightModal) {
-      closeInsightModalBtn.addEventListener("click", () => closeModal(onebancInsightModal));
-    }
+    if (cardWorthKnowing) cardWorthKnowing.addEventListener("click", () => openModal(onebancInsightModal));
+    if (closeInsightModalBtn && onebancInsightModal) closeInsightModalBtn.addEventListener("click", () => closeModal(onebancInsightModal));
     if (onebancInsightModal) {
       onebancInsightModal.addEventListener("click", (e) => {
         if (e.target === onebancInsightModal || e.target.id === "insightModalDrag") closeModal(onebancInsightModal);
       });
     }
 
-    if (cardPulse) {
-      cardPulse.addEventListener("click", () => {
-        showOneBancToast("✨ All systems healthy: Bills covered, savings on track!");
+    if (cardPulse) cardPulse.addEventListener("click", () => openModal(onebancPulseModal));
+    if (closePulseModalBtn && onebancPulseModal) closePulseModalBtn.addEventListener("click", () => closeModal(onebancPulseModal));
+    if (onebancPulseModal) {
+      onebancPulseModal.addEventListener("click", (e) => {
+        if (e.target === onebancPulseModal || e.target.id === "pulseModalDrag") closeModal(onebancPulseModal);
       });
     }
 
     if (actItem1) {
       actItem1.addEventListener("click", () => {
         openTransactionModal({
-          name: "Amazon",
+          name: "Amazon Shopping",
+          brand: "amazon",
+          brandClass: "brand-amazon",
           time: "8:15 AM",
           amount: "-₹1,899",
-          icon: "📦",
-          category: "Shopping",
+          category: "Shopping & Electronics",
           method: "OneBanc Platinum Card •••• 4892",
           ref: "TXN89127402",
           cashback: "₹38"
@@ -7511,11 +8308,12 @@
     if (actItem2) {
       actItem2.addEventListener("click", () => {
         openTransactionModal({
-          name: "Uber",
+          name: "Uber Ride",
+          brand: "uber",
+          brandClass: "brand-uber",
           time: "Yesterday",
           amount: "-₹320",
-          icon: "🚗",
-          category: "Transit",
+          category: "Transit & Travel",
           method: "OneBanc Instant UPI",
           ref: "TXN77102914",
           cashback: "₹16"
@@ -7525,26 +8323,24 @@
 
     if (btnRecentActivityViewAll) {
       btnRecentActivityViewAll.addEventListener("click", () => {
-        showOneBancToast("📋 Showing all 28 transactions for this month");
+        const tabPay = document.getElementById("tabPayments");
+        if (tabPay) tabPay.click();
+        showOneBancToast("📋 Switched to Payments & Transaction Activity");
       });
     }
 
-    // 2:00 PM Midday Specific Interactive Handlers
-    if (cardSpendingFocus && onebancCalcModal) {
-      cardSpendingFocus.addEventListener("click", () => openModal(onebancCalcModal));
-    }
-
-    if (twinCardLeft && onebancInsightModal) {
-      twinCardLeft.addEventListener("click", () => openModal(onebancInsightModal));
-    }
+    // 2:00 PM Midday Handlers
+    if (cardSpendingFocus) cardSpendingFocus.addEventListener("click", () => openModal(onebancCalcModal));
+    if (twinCardLeft) twinCardLeft.addEventListener("click", () => openModal(onebancInsightModal));
     if (twinCardRight) {
       twinCardRight.addEventListener("click", () => {
         openTransactionModal({
-          name: "Amazon",
+          name: "Amazon Prime Deal",
+          brand: "amazon",
+          brandClass: "brand-amazon",
           time: "11:15 AM",
-          amount: "₹480",
-          icon: "📦",
-          category: "Shopping",
+          amount: "-₹480",
+          category: "Online Shopping",
           method: "OneBanc Platinum Card •••• 4892",
           ref: "TXN99011984",
           cashback: "₹24"
@@ -7559,10 +8355,11 @@
           const cat = catItem.dataset.cat;
           if (cat === "food") {
             openTransactionModal({
-              name: "Swiggy & Dining",
+              name: "Swiggy & Lunch",
+              brand: "swiggy",
+              brandClass: "brand-swiggy",
               time: "12:42 PM",
-              amount: "₹440",
-              icon: "🍴",
+              amount: "-₹440",
               category: "Food & Dining",
               method: "OneBanc Instant UPI",
               ref: "TXN99014521",
@@ -7570,10 +8367,11 @@
             });
           } else if (cat === "shopping") {
             openTransactionModal({
-              name: "Amazon",
+              name: "Amazon Essentials",
+              brand: "amazon",
+              brandClass: "brand-amazon",
               time: "11:15 AM",
-              amount: "₹480",
-              icon: "🛍️",
+              amount: "-₹480",
               category: "Shopping",
               method: "OneBanc Card •••• 4892",
               ref: "TXN99011984",
@@ -7581,10 +8379,11 @@
             });
           } else if (cat === "transport") {
             openTransactionModal({
-              name: "Uber Ride",
+              name: "Uber Transit",
+              brand: "uber",
+              brandClass: "brand-uber",
               time: "8:45 AM",
-              amount: "₹240",
-              icon: "🚗",
+              amount: "-₹240",
               category: "Transit",
               method: "OneBanc Instant UPI",
               ref: "TXN99824410",
@@ -7597,10 +8396,16 @@
       });
     }
 
-    // 5:00 PM Evening Specific Interactive Handlers
-    if (cardSpentToday5pm && onebancCalcModal) {
-      cardSpentToday5pm.addEventListener("click", () => openModal(onebancCalcModal));
+    if (btnLiveAllTrans) {
+      btnLiveAllTrans.addEventListener("click", () => {
+        const tabPay = document.getElementById("tabPayments");
+        if (tabPay) tabPay.click();
+        showOneBancToast("📋 Viewing all payments and subscriptions");
+      });
     }
+
+    // 5:00 PM Evening Handlers
+    if (cardSpentToday5pm) cardSpentToday5pm.addEventListener("click", () => openModal(onebancCalcModal));
 
     const summaryBoxMoneyIn = document.getElementById("summaryBoxMoneyIn");
     const summaryBoxMoneyOut = document.getElementById("summaryBoxMoneyOut");
@@ -7612,11 +8417,11 @@
     if (summaryBoxMoneyIn) {
       summaryBoxMoneyIn.addEventListener("click", () => {
         openTransactionModal({
-          name: "Employer Payroll",
+          name: "Tech Corp Payroll Credit",
+          icon: "💼",
           time: "9:00 AM",
           amount: "+₹25,000",
-          icon: "💼",
-          category: "Salary Credit",
+          category: "Salary & Compensation",
           method: "Direct Bank Transfer (NEFT)",
           ref: "SAL2026082901",
           cashback: "₹250"
@@ -7627,13 +8432,13 @@
     if (summaryBoxMoneyOut) {
       summaryBoxMoneyOut.addEventListener("click", () => {
         openTransactionModal({
-          name: "Daily Spending Total",
+          name: "Daily Outflows Aggregation",
+          icon: "💳",
           time: "Today",
           amount: "-₹1,840",
-          icon: "💳",
-          category: "Food (₹720), Shopping (₹480), Transport (₹480), Other (₹160)",
+          category: "Food (₹720), Shopping (₹480), Transit (₹480), Coffee (₹160)",
           method: "OneBanc Instant UPI & Platinum Card",
-          ref: "TXN-DAY-SUMMARY",
+          ref: "TXN-DAY-AGG-5PM",
           cashback: "₹74"
         });
       });
@@ -7649,7 +8454,7 @@
     if (netColRight) {
       netColRight.addEventListener("click", (e) => {
         e.stopPropagation();
-        openGoalDepositSheet("Emergency Reserve");
+        openGoalManageModal("reserve");
       });
     }
 
@@ -7659,17 +8464,16 @@
       });
     }
 
-    if (cardInsightQuote5pm && onebancInsightModal) {
-      cardInsightQuote5pm.addEventListener("click", () => openModal(onebancInsightModal));
-    }
+    if (cardInsightQuote5pm) cardInsightQuote5pm.addEventListener("click", () => openModal(onebancInsightModal));
 
     if (cardLargestExpense5pm) {
       cardLargestExpense5pm.addEventListener("click", () => {
         openTransactionModal({
-          name: "Food & Dining (Swiggy + Lunch + Chai)",
+          name: "Food & Dining (Swiggy + Lunch + Cafe)",
+          brand: "swiggy",
+          brandClass: "brand-swiggy",
           time: "Today",
-          amount: "₹720",
-          icon: "🍴",
+          amount: "-₹720",
           category: "Food & Dining",
           method: "OneBanc Instant UPI",
           ref: "TXN99014521",
@@ -7678,34 +8482,474 @@
       });
     }
 
-    if (cardGoalImpact5pm) {
-      cardGoalImpact5pm.addEventListener("click", () => openGoalDepositSheet("Japan Trip"));
-    }
-
-    if (tomorrowHeroWrap && onebancCalcModal) {
-      tomorrowHeroWrap.addEventListener("click", () => openModal(onebancCalcModal));
-    }
+    if (cardGoalImpact5pm) cardGoalImpact5pm.addEventListener("click", () => openGoalManageModal("travel"));
+    if (tomorrowHeroWrap) tomorrowHeroWrap.addEventListener("click", () => openModal(onebancCalcModal));
 
     if (tomorrowBill1) {
       tomorrowBill1.addEventListener("click", () => {
-        showOneBancToast("Electricity bill ₹1,240 auto-pay set for tomorrow ⚡");
-      });
-    }
-    if (tomorrowBill2) {
-      tomorrowBill2.addEventListener("click", () => {
-        showOneBancToast("Subscription: Netflix Premium ₹649 active · Autopay on 1st 💼");
+        if (onebancState.bills.electricity.paid) {
+          showOneBancToast("Electricity bill ₹1,240 is already paid ✓");
+        } else {
+          openModal(onebancBillModal);
+        }
       });
     }
 
-    // Transaction Details Modal
+    if (tomorrowBill2) {
+      tomorrowBill2.addEventListener("click", () => {
+        showOneBancToast("Subscription: Netflix Premium ₹649 active · Autopay on 1st 🎬");
+      });
+    }
+
+    // =========================================================================
+    // QUICK ACTION 1: SCAN QR CODE SIMULATOR
+    // =========================================================================
+    const btnQuickScan = document.getElementById("btnQuickScan");
+    if (btnQuickScan) {
+      btnQuickScan.addEventListener("click", () => openModal(onebancScanModal));
+    }
+    if (closeScanModalBtn && onebancScanModal) {
+      closeScanModalBtn.addEventListener("click", () => closeModal(onebancScanModal));
+    }
+    if (onebancScanModal) {
+      onebancScanModal.addEventListener("click", (e) => {
+        if (e.target === onebancScanModal || e.target.id === "scanModalDrag") closeModal(onebancScanModal);
+      });
+    }
+
+    function executeQRScanPayment(targetName, amount, brand, brandClass, category) {
+      if (onebancState.balance < amount) {
+        showOneBancToast(`Insufficient balance for ₹${amount}`);
+        return;
+      }
+      closeModal(onebancScanModal);
+      onebancState.balance -= amount;
+
+      if (brand === "electricity") {
+        onebancState.bills.electricity.paid = true;
+      }
+
+      const newTx = {
+        name: targetName,
+        brand: brand,
+        brandClass: brandClass,
+        time: "Just now",
+        amount: `-₹${amount.toLocaleString('en-IN')}`,
+        category: category,
+        method: "OneBanc Instant QR UPI",
+        ref: `TXN${Math.floor(10000000 + Math.random() * 90000000)}`,
+        cashback: `₹${Math.max(5, Math.round(amount * 0.05))}`
+      };
+
+      // Prepend to 2 PM live activities
+      onebancTimeStates["2pm"].liveActivities.unshift(newTx);
+      syncOneBancUI();
+      openTransactionModal(newTx);
+      showOneBancToast(`⚡ Paid ₹${amount.toLocaleString('en-IN')} to ${targetName} via QR Scan!`);
+    }
+
+    const scanTargetStarbucks = document.getElementById("scanTargetStarbucks");
+    const scanTargetSwiggy = document.getElementById("scanTargetSwiggy");
+    const scanTargetIshita = document.getElementById("scanTargetIshita");
+    const scanTargetElectricity = document.getElementById("scanTargetElectricity");
+
+    if (scanTargetStarbucks) {
+      scanTargetStarbucks.addEventListener("click", () => {
+        executeQRScanPayment("Starbucks Coffee", 120, "starbucks", "brand-starbucks", "Coffee & Beverage");
+      });
+    }
+    if (scanTargetSwiggy) {
+      scanTargetSwiggy.addEventListener("click", () => {
+        executeQRScanPayment("Swiggy Gourmet", 320, "swiggy", "brand-swiggy", "Food Delivery");
+      });
+    }
+    if (scanTargetIshita) {
+      scanTargetIshita.addEventListener("click", () => {
+        executeQRScanPayment("Miss Ishita Mehta", 500, null, null, "Peer UPI Transfer");
+      });
+    }
+    if (scanTargetElectricity) {
+      scanTargetElectricity.addEventListener("click", () => {
+        executeQRScanPayment("State Electricity Board", 1240, "electricity", "brand-electricity", "Utility Bill");
+      });
+    }
+
+    // =========================================================================
+    // QUICK ACTION 2: SEND UPI TRANSFER
+    // =========================================================================
+    const btnQuickSend = document.getElementById("btnQuickSend");
+    if (btnQuickSend) {
+      btnQuickSend.addEventListener("click", () => {
+        if (sendAmountInput) sendAmountInput.value = "500";
+        openModal(onebancSendModal);
+      });
+    }
+    if (closeSendModalBtn && onebancSendModal) {
+      closeSendModalBtn.addEventListener("click", () => closeModal(onebancSendModal));
+    }
+    if (onebancSendModal) {
+      onebancSendModal.addEventListener("click", (e) => {
+        if (e.target === onebancSendModal || e.target.id === "sendModalDrag") closeModal(onebancSendModal);
+      });
+    }
+
+    const upiContactPills = document.querySelectorAll(".upi-contact-pill");
+    upiContactPills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        upiContactPills.forEach((p) => p.classList.remove("active"));
+        pill.classList.add("active");
+        const name = pill.dataset.contact || "Miss Ishita Mehta";
+        const upi = pill.dataset.upi || "ishita@onebanc";
+        onebancState.selectedContact = { name, upi };
+        if (sendToRecipientName) sendToRecipientName.textContent = `${name} (${upi})`;
+      });
+    });
+
+    const upiChipBtns = document.querySelectorAll(".upi-chip-btn");
+    upiChipBtns.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const val = Number(chip.dataset.amt) || 500;
+        if (sendAmountInput) sendAmountInput.value = val;
+      });
+    });
+
+    if (btnConfirmSendUPI) {
+      btnConfirmSendUPI.addEventListener("click", () => {
+        const amt = Number(sendAmountInput ? sendAmountInput.value : 500);
+        if (isNaN(amt) || amt <= 0) {
+          showOneBancToast("Please enter a valid transfer amount");
+          return;
+        }
+        if (amt > onebancState.balance) {
+          showOneBancToast(`Insufficient balance! Available: ₹${onebancState.balance.toLocaleString('en-IN')}`);
+          return;
+        }
+
+        const recipient = onebancState.selectedContact || { name: "Miss Ishita Mehta", upi: "ishita@onebanc" };
+        const note = sendNoteInput && sendNoteInput.value.trim() ? sendNoteInput.value.trim() : "OneBanc Instant Transfer";
+
+        onebancState.balance -= amt;
+        closeModal(onebancSendModal);
+
+        const newTx = {
+          name: recipient.name,
+          icon: "↗",
+          time: "Just now",
+          amount: `-₹${amt.toLocaleString('en-IN')}`,
+          category: `UPI Transfer · ${note}`,
+          method: `OneBanc Instant UPI to ${recipient.upi}`,
+          ref: `UPI${Math.floor(100000000 + Math.random() * 900000000)}`,
+          cashback: `₹${Math.max(10, Math.round(amt * 0.02))}`
+        };
+
+        onebancTimeStates["2pm"].liveActivities.unshift(newTx);
+        syncOneBancUI();
+        openTransactionModal(newTx);
+        showOneBancToast(`✨ Sent ₹${amt.toLocaleString('en-IN')} to ${recipient.name} via OneBanc UPI!`);
+      });
+    }
+
+    // =========================================================================
+    // QUICK ACTION 3: BILLS & RECURRING PAYMENTS MANAGEMENT
+    // =========================================================================
+    const btnQuickPayBill = document.getElementById("btnQuickPayBill");
+    if (btnQuickPayBill) {
+      btnQuickPayBill.addEventListener("click", () => openModal(onebancBillModal));
+    }
+    if (closeBillModalBtn && onebancBillModal) {
+      closeBillModalBtn.addEventListener("click", () => closeModal(onebancBillModal));
+    }
+    if (onebancBillModal) {
+      onebancBillModal.addEventListener("click", (e) => {
+        if (e.target === onebancBillModal || e.target.id === "billModalDrag") closeModal(onebancBillModal);
+      });
+    }
+
+    const payTabBill1 = document.getElementById("payTabBill1");
+    const payTabBill2 = document.getElementById("payTabBill2");
+    const payTabBill3 = document.getElementById("payTabBill3");
+
+    if (payTabBill1) payTabBill1.addEventListener("click", () => openModal(onebancBillModal));
+    if (payTabBill2) {
+      payTabBill2.addEventListener("click", () => {
+        showOneBancToast("Subscription: Netflix Premium Ultra HD active · Autopay on 1st 🎬");
+      });
+    }
+    if (payTabBill3) {
+      payTabBill3.addEventListener("click", () => {
+        showOneBancToast("Broadband: Airtel Fiber 300 Mbps paid for this month ✓");
+      });
+    }
+
+    if (btnPayElectricityNow) {
+      btnPayElectricityNow.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (onebancState.bills.electricity.paid) {
+          showOneBancToast("Electricity bill is already paid ✓");
+          return;
+        }
+        if (onebancState.balance < 1240) {
+          showOneBancToast("Insufficient balance to pay Electricity Bill");
+          return;
+        }
+
+        onebancState.balance -= 1240;
+        onebancState.bills.electricity.paid = true;
+        closeModal(onebancBillModal);
+
+        const newTx = {
+          name: "State Electricity Board",
+          brand: "electricity",
+          brandClass: "brand-electricity",
+          time: "Just now",
+          amount: "-₹1,240",
+          category: "Utility Bill · Electricity",
+          method: "OneBanc Instant UPI",
+          ref: `BILL${Math.floor(10000000 + Math.random() * 90000000)}`,
+          cashback: "₹25"
+        };
+
+        onebancTimeStates["2pm"].liveActivities.unshift(newTx);
+        syncOneBancUI();
+        openTransactionModal(newTx);
+        showOneBancToast("⚡ Paid Electricity Bill ₹1,240 successfully via OneBanc!");
+      });
+    }
+
+    // =========================================================================
+    // QUICK ACTION 4: SPLIT BILL CALCULATOR
+    // =========================================================================
+    const btnQuickSplit = document.getElementById("btnQuickSplit");
+    if (btnQuickSplit) {
+      btnQuickSplit.addEventListener("click", () => {
+        recalculateSplit();
+        openModal(onebancSplitModal);
+      });
+    }
+    if (closeSplitModalBtn && onebancSplitModal) {
+      closeSplitModalBtn.addEventListener("click", () => closeModal(onebancSplitModal));
+    }
+    if (onebancSplitModal) {
+      onebancSplitModal.addEventListener("click", (e) => {
+        if (e.target === onebancSplitModal || e.target.id === "splitModalDrag") closeModal(onebancSplitModal);
+      });
+    }
+
+    function recalculateSplit() {
+      const total = Number(splitBillTotalInput ? splitBillTotalInput.value : 1200) || 1200;
+      let count = 1; // User
+      if (splitCheckIshita && splitCheckIshita.checked) count++;
+      if (splitCheckSaloni && splitCheckSaloni.checked) count++;
+      if (splitCheckVibhore && splitCheckVibhore.checked) count++;
+
+      const perPerson = Math.round(total / count);
+      if (splitPerPersonAmount) {
+        splitPerPersonAmount.textContent = `₹${perPerson.toLocaleString('en-IN')}`;
+      }
+    }
+
+    if (splitBillTotalInput) splitBillTotalInput.addEventListener("input", recalculateSplit);
+    if (splitCheckIshita) splitCheckIshita.addEventListener("change", recalculateSplit);
+    if (splitCheckSaloni) splitCheckSaloni.addEventListener("change", recalculateSplit);
+    if (splitCheckVibhore) splitCheckVibhore.addEventListener("change", recalculateSplit);
+
+    if (btnSendSplitRequests) {
+      btnSendSplitRequests.addEventListener("click", () => {
+        const perPerson = splitPerPersonAmount ? splitPerPersonAmount.textContent : "₹300";
+        closeModal(onebancSplitModal);
+        showOneBancToast(`📲 Sent UPI split collect requests of ${perPerson} each to selected contacts!`);
+      });
+    }
+
+    // =========================================================================
+    // SAVINGS POTS & GOALS MANAGEMENT MODAL
+    // =========================================================================
+    let selectedGoalDepositAmt = 500;
+
+    function openGoalManageModal(potKey = "travel") {
+      onebancState.activePotKey = potKey;
+      const pot = onebancState.pots[potKey];
+      if (!pot) return;
+
+      if (goalModalHeading) goalModalHeading.textContent = `${pot.name}`;
+      if (goalModalSubheading) {
+        goalModalSubheading.textContent = `Smart dedicated ${potKey} pot yielding 7.2% APY with OneBanc.`;
+      }
+      if (goalModalCurrentVal) goalModalCurrentVal.textContent = `₹${pot.current.toLocaleString('en-IN')}`;
+      if (goalModalTargetVal) goalModalTargetVal.textContent = `₹${pot.target.toLocaleString('en-IN')}`;
+
+      const pct = Math.min(100, Math.round((pot.current / pot.target) * 100));
+      if (goalModalPctVal) goalModalPctVal.textContent = `${pct}% Completed`;
+      if (goalModalProgressBar) goalModalProgressBar.style.width = `${pct}%`;
+
+      openModal(onebancGoalModal);
+    }
+
+    const quickDepBtns = document.querySelectorAll(".quick-dep-btn");
+    quickDepBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        quickDepBtns.forEach((b) => {
+          b.style.borderColor = "#e2e8f0";
+          b.style.color = "#1e293b";
+        });
+        btn.style.borderColor = "#cca126";
+        btn.style.color = "#cca126";
+        selectedGoalDepositAmt = Number(btn.dataset.goalAmt) || 500;
+      });
+    });
+
+    if (btnGoalDepositSubmit) {
+      btnGoalDepositSubmit.addEventListener("click", () => {
+        const amt = selectedGoalDepositAmt || 500;
+        if (amt > onebancState.balance) {
+          showOneBancToast(`Insufficient balance! Available: ₹${onebancState.balance.toLocaleString('en-IN')}`);
+          return;
+        }
+
+        const pot = onebancState.pots[onebancState.activePotKey];
+        if (pot) {
+          onebancState.balance -= amt;
+          pot.current += amt;
+          syncOneBancUI();
+          closeModal(onebancGoalModal);
+          showOneBancToast(`✨ ₹${amt.toLocaleString('en-IN')} deposited into ${pot.name}!`);
+        }
+      });
+    }
+
+    if (btnGoalWithdrawSubmit) {
+      btnGoalWithdrawSubmit.addEventListener("click", () => {
+        const pot = onebancState.pots[onebancState.activePotKey];
+        if (pot) {
+          if (pot.current < 500) {
+            showOneBancToast("Pot balance is less than ₹500");
+            return;
+          }
+          pot.current -= 500;
+          onebancState.balance += 500;
+          syncOneBancUI();
+          closeModal(onebancGoalModal);
+          showOneBancToast(`💳 Transferred ₹500 from ${pot.name} to Available Balance`);
+        }
+      });
+    }
+
+    if (closeGoalModalBtn && onebancGoalModal) {
+      closeGoalModalBtn.addEventListener("click", () => closeModal(onebancGoalModal));
+    }
+    if (onebancGoalModal) {
+      onebancGoalModal.addEventListener("click", (e) => {
+        if (e.target === onebancGoalModal || e.target.id === "goalModalDrag") closeModal(onebancGoalModal);
+      });
+    }
+
+    // Connect Pot cards & Add buttons to Goal Manage Modal
+    const potTravel = document.getElementById("potTravel");
+    const potTravelAddBtn = document.getElementById("potTravelAddBtn");
+    const potReserve = document.getElementById("potReserve");
+    const potReserveAddBtn = document.getElementById("potReserveAddBtn");
+    const potGadget = document.getElementById("potGadget");
+    const potGadgetAddBtn = document.getElementById("potGadgetAddBtn");
+
+    if (cardGoal) cardGoal.addEventListener("click", () => openGoalManageModal("travel"));
+    if (cardTravelGoal) cardTravelGoal.addEventListener("click", () => openGoalManageModal("travel"));
+    if (potTravel) potTravel.addEventListener("click", () => openGoalManageModal("travel"));
+    if (potTravelAddBtn) {
+      potTravelAddBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openGoalManageModal("travel");
+      });
+    }
+
+    if (potReserve) potReserve.addEventListener("click", () => openGoalManageModal("reserve"));
+    if (potReserveAddBtn) {
+      potReserveAddBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openGoalManageModal("reserve");
+      });
+    }
+
+    if (potGadget) potGadget.addEventListener("click", () => openGoalManageModal("gadget"));
+    if (potGadgetAddBtn) {
+      potGadgetAddBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openGoalManageModal("gadget");
+      });
+    }
+
+    // =========================================================================
+    // SETTINGS TAB CONTROLLERS & SLIDER
+    // =========================================================================
+    const limitSlider = document.getElementById("limitSlider");
+    const limitMultiplierLabel = document.getElementById("limitMultiplierLabel");
+
+    if (limitSlider) {
+      limitSlider.addEventListener("input", (e) => {
+        const val = Number(e.target.value);
+        const mult = val / 100;
+        onebancState.limitMultiplier = mult;
+
+        if (limitMultiplierLabel) {
+          if (mult < 0.9) {
+            limitMultiplierLabel.textContent = `Conservative (${mult.toFixed(2)}x)`;
+          } else if (mult > 1.1) {
+            limitMultiplierLabel.textContent = `Flexible (${mult.toFixed(2)}x)`;
+          } else {
+            limitMultiplierLabel.textContent = `Balanced (${mult.toFixed(2)}x)`;
+          }
+        }
+        syncOneBancUI();
+      });
+    }
+
+    const switchRoundUp = document.getElementById("switchRoundUp");
+    const switchAutoSweep = document.getElementById("switchAutoSweep");
+    const switchNudges = document.getElementById("switchNudges");
+    const switchBio = document.getElementById("switchBio");
+    const switchAlerts = document.getElementById("switchAlerts");
+
+    if (switchRoundUp) {
+      switchRoundUp.addEventListener("change", (e) => {
+        showOneBancToast(e.target.checked ? "Spare Change Round-Up enabled ✨" : "Spare Change Round-Up paused");
+      });
+    }
+    if (switchAutoSweep) {
+      switchAutoSweep.addEventListener("change", (e) => {
+        showOneBancToast(e.target.checked ? "5 PM Auto-Sweep to Reserve enabled 🛡️" : "5 PM Auto-Sweep paused");
+      });
+    }
+    if (switchNudges) {
+      switchNudges.addEventListener("change", (e) => {
+        showOneBancToast(e.target.checked ? "Smart Financial Nudges active 💡" : "Nudges muted");
+      });
+    }
+    if (switchBio) {
+      switchBio.addEventListener("change", (e) => {
+        showOneBancToast(e.target.checked ? "Biometric App Lock enabled 🔒" : "Biometric lock disabled");
+      });
+    }
+    if (switchAlerts) {
+      switchAlerts.addEventListener("change", (e) => {
+        showOneBancToast(e.target.checked ? "Velocity Spend Alerts active ⚡" : "Velocity alerts muted");
+      });
+    }
+
+    // =========================================================================
+    // TRANSACTION RECEIPT MODAL
+    // =========================================================================
     function openTransactionModal(tx) {
       if (!onebancTxModal || !tx) return;
       activeTxItem = tx;
+      const brandSvg = tx.brand && BRAND_SVGS[tx.brand] ? BRAND_SVGS[tx.brand] : (tx.icon || '💳');
+      const brandCls = tx.brandClass || (tx.brand ? `brand-${tx.brand}` : '');
       if (txModalContent) {
         txModalContent.innerHTML = `
-          <div class="receipt-row">
-            <span>Merchant</span>
-            <strong>${tx.name}</strong>
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #f1f5f9;">
+            <div class="brand-avatar ${brandCls}" style="width:38px; height:38px; font-size:16px;">${brandSvg}</div>
+            <div>
+              <div style="font-size:13.5px; font-weight:750; color:#1e293b;">${tx.name}</div>
+              <div style="font-size:10.5px; color:#10b981; font-weight:650;">✓ Verified OneBanc Transaction</div>
+            </div>
           </div>
           <div class="receipt-row">
             <span>Amount</span>
@@ -7736,9 +8980,7 @@
       openModal(onebancTxModal);
     }
 
-    if (closeTxModalBtn && onebancTxModal) {
-      closeTxModalBtn.addEventListener("click", () => closeModal(onebancTxModal));
-    }
+    if (closeTxModalBtn && onebancTxModal) closeTxModalBtn.addEventListener("click", () => closeModal(onebancTxModal));
     if (txRepeatBtn && onebancTxModal) {
       txRepeatBtn.addEventListener("click", () => {
         closeModal(onebancTxModal);
@@ -7751,26 +8993,21 @@
       });
     }
 
-    // Live Activity "View All Transactions" Button
-    if (btnLiveAllTrans) {
-      btnLiveAllTrans.addEventListener("click", () => {
-        showOneBancToast("📋 Showing all 28 transactions for this month");
-      });
-    }
-
-    // Notifications Modal
+    // =========================================================================
+    // NOTIFICATIONS MODAL
+    // =========================================================================
     if (onebancBellBtn && onebancNotifModal) {
       onebancBellBtn.addEventListener("click", () => {
         if (onebancBellDot) onebancBellDot.classList.add("cleared");
         openModal(onebancNotifModal);
       });
     }
-    if (closeNotifModalBtn && onebancNotifModal) {
-      closeNotifModalBtn.addEventListener("click", () => closeModal(onebancNotifModal));
-    }
+    if (closeNotifModalBtn && onebancNotifModal) closeNotifModalBtn.addEventListener("click", () => closeModal(onebancNotifModal));
     if (clearNotifsBtn) {
       clearNotifsBtn.addEventListener("click", () => {
-        if (notifListContainer) notifListContainer.innerHTML = '<p style="text-align:center; color:#94a3b8; font-size:12px; padding:20px 0;">All caught up! No unread notifications.</p>';
+        if (notifListContainer) {
+          notifListContainer.innerHTML = '<p style="text-align:center; color:#94a3b8; font-size:12px; padding:20px 0;">All caught up! No unread notifications.</p>';
+        }
         showOneBancToast("All notifications marked as read ✓");
       });
     }
@@ -7780,63 +9017,54 @@
       });
     }
 
-    // Quick Goal Deposit Interactive Sheet
-    const potTravelAddBtn = document.getElementById("potTravelAddBtn");
+    // =========================================================================
+    // EASTER EGG 1 -> 2 -> 3 CLICK SEQUENCE CONTROLLER
+    // =========================================================================
+    let easterEggClickCount = 1;
+    const onebancEasterEggBtn = document.getElementById("onebancEasterEggBtn");
+    const onebancEasterEggModal = document.getElementById("onebancEasterEggModal");
+    const closeEasterEggModalBtn = document.getElementById("closeEasterEggModalBtn");
 
-    function openGoalDepositSheet(goalName = "Travel Goal") {
-      if (!onebancActionModal) return;
-      if (actionModalTitle) actionModalTitle.textContent = `Deposit into ${goalName}`;
-      if (actionModalDesc) actionModalDesc.textContent = "Select an instant amount to deposit from your Available Balance:";
-      if (actionModalBody) {
-        actionModalBody.innerHTML = `
-          <div class="quick-deposit-grid">
-            <button class="quick-dep-btn" data-dep-amount="100" type="button">+ ₹100</button>
-            <button class="quick-dep-btn" data-dep-amount="500" type="button" style="border-color:#cca126; color:#cca126;">+ ₹500</button>
-            <button class="quick-dep-btn" data-dep-amount="1000" type="button">+ ₹1,000</button>
-          </div>
-          <div style="font-size:11px; color:#64748b; text-align:center;">Instantly updates your progress bar and daily limit.</div>
-        `;
+    if (onebancEasterEggBtn) {
+      onebancEasterEggBtn.addEventListener("click", () => {
+        // Micro-bounce animation on tap
+        onebancEasterEggBtn.style.transform = "scale(0.82)";
+        setTimeout(() => {
+          onebancEasterEggBtn.style.transform = "scale(1.2)";
+          setTimeout(() => {
+            onebancEasterEggBtn.style.transform = "scale(1)";
+          }, 140);
+        }, 80);
 
-        const depBtns = actionModalBody.querySelectorAll(".quick-dep-btn");
-        depBtns.forEach((btn) => {
-          btn.addEventListener("click", () => {
-            const amt = btn.dataset.depAmount || "500";
-            closeModal(onebancActionModal);
-            const newAmt = 32500 + Number(amt);
-            if (goalCurrent) goalCurrent.textContent = `₹${newAmt.toLocaleString('en-IN')}`;
-            if (goalLeftAmount) goalLeftAmount.textContent = `₹${newAmt.toLocaleString('en-IN')}`;
-            if (goalProgressFill) goalProgressFill.style.width = "68%";
-            if (goalYellowFill) goalYellowFill.style.width = "68%";
-            if (goalPercentText) goalPercentText.textContent = "68%";
-            if (goalPercentBadge) goalPercentBadge.textContent = "68%";
-            if (japanTripSavedText) japanTripSavedText.textContent = `₹${newAmt.toLocaleString('en-IN')} saved`;
-            if (japanTripPct) japanTripPct.textContent = "68%";
-            if (japanTripFill) japanTripFill.style.width = "68%";
-            showOneBancToast(`₹${amt} deposited into ${goalName}! ✈️`);
-          });
-        });
-      }
-      openModal(onebancActionModal);
-    }
-
-    if (cardTravelGoal) cardTravelGoal.addEventListener("click", () => openGoalDepositSheet("Travel Goal"));
-    if (potTravelAddBtn) potTravelAddBtn.addEventListener("click", () => openGoalDepositSheet("Travel Goal"));
-    if (closeActionModalBtn && onebancActionModal) {
-      closeActionModalBtn.addEventListener("click", () => closeModal(onebancActionModal));
-    }
-    if (actionModalConfirmBtn && onebancActionModal) {
-      actionModalConfirmBtn.addEventListener("click", () => {
-        closeModal(onebancActionModal);
-        showOneBancToast("Action confirmed successfully! ✨");
-      });
-    }
-    if (onebancActionModal) {
-      onebancActionModal.addEventListener("click", (e) => {
-        if (e.target === onebancActionModal || e.target.id === "actionModalDrag") closeModal(onebancActionModal);
+        if (easterEggClickCount === 1) {
+          easterEggClickCount = 2;
+          onebancEasterEggBtn.textContent = "2";
+          onebancEasterEggBtn.style.boxShadow = "0 0 10px rgba(204, 161, 38, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.8)";
+          showOneBancToast("⚡ Sequence: 2/3");
+        } else if (easterEggClickCount === 2) {
+          easterEggClickCount = 3;
+          onebancEasterEggBtn.textContent = "3";
+          onebancEasterEggBtn.style.boxShadow = "0 0 14px rgba(204, 161, 38, 0.95), inset 0 1px 1px rgba(255, 255, 255, 0.8)";
+          showOneBancToast("🔓 Sequence: 3/3 · Tap once more to unlock!");
+        } else if (easterEggClickCount >= 3) {
+          openModal(onebancEasterEggModal);
+          showOneBancToast("🎉 Secret OneBanc Protocol Unlocked!");
+        }
       });
     }
 
-    // Tab Bar Navigation Controller
+    if (closeEasterEggModalBtn && onebancEasterEggModal) {
+      closeEasterEggModalBtn.addEventListener("click", () => closeModal(onebancEasterEggModal));
+    }
+    if (onebancEasterEggModal) {
+      onebancEasterEggModal.addEventListener("click", (e) => {
+        if (e.target === onebancEasterEggModal || e.target.id === "easterEggModalDrag") closeModal(onebancEasterEggModal);
+      });
+    }
+
+    // =========================================================================
+    // BOTTOM TAB BAR CONTROLLER
+    // =========================================================================
     const onebancTabButtons = document.querySelectorAll(".onebanc-tab-item");
     const onebancTabPanes = document.querySelectorAll(".onebanc-tab-pane");
 
@@ -7850,7 +9078,9 @@
         tabBtn.classList.add("active");
 
         onebancTabPanes.forEach((pane) => {
-          pane.classList.toggle("active", pane.id === targetPaneId);
+          const isActive = pane.id === targetPaneId;
+          pane.classList.toggle("active", isActive);
+          if (isActive) pane.scrollTop = 0;
         });
 
         const tabName = tabBtn.querySelector("span") ? tabBtn.querySelector("span").textContent : "";
@@ -7859,22 +9089,6 @@
         }
       });
     });
-
-    // Sub-view interactive handlers (Payments, Savings, Settings)
-    const btnQuickScan = document.getElementById("btnQuickScan");
-    const btnQuickSend = document.getElementById("btnQuickSend");
-    const btnQuickPayBill = document.getElementById("btnQuickPayBill");
-    const btnQuickSplit = document.getElementById("btnQuickSplit");
-
-    if (btnQuickScan) btnQuickScan.addEventListener("click", () => showOneBancToast("📷 Camera initialized for UPI QR scan"));
-    if (btnQuickSend) btnQuickSend.addEventListener("click", () => showOneBancToast("↗ Quick Send: Select contact to transfer funds"));
-    if (btnQuickPayBill) btnQuickPayBill.addEventListener("click", () => showOneBancToast("⚡ Select Biller: Electricity, Mobile, DTH"));
-    if (btnQuickSplit) btnQuickSplit.addEventListener("click", () => showOneBancToast("⑂ Bill Splitter: Enter total amount and friends' UPI IDs"));
-
-    const potReserveAddBtn = document.getElementById("potReserveAddBtn");
-    const potGadgetAddBtn = document.getElementById("potGadgetAddBtn");
-    if (potReserveAddBtn) potReserveAddBtn.addEventListener("click", () => openGoalDepositSheet("Emergency Reserve"));
-    if (potGadgetAddBtn) potGadgetAddBtn.addEventListener("click", () => openGoalDepositSheet("MacBook Pro Fund"));
 
     // Initialize 9 AM as default timeline state
     renderOneBancState("9am", false);

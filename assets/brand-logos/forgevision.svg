@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Solid Blue Eye Core -->
+  <circle cx="106" cy="100" r="46" fill="#0099ff" />
+  
+  <!-- White Pupil Reflection -->
+  <circle cx="94" cy="84" r="15" fill="#ffffff" />
+  
+  <!-- Outer Black Crescent Arc with Rounded Caps -->
+  <path d="M 142 98 A 58 58 0 1 0 128 152" 
+        stroke="#111111" 
+        stroke-width="16" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" />
+</svg>

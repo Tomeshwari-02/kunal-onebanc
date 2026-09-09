@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#fbf9f4" />
+  
+  <!-- Outer Gold Frame -->
+  <rect x="14" y="14" width="172" height="172" stroke="#bfa15f" stroke-width="8" fill="none" />
+  
+  <!-- Inner Gold Frame -->
+  <rect x="26" y="26" width="148" height="148" stroke="#bfa15f" stroke-width="2.5" fill="none" />
+  
+  <!-- Overlapping TT Serif Monogram -->
+  <!-- Left T -->
+  <g fill="#424242">
+    <!-- Left T Top Bar & Serifs -->
+    <path d="M 58 56 L 114 56 L 114 62 L 108 62 C 105 62 104 64 104 68 L 104 71 L 98 71 L 98 62 L 74 62 L 74 71 L 68 71 L 68 68 C 68 64 67 62 64 62 L 58 62 Z" />
+    <!-- Left T Stem -->
+    <path d="M 80 62 L 92 62 L 92 120 C 92 123 94 125 97 125 L 101 125 L 101 130 L 71 130 L 71 125 L 75 125 C 78 125 80 123 80 120 Z" />
+  </g>
+  
+  <!-- Right T (Layered & Offset) -->
+  <g fill="#424242">
+    <!-- Right T Top Bar with curved cutout where left stem passes -->
+    <path d="M 80 77 C 86 85 96 90 102 90 L 138 90 L 138 95 L 132 95 C 129 95 128 97 128 100 L 128 103 L 122 103 L 122 95 L 104 95 C 96 95 87 90 80 82 Z" />
+    <!-- Right T Stem -->
+    <path d="M 104 95 L 116 95 L 116 142 C 116 145 118 147 121 147 L 125 147 L 125 152 L 95 152 L 95 147 L 99 147 C 102 147 104 145 104 142 Z" />
+  </g>
+</svg>
